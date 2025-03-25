@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
+import { baskinBold } from "@/assets/fonts/font";
 
 export const metadata: Metadata = {
   title: "최애의 포토카드",
@@ -12,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={`${baskinBold.variable}`}>
       <body>{children}</body>
     </html>
   );

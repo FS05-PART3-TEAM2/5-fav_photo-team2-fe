@@ -1,19 +1,51 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #0f0f0f;
+  --color-gray-500: #161616;
+  --color-gray-400: #5a5a5a;
+  --color-gray-300: #a4a4a4;
+  --color-gray-200: #dddddd;
+  --color-gray-100: #eeeeee;
+  --color-white: #ffffff;
+
+  --color-red: #ff483d;
+  --color-blue: #29c9f9;
+  --color-purple: #a77eff;
+  --color-pink: #ff2a6a;
+  --color-main: #efff04;
+
+  --font-BR-B: var(--font-BR-B); /* localFont로 설정한 폰트를 사용 */
+  --font-noto-sans-kr: "Noto Sans KR", sans-serif;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 :root {
-  --primary: #4f46e5;
-  --secondary: #10b981;
-  --accent: #f59e0b;
-  --background: #f9fafb;
-  --light: #f3f4f6;
-  --dark: #1f2937;
+  --background: #ffffff;
+  --foreground: #171717;
+  --font-body: var(--font-noto-sans-kr);
 }
 
 body {
-  background-color: white;
-  color: black;
-  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
 }
