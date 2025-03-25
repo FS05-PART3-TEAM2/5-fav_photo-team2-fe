@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { baskinBold } from "@/assets/fonts/font";
+import { baskinBold } from "../../public/assets/fonts/font";
 
 export const metadata: Metadata = {
   title: "최애의 포토카드",
