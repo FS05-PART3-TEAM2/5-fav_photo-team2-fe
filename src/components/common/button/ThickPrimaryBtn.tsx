@@ -34,8 +34,7 @@ const ThickPrimaryBtn = forwardRef<HTMLButtonElement, ButtonProps>(
           ${className}
         `}
         style={{ width }} // width를 props로 받아 적용
-        //<ThickPrimaryButton width="345px"> 고정너비는 이런식으로 써주세요!
-        //<ThickPrimaryButton className="w-[300px] md:w-[400px] lg:w-[500px]"> 반응형은 기존 tailwind와 동일
+        //<ThickPrimaryButton width="345px"> 이런식으로 써주세요!
         disabled={isLoading || disabled} // 로딩 중일 때도 비활성화
         {...props}
       >
