@@ -1,8 +1,5 @@
 import clsx from "clsx";
 
-type Grade = "COMMON" | "RARE" | "SUPER RARE" | "LEGENDARY";
-type CardType = "details" | "list";
-
 interface CardHeaderProps {
   grade: Grade;
   genre: string;
