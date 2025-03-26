@@ -38,6 +38,18 @@
   }
 }
 
+@layer components {
+  .modal-title {
+    @apply text-[18px] lg:text-[20px] font-bold leading-none text-white
+    mb-[30px] lg:mb-[40px];
+  }
+
+  .modal-desc {
+    @apply text-[14px] lg:text-[16px] font-normal leading-none text-gray-300
+    mb-[40px] lg:mb-[60px];
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
