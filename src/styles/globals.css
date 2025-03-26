@@ -38,6 +38,15 @@
   }
 }
 
+@layer components {
+  .card-header__details {
+    @apply text-[18px] lg:text-2xl font-bold;
+  }
+  .card-header__list {
+    @apply text-[10px] md:text-[16px] font-normal;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
