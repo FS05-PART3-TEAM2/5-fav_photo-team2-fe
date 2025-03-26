@@ -13,7 +13,7 @@ const ThinPrimaryBtn = forwardRef<HTMLButtonElement, ButtonProps>(
 
     // 화면 크기에 따라 스타일 변경 (반응형)
     const responsiveStyles = `
-      h-[55px] px-[25px] gap-[10px] text-[16px]
+      h-[55px] gap-[10px] text-[16px]
       md: md:h-[55px] text-[16px]
       lg: lg:h-[60px] text-[20px]
     `;
@@ -35,6 +35,7 @@ const ThinPrimaryBtn = forwardRef<HTMLButtonElement, ButtonProps>(
         `}
         style={{ width }} // width를 props로 받아 적용
         //<ThinPrimaryButton width="345px"> 이런식으로 써주세요!
+        //<ThinPrimaryButton className="w-[300px] md:w-[400px] lg:w-[500px]"> 반응형은 기존 tailwind와 동일
         disabled={isLoading || disabled} // 로딩 중일 때도 비활성화
         {...props}
       >
