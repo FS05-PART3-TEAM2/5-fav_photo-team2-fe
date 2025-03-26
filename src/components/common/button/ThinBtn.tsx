@@ -8,7 +8,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 // 기본적으로 버튼의 상위 div에 대해 100% 너비를 가짐 - 대부분의 경우 별도의 스타일링 없이 onClick 이벤트만 전달하면 됩니다.
 // 필요에 따라 버튼 너비 조정이 필요한 경우, className prop으로 전달하면 됩니다.
 // 예) <ThinPrimaryBtn className="w-[120px] md:w-[140px] lg:w-[170px]">
-const ThinPrimaryBtn = forwardRef<HTMLButtonElement, ButtonProps>(
+const ThinBtn = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       isLoading,
@@ -64,4 +64,4 @@ const ThinPrimaryBtn = forwardRef<HTMLButtonElement, ButtonProps>(
   }
 );
 
-export default ThinPrimaryBtn;
+export default ThinBtn;

@@ -1,6 +1,6 @@
 import Image from "next/image.js";
 import React from "react";
-import ThinPrimaryBtn from "../button/ThinPrimaryBtn";
+import ThinBtn from "../button/ThinBtn";
 
 interface CommonModalProps {
   isOpen: boolean;
@@ -53,12 +53,12 @@ export const CommonModal: React.FC<CommonModalProps> = ({
               <div className="w-[100%] flex flex-col items-center justify-center mt-[18px]">
                 <p className="modal-title">{title}</p>
                 <p className="modal-desc">{desc}</p>
-                <ThinPrimaryBtn
+                <ThinBtn
                   className="w-[120px] md:w-[140px] lg:w-[170px]"
                   onClick={btnClick}
                 >
                   {btnText}
-                </ThinPrimaryBtn>
+                </ThinBtn>
               </div>
             </div>
           </div>
