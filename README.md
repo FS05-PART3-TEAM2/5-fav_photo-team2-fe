@@ -29,6 +29,14 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Git Hooks
+
+이 프로젝트는 [Husky](https://typicode.github.io/husky/)와 [lint-staged](https://github.com/lint-staged/lint-staged)를 사용하여 Git Hooks를 설정했습니다.
+
+### 설정된 Git Hooks
+
+- **pre-commit**: 커밋 전에 스테이징된 파일에 대해 린트와 포맷팅을 자동으로 실행합니다.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
