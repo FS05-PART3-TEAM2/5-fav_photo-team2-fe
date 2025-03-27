@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${baskinBold.variable}`}>
-      <body>{children}</body>
+      <body className="bg-black">{children}</body>
     </html>
   );
 }
