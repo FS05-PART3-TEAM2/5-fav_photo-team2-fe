@@ -33,7 +33,7 @@ export default function PhotoCardDetailPage() {
 
   return (
     <div className="w-[100%]">
-      <div className="hidden md:block py-[40px] lg:py-[60px] w-[100%">
+      <div className="hidden md:block py-[40px] lg:py-[60px] w-[100%]">
         <p className="text-gray-300 text-[16px] lg:text-[24px] font-BR-B">마켓플레이스</p>
       </div>
 

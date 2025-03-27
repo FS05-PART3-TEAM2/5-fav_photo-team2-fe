@@ -1,4 +1,6 @@
 import { PhotoCardDetail } from '@/types/photocard.types';
+import { SupplierCardDetail } from '@/components/market/detail/supplier/SupplierCardDetail';
+import { OfferedExchangeList } from '@/components/market/detail/supplier/OfferedExchangeList';
 
 interface SupplierPageProps {
   data: PhotoCardDetail;
@@ -6,9 +8,9 @@ interface SupplierPageProps {
 
 export const SupplierPage: React.FC<SupplierPageProps> = ({ data }) => {
   return (
-    <div className="flex flex-col md:flex-row">
-      판매자 페이지
-      <p>{data.name}</p>
+    <div className="w-[100%] flex flex-col gap-[120px]">
+      <SupplierCardDetail data={data} />
+      <OfferedExchangeList />
     </div>
   );
 };
