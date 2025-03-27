@@ -1,3 +1,4 @@
+import { CardType, Grade } from "@/types/photocard.types";
 import clsx from "clsx";
 
 interface CardHeaderProps {
@@ -23,7 +24,7 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
   const verticalLineStyle =
     props.cardType === "details"
       ? "w-0.5 bg-gray-300 min-h-[18px] lg:min-h-[24px]"
-      : "w-[1px] md:w-0.5 bg-gray-300 min-h-[10px] md:min-h-[18px]";
+      : "w-[1px] md:w-0.5 bg-gray-300 min-h-[10px] md:min-h-[16px]";
 
   return (
     <div
@@ -34,8 +35,8 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
         }
       )}
     >
-      <div className="flex flex-col lg:flex-row lg:items-center gap-1 lg:gap-2">
-        <div className="flex items-center gap-1 lg:gap-2">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-[10px] lg:gap-4">
+        <div className="flex items-center gap-[10px] lg:gap-4">
           <div
             className={`${gradeColor[props.grade]} inline-block leading-none`}
           >
@@ -45,13 +46,13 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
           <div className="inline-block leading-none">{props.genre}</div>
         </div>
         {props.points && (
-          <>
+          <div className="flex items-center gap-[10px] lg:gap-4">
             <div className={`${verticalLineStyle} hidden lg:block`}></div>
             <div className="flex items-center gap-1 lg:gap-2">
               <p className={`text-white`}>{props.points}P</p>
               <p>에 구매</p>
             </div>
-          </>
+          </div>
         )}
       </div>
       {props.owner && (
