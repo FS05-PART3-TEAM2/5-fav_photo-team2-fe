@@ -1,12 +1,12 @@
-import Image from 'next/image';
-import { useState } from 'react';
+import Image from "next/image";
+import { useState } from "react";
 
 interface SearchProps {
   onSearch: (keyword: string) => void;
 }
 
 export default function Search({ onSearch }: SearchProps) {
-  const [inputValue, setInputValue] = useState(''); // 입력값 상태 관리
+  const [inputValue, setInputValue] = useState(""); // 입력값 상태 관리
 
   // 입력값 변경 시 상태 업데이트
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +15,7 @@ export default function Search({ onSearch }: SearchProps) {
 
   // enter 키 입력 시 검색 실행
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       onSearch(inputValue);
     }
   };
