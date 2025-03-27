@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+@import "tailwindcss";
 
 @theme {
   --color-dark: #0f0f0f;
@@ -17,7 +17,7 @@
   --color-main: #efff04;
 
   --font-BR-B: var(--font-BR-B); /* localFont로 설정한 폰트를 사용 */
-  --font-noto-sans-kr: 'Noto Sans KR', sans-serif;
+  --font-noto-sans-kr: "Noto Sans KR", sans-serif;
 }
 
 /*
