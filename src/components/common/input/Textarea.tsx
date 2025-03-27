@@ -3,19 +3,19 @@
 import { FORM_CONFIG } from '@/components/common/input/constants';
 import { UseControllerProps, useController, FieldValues, FieldPath } from 'react-hook-form';
 
-type InputName = keyof typeof FORM_CONFIG.Input;
+type TextareaName = keyof typeof FORM_CONFIG.Textarea;
 
-interface InputProps<T extends FieldValues> extends Omit<UseControllerProps<T>, 'name'> {
-  name: InputName; // name 기존 TName 타입 바꿔치기! 🥷🏻
+interface TextareaProps<T extends FieldValues> extends Omit<UseControllerProps<T>, 'name'> {
+  name: TextareaName;
+  content?: string; // 수정일 경우 기존 내용
 }
 
-export default function Input<T extends FieldValues>({ name, ...props }: InputProps<T>) {
+export default function Textarea<T extends FieldValues>({ name, ...props }: TextareaProps<T>) {
   const { field, fieldState } = useController({
-    name: name as FieldPath<T>, // name을 FieldPath<T>로 강제 // 안하면 오류 생김
+    name: name as FieldPath<T>,
     ...props,
   });
-  const type = name === 'email' ? 'email' : 'text';
-  const { label, placeholder } = FORM_CONFIG.Input[name];
+  const { label, placeholder, height } = FORM_CONFIG.Textarea[name];
 
   return (
     <div className="w-full flex flex-col">
@@ -23,11 +23,11 @@ export default function Input<T extends FieldValues>({ name, ...props }: InputPr
         {label}
       </label>
 
-      <input
-        type={type}
+      <textarea
         id={name}
         placeholder={placeholder}
         {...field}
+        style={{ height: `${height}px` }}
         className={`pl-5 pr-11 py-4 rounded-[2px] text-white font-light text-base outline ${
           fieldState.error ? 'outline-red' : 'outline-gray-200 focus:outline-main'
         } focus:outline-2`}
