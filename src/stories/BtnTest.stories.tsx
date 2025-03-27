@@ -15,18 +15,18 @@ export const BtnTest: StoryFn = () => {
   return (
     <div className="bg-gray-500">
       <div className="p-[20px] w-[345px] md:w-[342px] lg:w-[440px]">
-        <ThickBtn>포토카드 구매하기</ThickBtn>
+        <ThickBtn onClick={() => console.log("버튼1 클릭됨!")}>포토카드 구매하기</ThickBtn>
         <ThickBtn buttonType="Secondary">Secondary 버튼</ThickBtn>
       </div>
       <div className="p-[20px] w-[345px] md:w-[440px] lg:w-[520px]">
-        <ThinBtn>포토카드 교환하기</ThinBtn>
+        <ThinBtn onClick={() => console.log("버튼2 클릭됨!")}>포토카드 교환하기</ThinBtn>
         <ThinBtn buttonType="Secondary">포토카드 교환하기</ThinBtn>
       </div>
       <div className="p-[20px] w-[345px] md:w-[440px] lg:w-[520px]">
         <ThinBtn disabled>포토카드 교환하기</ThinBtn>
       </div>
       <div className="p-[20px] w-[72.5px] md:w-[141px] lg:w-[170px]">
-        <XSBtn>승인</XSBtn>
+        <XSBtn onClick={() => console.log("버튼3 클릭됨!")}>승인</XSBtn>
         <XSBtn buttonType="Secondary">승인</XSBtn>
       </div>
     </div>
