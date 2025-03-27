@@ -79,8 +79,8 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-dark);
+  --foreground: var(--color-white);
   --font-body: var(--font-noto-sans-kr);
 }
 
