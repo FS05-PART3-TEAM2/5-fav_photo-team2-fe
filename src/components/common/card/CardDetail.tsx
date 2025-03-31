@@ -15,12 +15,12 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
   const commonStyle =
     props.cardType === "details"
       ? "py-[30px] border-t border-gray-400"
-      : "pt-[10px] md:pt-[20px] mt-[10px] md:mt-[20px] border-t border-gray-400";
+      : "pt-[10px] md:pt-[20px] mb-[10px] md:mb-[20px] border-t border-gray-400";
   const descriptionStyle =
     props.cardType === "details" ? "font-normal text-[16px] lg:text-[18px]" : "card-header__list";
 
   return (
-    <div className="w-40">
+    <div>
       {props.description && (
         <div
           className={clsx(`${descriptionStyle} ${commonStyle} text-white`, {
