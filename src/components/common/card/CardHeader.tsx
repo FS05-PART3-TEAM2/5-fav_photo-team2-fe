@@ -1,6 +1,5 @@
-import { Grade } from '@/types/photocard.types';
-import { CardType } from '@/types/photocard.types';
-import clsx from 'clsx';
+import { CardType, Grade } from "@/types/photocard.types";
+import clsx from "clsx";
 
 interface CardHeaderProps {
   grade: Grade;
@@ -11,30 +10,30 @@ interface CardHeaderProps {
 }
 
 const gradeColor = {
-  COMMON: 'text-main',
-  RARE: 'text-blue',
-  'SUPER RARE': 'text-purple',
-  LEGENDARY: 'text-red',
+  COMMON: "text-main",
+  RARE: "text-blue",
+  "SUPER RARE": "text-purple",
+  LEGENDARY: "text-red",
 };
 
 const CardHeader = ({ ...props }: CardHeaderProps) => {
   const textStyle =
-    props.cardType === 'details'
-      ? 'card-header__details pb-[30px]'
-      : 'card-header__list pb-[10px] md:pb-[10px]';
+    props.cardType === "details"
+      ? "card-header__details pb-[30px]"
+      : "card-header__list pb-[10px] md:pb-[10px]";
   const verticalLineStyle =
-    props.cardType === 'details'
-      ? 'w-0.5 bg-gray-300 min-h-[18px] lg:min-h-[24px]'
-      : 'w-[1px] md:w-0.5 bg-gray-300 min-h-[10px] md:min-h-[18px]';
+    props.cardType === "details"
+      ? "w-0.5 bg-gray-300 min-h-[18px] lg:min-h-[24px]"
+      : "w-[1px] md:w-0.5 bg-gray-300 min-h-[10px] md:min-h-[16px]";
 
   return (
     <div
       className={clsx(`flex justify-between items-center ${textStyle} text-gray-300 relative`, {
-        ['items-end']: props.points !== undefined,
+        ["items-end"]: props.points !== undefined,
       })}
     >
-      <div className="flex flex-col lg:flex-row lg:items-center gap-1 lg:gap-2">
-        <div className="flex items-center gap-1 lg:gap-2">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-[10px] lg:gap-4">
+        <div className="flex items-center gap-[10px] lg:gap-4">
           <div className={`${gradeColor[props.grade]} inline-block leading-none`}>
             {props.grade}
           </div>
@@ -42,13 +41,13 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
           <div className="inline-block leading-none">{props.genre}</div>
         </div>
         {props.points && (
-          <>
+          <div className="flex items-center gap-[10px] lg:gap-4">
             <div className={`${verticalLineStyle} hidden lg:block`}></div>
             <div className="flex items-center gap-1 lg:gap-2">
               <p className={`text-white`}>{props.points}P</p>
               <p>에 구매</p>
             </div>
-          </>
+          </div>
         )}
       </div>
       {props.owner && <div className={`text-white underline decoration-white`}>{props.owner}</div>}

@@ -1,5 +1,6 @@
-export type Grade = 'COMMON' | 'RARE' | 'SUPER RARE' | 'LEGENDARY';
-export type CardType = 'details' | 'list';
+export type Grade = "COMMON" | "RARE" | "SUPER RARE" | "LEGENDARY";
+export type CardType = "details" | "list";
+export type AmountText = "잔여" | "수량" | "보유량";
 
 export interface PhotoCardDetail {
   id: string;
