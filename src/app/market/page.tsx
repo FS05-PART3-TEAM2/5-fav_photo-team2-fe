@@ -38,7 +38,7 @@ export default function MarketplacePage() {
       <div>
         {/* 마켓플레이스 + 나의 포토카드 판매하기 버튼 = div */}
         <div className="flex justify-between pb-[20px] mb-[20px] border-b ">
-          <h1 className="font-BR-B text-[62px]">마켓플레이스</h1>
+          <h1 className="font-BR-B text-[62px] whitespace-nowrap">마켓플레이스</h1>
           <div className="flex items-center w-[345px] md:w-[342px] lg:w-[440px]">
             <ThinBtn onClick={() => console.log("버튼2 클릭됨!")}>포토카드 교환하기</ThinBtn>
           </div>
