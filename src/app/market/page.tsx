@@ -5,6 +5,7 @@ import ThinBtn from "@/components/common/button/ThinBtn";
 import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
 import { Grade } from "@/types/photocard.types";
+import Image from "next/image";
 
 interface PhotoCard {
   id: string;
@@ -48,20 +49,28 @@ export default function MarketplacePage() {
           {/*  SEJEONG: 공통컴포넌트 완성되면 넣기 */}
         </div>
 
-        <div className="grid grid-cols-3 gap-4 ">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-[5px] md:gap-[20px] lg:gap-[40px] ">
           {/*  카드 배치 = div */}
           {photoCards.map(card => (
             <div
               key={card.id}
-              className="border p-[10px] md:p-[20px] lg:p-[40px] rounded-lg bg-gray-500"
+              style={{ border: "1px solid rgba(255, 255, 255, 0.1)" }}
+              className=" border p-[10px] md:p-[20px] lg:p-[40px] rounded-[2px] bg-gray-500"
             >
-              <img src={card.imageUrl} alt={card.name} className="w-full h-40 object-cover" />
-              <div>
+              <Image
+                src={card.imageUrl}
+                alt={card.name}
+                width={150}
+                height={112}
+                layout="responsive" // 부모 컨테이너 크기에 맞춰 자동 조절
+                objectFit="cover" // 기존 object-cover 효과 적용
+              />
+              <div className="mt-[10px] md:mt-[25px]">
                 <h2>{card.name}</h2>
                 <CardHeader
                   grade={card.grade}
                   genre={card.genre}
-                  cardType="details"
+                  cardType="list"
                   owner="nickname"
                 />
                 <CardDetail
@@ -72,6 +81,13 @@ export default function MarketplacePage() {
                   cardType="list"
                 />
               </div>
+              <Image
+                src="/assets/icons/logo.png"
+                alt="로고 아이콘"
+                width={99.25}
+                height={18}
+                className="mx-auto"
+              />
             </div>
           ))}
         </div>
