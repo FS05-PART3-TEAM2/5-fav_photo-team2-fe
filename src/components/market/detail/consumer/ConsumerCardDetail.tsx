@@ -1,8 +1,8 @@
-import { PhotoCardDetail } from '@/types/photocard.types';
-import { SectionTitle } from '../sectionTitle';
+import { PhotoCardDetailDto } from "@/types/photocard.types";
+import { SectionTitle } from "../SectionTitle";
 
 interface CardDetailProps {
-  data: PhotoCardDetail;
+  data: PhotoCardDetailDto;
 }
 
 export const ConsumerCardDetail: React.FC<CardDetailProps> = ({ data }) => {

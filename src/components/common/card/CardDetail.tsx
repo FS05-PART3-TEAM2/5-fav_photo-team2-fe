@@ -49,6 +49,26 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
           </div>
         </div>
       )}
+      {props.price && props.availableAmount && props.totalAmount && props.amountText === "잔여" && (
+        <div className={`${commonStyle} flex flex-col gap-[10px]`}>
+          <div className="flex justify-between items-center">
+            <div className="text-gray-300 text-[18px] font-normal">가격</div>
+            <div className="text-whit  text-[20px] font-bold lg:text-[24px]">
+              {props.price}&nbsp;P
+            </div>
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="text-gray-300 text-[18px] font-normal">잔여</div>
+            <div className="flex items-center text-[20px] lg:text-[24px]">
+              <p className="text-white font-bold">{props.availableAmount}</p>
+              <p className="text-gray-300 font-normal">
+                &nbsp;{"/"}
+                &nbsp;{props.totalAmount}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
       {props.price &&
         props.availableAmount &&
         props.totalAmount &&
@@ -61,6 +81,7 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
               </div>
             </div>
             <div className="flex justify-between items-center">
+              <div className="text-gray-300 text-[18px] font-normal">{props.amountText}</div>
               <div className="text-gray-300 text-[18px] font-normal">{props.amountText}</div>
               <div className="flex items-center">
                 <p className="text-white text-[20px] lg:text-[24px] font-bold">
@@ -80,7 +101,9 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
           </div>
           <div className="flex justify-between items-center">
             <div className="text-gray-300 text-[18px] font-normal">{props.amountText}</div>
+            <div className="text-gray-300 text-[18px] font-normal">{props.amountText}</div>
             <div className="flex items-center">
+              <p className="text-white text-[20px] lg:text-[24px] font-bold">{props.totalAmount}</p>
               <p className="text-white text-[20px] lg:text-[24px] font-bold">{props.totalAmount}</p>
             </div>
           </div>

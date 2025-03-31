@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { SectionTitle } from '../sectionTitle';
-import ThinBtn from '@/components/common/button/ThinBtn';
-import { CommonModal } from '@/components/common/modal/CommonModal';
+import { useState } from "react";
+import { SectionTitle } from "../SectionTitle";
+import ThinBtn from "@/components/common/button/ThinBtn";
+import { CommonModal } from "@/components/common/modal/CommonModal";
 
 export const ExchangeDetail: React.FC = () => {
   const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);

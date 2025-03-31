@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+@import "tailwindcss";
 
 @theme {
   --color-dark: #0f0f0f;
@@ -17,7 +17,7 @@
   --color-main: #efff04;
 
   --font-BR-B: var(--font-BR-B); /* localFont로 설정한 폰트를 사용 */
-  --font-noto-sans-kr: 'Noto Sans KR', sans-serif;
+  --font-noto-sans-kr: "Noto Sans KR", sans-serif;
 }
 
 /*
@@ -40,7 +40,7 @@
 
 @layer components {
   /* 공용 텍스트 스타일 */
-  /* 모바일/태블릿-데스크탑-weight 형식으로 작성했습니다 */
+  /* text-기본-반응형-weight 형식으로 작성했습니다 */
   .text-18-20-light {
     @apply text-[18px] lg:text-[20px] font-normal leading-none;
   }
@@ -49,6 +49,9 @@
   }
   .text-20-24-bold {
     @apply text-[20px] lg:text-[24px] font-bold leading-none;
+  }
+  .text-14-22-bold {
+    @apply text-[14px] md:text-[22px] font-bold leading-none;
   }
 
   /* 공통컴포넌트 - 카드 요소 텍스트 스타일 */
@@ -62,11 +65,11 @@
   /* 공통컴포넌트 - 모달 텍스트 스타일 */
   .modal-title {
     @apply text-[18px] lg:text-[20px] font-bold leading-none text-white
-    mb-[30px] lg:mb-[40px];
+    mb-[30px] lg:mb-[40px] text-center break-keep;
   }
   .modal-desc {
     @apply text-[14px] lg:text-[16px] font-normal leading-none text-gray-300
-    mb-[40px] lg:mb-[60px];
+    mb-[40px] lg:mb-[60px] text-center break-keep;
   }
 
   /* 페이지 - 마켓 상세페이지 텍스트 스타일 */
