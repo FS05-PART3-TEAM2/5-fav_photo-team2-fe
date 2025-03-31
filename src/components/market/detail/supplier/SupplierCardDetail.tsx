@@ -6,26 +6,28 @@ import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
 import { useState } from "react";
 import { CommonModal } from "@/components/common/modal/CommonModal";
+import ResponsiveForm from "@/components/common/responsiveForm/ResponsiveForm";
+import { OnSaleCardEditForm } from "./OnSaleCardEditForm";
 interface CardDetailProps {
   data: PhotoCardDetailDto;
 }
 
-// TODO: 판매 내리기 버튼 api 연결 추가, 수정하기 모달 추가
+// TODO: 판매 내리기 api 연결 추가
 export const SupplierCardDetail: React.FC<CardDetailProps> = ({ data }) => {
   const [isCloseSaleModalOpen, setIsCloseSaleModalOpen] = useState(false);
-  // const [isEditSaleModalOpen, setIsEditSaleModalOpen] = useState(false);
+  const [isEditSaleModalOpen, setIsEditSaleModalOpen] = useState(false);
   const handleCloseSaleModalOpen = () => {
     setIsCloseSaleModalOpen(true);
   };
   const handleCloseSaleModalClose = () => {
     setIsCloseSaleModalOpen(false);
   };
-  // const handleEditSaleModalOpen = () => {
-  //   setIsEditSaleModalOpen(true);
-  // };
-  // const handleEditSaleModalClose = () => {
-  //   setIsEditSaleModalOpen(false);
-  // };
+  const handleEditSaleModalOpen = () => {
+    setIsEditSaleModalOpen(true);
+  };
+  const handleEditSaleModalClose = () => {
+    setIsEditSaleModalOpen(false);
+  };
 
   const cardHeaderProps = {
     grade: data.grade,
@@ -86,14 +88,24 @@ export const SupplierCardDetail: React.FC<CardDetailProps> = ({ data }) => {
           </div>
 
           <div className={btnWrapperSx}>
-            {/* <ThickBtn onClick={handleEditSaleModalOpen}>수정하기</ThickBtn> */}
-            <ThickBtn onClick={() => {}}>수정하기</ThickBtn>
+            <ThickBtn onClick={handleEditSaleModalOpen}>수정하기</ThickBtn>
             <ThickBtn buttonType="Secondary" onClick={handleCloseSaleModalOpen}>
               판매 내리기
             </ThickBtn>
           </div>
         </div>
       </div>
+      {/* 수정하기 모달 */}
+      {isEditSaleModalOpen && (
+        <ResponsiveForm
+          title="수정하기"
+          isOpen={isEditSaleModalOpen}
+          onClose={handleEditSaleModalClose}
+        >
+          <OnSaleCardEditForm data={data} onClose={handleEditSaleModalClose} />
+        </ResponsiveForm>
+      )}
+      {/* 판매 내리기 모달 */}
       {isCloseSaleModalOpen && (
         <CommonModal
           isOpen={isCloseSaleModalOpen}
@@ -104,16 +116,6 @@ export const SupplierCardDetail: React.FC<CardDetailProps> = ({ data }) => {
           btnClick={handleCloseSaleModalClose}
         />
       )}
-      {/* {isEditSaleModalOpen && (
-        <CommonModal
-          isOpen={isEditSaleModalOpen}
-          onClose={handleEditSaleModalClose}
-          title="수정하기"
-          desc="수정하시겠습니까?"
-          btnText="수정하기"
-          btnClick={handleEditSaleModalClose}
-        />
-      )} */}
     </div>
   );
 };
