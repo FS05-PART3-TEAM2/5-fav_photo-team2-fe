@@ -5,7 +5,7 @@ interface CardHeaderProps {
   grade: Grade;
   genre: string;
   points?: number;
-  owner?: string;
+  creator?: string;
   cardType: CardType;
 }
 
@@ -50,7 +50,9 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
           </div>
         )}
       </div>
-      {props.owner && <div className={`text-white underline decoration-white`}>{props.owner}</div>}
+      {props.creator && (
+        <div className={`text-white underline decoration-white`}>{props.creator}</div>
+      )}
     </div>
   );
 };

@@ -52,7 +52,12 @@ export default function PhotoCardList({ photoCards }: PhotoCardListProps) {
 
             <div className="mt-[10px] md:mt-[25px]">
               <h2>{card.name}</h2>
-              <CardHeader grade={card.grade} genre={card.genre} cardType="list" owner="nickname" />
+              <CardHeader
+                grade={card.grade}
+                genre={card.genre}
+                cardType="list"
+                creator={card.creator.nickname}
+              />
               <CardDetail
                 price={card.price}
                 availableAmount={2}

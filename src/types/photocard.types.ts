@@ -6,15 +6,15 @@ export type CardType = "details" | "list";
 export interface PhotoCard {
   id: string;
   userPhotoCardId: string;
-  status: "ON_SALE" | "SOLD_OUT" | "CANCELED"; // 상태 추가
+  status: "ON_SALE" | "SOLD_OUT" | "CANCELED";
   name: string;
   genre: string;
   grade: Grade;
   price: number;
   image: string;
-  remaining: number; // 잔여 수량 추가
-  total: number; // 총 수량 추가
-  owner: {
+  remaining: number;
+  total: number;
+  creator: {
     id: string;
     nickname: string;
   };
