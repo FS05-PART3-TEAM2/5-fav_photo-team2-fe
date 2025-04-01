@@ -7,7 +7,7 @@ import PhotoCardList from "@/components/market/list/CardGrid";
 
 export default function MarketplacePage() {
   const [photoCards, setPhotoCards] = useState<UpdateSaleCardResponseDto[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredCards, setFilteredCards] = useState<UpdateSaleCardResponseDto[]>([]);
 
   useEffect(() => {
     fetch("/photoCardsData.json")
@@ -21,15 +21,10 @@ export default function MarketplacePage() {
       .catch(err => console.error("데이터 불러오기 실패:", err));
   }, []);
 
-  // 검색어를 포함하는 카드만 필터링
-  const filteredPhotoCards = photoCards.filter(card =>
-    card.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
     <CommonLayout>
-      <MarketplaceHeader onSearch={setSearchTerm} />
-      <PhotoCardList photoCards={filteredPhotoCards} />
+      <MarketplaceHeader photoCards={photoCards} setFilteredCards={setFilteredCards} />
+      <PhotoCardList photoCards={filteredCards} />
     </CommonLayout>
   );
 }
