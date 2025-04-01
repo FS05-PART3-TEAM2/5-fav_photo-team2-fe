@@ -10,18 +10,18 @@ import { FILTER_CONFIG } from "./constants";
 import Menu from "../menu/Menu";
 import { useMemo, useState } from "react";
 
-export type OrderType = "latest" | "oldest" | "expensive" | "cheap";
+export type OrderOption = "latest" | "oldest" | "expensive" | "cheap";
 
 interface OrderProps {
-  orderBy: OrderType;
-  setOrderBy: (value: string) => void;
+  orderBy: OrderOption;
+  setOrderBy: (value: OrderOption) => void;
 }
 
 export default function Order({ orderBy, setOrderBy }: OrderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const name = useMemo(() => FILTER_CONFIG.orderBy[orderBy], [orderBy]);
 
-  const handleSelect = (option: string) => {
+  const handleSelect = (option: OrderOption) => {
     setOrderBy(option);
     setIsOpen(false); // 메뉴 닫기
   };
