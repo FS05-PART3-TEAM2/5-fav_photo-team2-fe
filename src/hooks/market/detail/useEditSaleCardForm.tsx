@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { useRouter } from "next/navigation";
 // import { useQueryClient } from '@tanstack/react-query';
 import { Grade, PhotoCardDetailDto, UpdateSaleCardBodyParams } from "@/types/photocard.types";
+import { useSnackbarStore } from "@/store/useSnackbarStore";
 
 export const useEditSaleCardForm = (initialData: PhotoCardDetailDto, onClose: () => void) => {
   const [params, setParams] = useState<UpdateSaleCardBodyParams>({
@@ -17,8 +17,7 @@ export const useEditSaleCardForm = (initialData: PhotoCardDetailDto, onClose: ()
   });
 
   //   const queryClient = useQueryClient();
-  const router = useRouter();
-  //   const { openSnackbar } = useSnackbarStore();
+  const { openSnackbar } = useSnackbarStore();
 
   // 각 필드 업데이트 함수
   const updateParams = useCallback(
@@ -135,16 +134,22 @@ export const useEditSaleCardForm = (initialData: PhotoCardDetailDto, onClose: ()
       // 수정 완료 후 캐시 무효화
       //   queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
 
-      //   openSnackbar('SUCCESS', 'community_board_updated');
+      openSnackbar(
+        "SUCCESS",
+        "수정",
+        `[${initialData.grade} | ${initialData.name}] 판매 카드 수정에 성공했습니다!`
+      );
 
       onClose();
-      //   router.push(`/market/detail/${initialData.id}`);
-      // }
     } catch (error) {
-      //   openSnackbar('ERROR', 'career_try_again');
-      console.log("업데이트 에러: ", error);
+      openSnackbar(
+        "ERROR",
+        "수정",
+        `[${initialData.grade} | ${initialData.name}] 판매 카드 수정에 실패했습니다.`
+      );
+      throw error;
     }
-  }, [params, initialData.id, router]);
+  }, [params, initialData.id]);
 
   return {
     params,
