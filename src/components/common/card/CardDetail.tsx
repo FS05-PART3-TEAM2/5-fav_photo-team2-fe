@@ -1,6 +1,5 @@
+import { AmountText } from "@/types/photocard.types";
 import clsx from "clsx";
-
-type AmountText = "잔여" | "수량" | "보유량";
 
 interface CardDetailProps {
   description?: string;
