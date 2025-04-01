@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { CommonLayout } from "@/components/common/layout/CommonLayout";
 import { PhotoCard } from "@/types/photocard.types";
-import Search from "@/components/common/input/Search";
 import MarketplaceHeader from "@/components/market/list/MarketplaceHeader";
 import PhotoCardList from "@/components/market/list/CardGrid";
 
@@ -29,11 +28,7 @@ export default function MarketplacePage() {
 
   return (
     <CommonLayout>
-      <MarketplaceHeader />
-      <div className="flex">
-        {/* SEJEONG: 드롭다운 공통컴포넌트 추가 */}
-        <Search onSearch={setSearchTerm} />
-      </div>
+      <MarketplaceHeader onSearch={setSearchTerm} />
       <PhotoCardList photoCards={filteredPhotoCards} />
     </CommonLayout>
   );

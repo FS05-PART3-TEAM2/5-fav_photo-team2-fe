@@ -5,7 +5,7 @@
     {
       "id": "sale_001",
       "userPhotoCardId": "userpc_001",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 001",
       "genre": "사물",
       "grade": "LEGENDARY",
@@ -23,7 +23,7 @@
     {
       "id": "sale_002",
       "userPhotoCardId": "userpc_002",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 002",
       "genre": "사물",
       "grade": "LEGENDARY",
@@ -41,7 +41,7 @@
     {
       "id": "sale_003",
       "userPhotoCardId": "userpc_003",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 003",
       "genre": "사물",
       "grade": "RARE",
@@ -59,7 +59,7 @@
     {
       "id": "sale_004",
       "userPhotoCardId": "userpc_004",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 004",
       "genre": "여행",
       "grade": "LEGENDARY",
@@ -77,7 +77,7 @@
     {
       "id": "sale_005",
       "userPhotoCardId": "userpc_005",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 005",
       "genre": "풍경",
       "grade": "LEGENDARY",
@@ -95,7 +95,7 @@
     {
       "id": "sale_006",
       "userPhotoCardId": "userpc_006",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 006",
       "genre": "여행",
       "grade": "COMMON",
@@ -113,7 +113,7 @@
     {
       "id": "sale_007",
       "userPhotoCardId": "userpc_007",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 007",
       "genre": "풍경",
       "grade": "LEGENDARY",
@@ -131,7 +131,7 @@
     {
       "id": "sale_008",
       "userPhotoCardId": "userpc_008",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 008",
       "genre": "풍경",
       "grade": "COMMON",
@@ -149,7 +149,7 @@
     {
       "id": "sale_009",
       "userPhotoCardId": "userpc_009",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 009",
       "genre": "여행",
       "grade": "COMMON",
@@ -167,7 +167,7 @@
     {
       "id": "sale_010",
       "userPhotoCardId": "userpc_010",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 010",
       "genre": "사물",
       "grade": "RARE",
@@ -185,7 +185,7 @@
     {
       "id": "sale_011",
       "userPhotoCardId": "userpc_011",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 011",
       "genre": "사물",
       "grade": "RARE",
@@ -203,7 +203,7 @@
     {
       "id": "sale_012",
       "userPhotoCardId": "userpc_012",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 012",
       "genre": "사물",
       "grade": "COMMON",
@@ -221,7 +221,7 @@
     {
       "id": "sale_013",
       "userPhotoCardId": "userpc_013",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 013",
       "genre": "여행",
       "grade": "LEGENDARY",
@@ -239,7 +239,7 @@
     {
       "id": "sale_014",
       "userPhotoCardId": "userpc_014",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 014",
       "genre": "인물",
       "grade": "RARE",
@@ -257,7 +257,7 @@
     {
       "id": "sale_015",
       "userPhotoCardId": "userpc_015",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 015",
       "genre": "풍경",
       "grade": "SUPER RARE",
@@ -275,7 +275,7 @@
     {
       "id": "sale_016",
       "userPhotoCardId": "userpc_016",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 016",
       "genre": "사물",
       "grade": "RARE",
@@ -293,7 +293,7 @@
     {
       "id": "sale_017",
       "userPhotoCardId": "userpc_017",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 017",
       "genre": "풍경",
       "grade": "LEGENDARY",
@@ -311,7 +311,7 @@
     {
       "id": "sale_018",
       "userPhotoCardId": "userpc_018",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 018",
       "genre": "여행",
       "grade": "RARE",
@@ -329,7 +329,7 @@
     {
       "id": "sale_019",
       "userPhotoCardId": "userpc_019",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 019",
       "genre": "인물",
       "grade": "LEGENDARY",
@@ -347,7 +347,7 @@
     {
       "id": "sale_020",
       "userPhotoCardId": "userpc_020",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 020",
       "genre": "여행",
       "grade": "LEGENDARY",
@@ -365,7 +365,7 @@
     {
       "id": "sale_021",
       "userPhotoCardId": "userpc_021",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 021",
       "genre": "사물",
       "grade": "COMMON",
@@ -383,7 +383,7 @@
     {
       "id": "sale_022",
       "userPhotoCardId": "userpc_022",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 022",
       "genre": "인물",
       "grade": "LEGENDARY",
@@ -401,7 +401,7 @@
     {
       "id": "sale_023",
       "userPhotoCardId": "userpc_023",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 023",
       "genre": "사물",
       "grade": "COMMON",
@@ -419,7 +419,7 @@
     {
       "id": "sale_024",
       "userPhotoCardId": "userpc_024",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 024",
       "genre": "여행",
       "grade": "RARE",
@@ -437,7 +437,7 @@
     {
       "id": "sale_025",
       "userPhotoCardId": "userpc_025",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 025",
       "genre": "사물",
       "grade": "RARE",
@@ -455,7 +455,7 @@
     {
       "id": "sale_026",
       "userPhotoCardId": "userpc_026",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 026",
       "genre": "인물",
       "grade": "SUPER RARE",
@@ -473,7 +473,7 @@
     {
       "id": "sale_027",
       "userPhotoCardId": "userpc_027",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 027",
       "genre": "사물",
       "grade": "COMMON",
@@ -491,7 +491,7 @@
     {
       "id": "sale_028",
       "userPhotoCardId": "userpc_028",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 028",
       "genre": "사물",
       "grade": "RARE",
@@ -509,7 +509,7 @@
     {
       "id": "sale_029",
       "userPhotoCardId": "userpc_029",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 029",
       "genre": "여행",
       "grade": "LEGENDARY",
@@ -527,7 +527,7 @@
     {
       "id": "sale_030",
       "userPhotoCardId": "userpc_030",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 030",
       "genre": "인물",
       "grade": "RARE",
@@ -545,7 +545,7 @@
     {
       "id": "sale_031",
       "userPhotoCardId": "userpc_031",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 031",
       "genre": "인물",
       "grade": "SUPER RARE",
@@ -563,7 +563,7 @@
     {
       "id": "sale_032",
       "userPhotoCardId": "userpc_032",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 032",
       "genre": "사물",
       "grade": "SUPER RARE",
@@ -581,7 +581,7 @@
     {
       "id": "sale_033",
       "userPhotoCardId": "userpc_033",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 033",
       "genre": "풍경",
       "grade": "COMMON",
@@ -599,7 +599,7 @@
     {
       "id": "sale_034",
       "userPhotoCardId": "userpc_034",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 034",
       "genre": "여행",
       "grade": "SUPER RARE",
@@ -617,7 +617,7 @@
     {
       "id": "sale_035",
       "userPhotoCardId": "userpc_035",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 035",
       "genre": "여행",
       "grade": "COMMON",
@@ -635,7 +635,7 @@
     {
       "id": "sale_036",
       "userPhotoCardId": "userpc_036",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 036",
       "genre": "사물",
       "grade": "RARE",
@@ -653,7 +653,7 @@
     {
       "id": "sale_037",
       "userPhotoCardId": "userpc_037",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 037",
       "genre": "여행",
       "grade": "LEGENDARY",
@@ -671,7 +671,7 @@
     {
       "id": "sale_038",
       "userPhotoCardId": "userpc_038",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 038",
       "genre": "사물",
       "grade": "COMMON",
@@ -689,7 +689,7 @@
     {
       "id": "sale_039",
       "userPhotoCardId": "userpc_039",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 039",
       "genre": "인물",
       "grade": "COMMON",
@@ -707,7 +707,7 @@
     {
       "id": "sale_040",
       "userPhotoCardId": "userpc_040",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 040",
       "genre": "인물",
       "grade": "LEGENDARY",
@@ -725,7 +725,7 @@
     {
       "id": "sale_041",
       "userPhotoCardId": "userpc_041",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 041",
       "genre": "여행",
       "grade": "COMMON",
@@ -743,7 +743,7 @@
     {
       "id": "sale_042",
       "userPhotoCardId": "userpc_042",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 042",
       "genre": "인물",
       "grade": "RARE",
@@ -761,7 +761,7 @@
     {
       "id": "sale_043",
       "userPhotoCardId": "userpc_043",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 043",
       "genre": "인물",
       "grade": "LEGENDARY",
@@ -779,7 +779,7 @@
     {
       "id": "sale_044",
       "userPhotoCardId": "userpc_044",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 044",
       "genre": "풍경",
       "grade": "COMMON",
@@ -797,7 +797,7 @@
     {
       "id": "sale_045",
       "userPhotoCardId": "userpc_045",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 045",
       "genre": "풍경",
       "grade": "SUPER RARE",
@@ -815,7 +815,7 @@
     {
       "id": "sale_046",
       "userPhotoCardId": "userpc_046",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 046",
       "genre": "풍경",
       "grade": "RARE",
@@ -833,7 +833,7 @@
     {
       "id": "sale_047",
       "userPhotoCardId": "userpc_047",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 047",
       "genre": "인물",
       "grade": "COMMON",
@@ -851,7 +851,7 @@
     {
       "id": "sale_048",
       "userPhotoCardId": "userpc_048",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 048",
       "genre": "사물",
       "grade": "RARE",
@@ -869,7 +869,7 @@
     {
       "id": "sale_049",
       "userPhotoCardId": "userpc_049",
-      "status": "sold_ended",
+      "status": "SOLD_OUT",
       "name": "포토카드 049",
       "genre": "여행",
       "grade": "SUPER RARE",
@@ -887,7 +887,7 @@
     {
       "id": "sale_050",
       "userPhotoCardId": "userpc_050",
-      "status": "on_sale",
+      "status": "ON_SALE",
       "name": "포토카드 050",
       "genre": "인물",
       "grade": "SUPER RARE",
