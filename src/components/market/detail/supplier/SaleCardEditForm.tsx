@@ -1,14 +1,15 @@
 "use client";
 
 import { CardType, PhotoCardDetailDto } from "@/types/photocard.types";
+import { useEditSaleCardForm } from "@/hooks/market/detail/useEditSaleCardForm";
 import Image from "next/image";
 import CardHeader from "@/components/common/card/CardHeader";
 import ThinBtn from "@/components/common/button/ThinBtn";
 import { SectionTitle } from "../SectionTitle";
 import AmountInput from "@/components/common/input/AmountInput";
-import CommonTextarea from "@/components/common/input/CommonTextarea";
 import PriceInput from "@/components/common/input/PriceInput";
-import { useEditSaleCardForm } from "@/hooks/market/detail/useEditSaleCardForm";
+import CommonDropdownInput from "@/components/common/input/CommonDropdownInput";
+import CommonTextarea from "@/components/common/input/CommonTextarea";
 // import { useState } from "react";
 
 interface SaleCardEditFormProps {
@@ -23,8 +24,8 @@ export const SaleCardEditForm: React.FC<SaleCardEditFormProps> = ({ data, onClos
     isDisabled,
     handleQuantityChange,
     handlePriceChange,
-    // handleGradeChange,
-    // handleGenreChange,
+    handleGradeChange,
+    handleGenreChange,
     handleDescriptionChange,
     handleUpdateSaleCard,
   } = useEditSaleCardForm(data, onClose);
@@ -81,12 +82,12 @@ export const SaleCardEditForm: React.FC<SaleCardEditFormProps> = ({ data, onClos
                       <AmountInput
                         onChange={handleQuantityChange}
                         value={params.quantity}
-                        max={data.maxAmount}
+                        max={data.totalOwnAmount}
                       />
                       <div className="w-fit flex flex-col flex-shrink-0">
-                        <p className="text-18-20-bold">/{data.maxAmount}</p>
+                        <p className="text-18-20-bold">/{data.totalOwnAmount}</p>
                         <p className="text-[12px] lg:text-[14px] text-gray-200 font-light">
-                          최대 {data.maxAmount}장
+                          최대 {data.totalOwnAmount}장
                         </p>
                       </div>
                     </div>
@@ -110,8 +111,16 @@ export const SaleCardEditForm: React.FC<SaleCardEditFormProps> = ({ data, onClos
             </div>
             <div className="w-[100%] flex flex-col gap-[30px]">
               <div className="w-[100%] flex flex-col md:flex-row gap-[30px] md:gap-[20px] lg:gap-[40px] items-center">
-                <div className="text-18-20-normal">등급 드롭다운</div>
-                <div className="text-18-20-normal">장르 드롭다운</div>
+                <CommonDropdownInput
+                  inputLabel="grade"
+                  value={params.exchangeOffer.grade}
+                  onChange={handleGradeChange}
+                />
+                <CommonDropdownInput
+                  inputLabel="genre"
+                  value={params.exchangeOffer.genre}
+                  onChange={handleGenreChange}
+                />
               </div>
               <CommonTextarea
                 label="교환 희망 설명"

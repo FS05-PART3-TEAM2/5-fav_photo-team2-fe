@@ -25,8 +25,7 @@ export interface PhotoCardDetailDto {
   price: number;
   availableAmount: number;
   totalAmount: number;
-  // TODO: 최대 가능 수량(총 보유량) 키 이름 수정 필요
-  maxAmount: number;
+  totalOwnAmount: number;
   exchangeDetail: {
     grade: Grade;
     genre: string;
