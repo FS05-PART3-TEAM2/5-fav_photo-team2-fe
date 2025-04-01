@@ -1,31 +1,48 @@
+"use client";
+
 import { CardType, PhotoCardDetailDto } from "@/types/photocard.types";
 import Image from "next/image";
 import CardHeader from "@/components/common/card/CardHeader";
 import ThinBtn from "@/components/common/button/ThinBtn";
 import { SectionTitle } from "../SectionTitle";
+import AmountInput from "@/components/common/input/AmountInput";
+import CommonTextarea from "@/components/common/input/CommonTextarea";
+import PriceInput from "@/components/common/input/PriceInput";
+import { useEditSaleCardForm } from "@/hooks/market/detail/useEditSaleCardForm";
+// import { useState } from "react";
 
-interface OnSaleCardEditFormProps {
+interface SaleCardEditFormProps {
   data: PhotoCardDetailDto;
   onClose: () => void;
 }
 
 // TODO: 수정하기 api 연결
-// TODO: 수정 input 넣기
-export const OnSaleCardEditForm: React.FC<OnSaleCardEditFormProps> = ({ data, onClose }) => {
+export const SaleCardEditForm: React.FC<SaleCardEditFormProps> = ({ data, onClose }) => {
+  const {
+    params,
+    isDisabled,
+    handleQuantityChange,
+    handlePriceChange,
+    // handleGradeChange,
+    // handleGenreChange,
+    handleDescriptionChange,
+    handleUpdateSaleCard,
+  } = useEditSaleCardForm(data, onClose);
+
   // XXX: 취소 컨펌 모달 띄울지 고민
   // -> ResponsiveForm 컴포넌트 백드랍 클릭시에도 취소 확인 모달을 띄워줘야하는데, 부모 컴포넌트로 전달할 방법 모르겠어서 일단 보류
-  //   const [isCancelEditModalOpen, setIsCancelEditModalOpen] = useState(false);
-  //   const handleCancelEditModalOpen = () => {
-  //     setIsCancelEditModalOpen(true);
-  //   };
-  //   const handleCancelEditModalClose = () => {
-  //     setIsCancelEditModalOpen(false);
-  //   };
+  // const [isCancelEditModalOpen, setIsCancelEditModalOpen] = useState(false);
+  // const handleCancelEditModalOpen = () => {
+  //   setIsCancelEditModalOpen(true);
+  // };
+  // const handleCancelEditModalClose = () => {
+  //   setIsCancelEditModalOpen(false);
+  // };
 
   const cardHeaderProps = {
     grade: data.grade,
     genre: data.genre,
-    owner: data.userNickname,
+    creator: data.userNickname,
     cardType: "details" as CardType,
   };
 
@@ -37,7 +54,7 @@ export const OnSaleCardEditForm: React.FC<OnSaleCardEditFormProps> = ({ data, on
       </div>
 
       {/* 수정 폼 */}
-      <div className="w-[100%] flex flex-col gap-[20px] md:gap-[40px] lg:gap-[80px] pb-[40px]">
+      <div className="w-[100%] flex flex-col gap-[40px] md:gap-[60px] pb-[40px]">
         {/* 수정 입력 */}
         <div className="w-[100%] flex flex-col gap-[80px]">
           {/* 기본정보 수정*/}
@@ -59,13 +76,27 @@ export const OnSaleCardEditForm: React.FC<OnSaleCardEditFormProps> = ({ data, on
                 <CardHeader {...cardHeaderProps} />
                 <div className="w-[100%] flex flex-col gap-[20px] pt-[30px] border-t-[1px] border-gray-400">
                   <div className={cardDetailInputWrapperSx}>
-                    <p className="text-18-20-light">총 판매 수량</p>
-                    <p className="text-18-20-light">/{data.totalAmount}</p>
+                    <p className="text-18-20-normal">총 판매 수량</p>
+                    <div className="w-[202px] lg:w-[245px] h-[45px] lg:h-[50px] flex items-center justify-between gap-[15px] lg:gap-[20px]">
+                      <AmountInput
+                        onChange={handleQuantityChange}
+                        value={params.quantity}
+                        max={data.maxAmount}
+                      />
+                      <div className="w-fit flex flex-col flex-shrink-0">
+                        <p className="text-18-20-bold">/{data.maxAmount}</p>
+                        <p className="text-[12px] lg:text-[14px] text-gray-200 font-light">
+                          최대 {data.maxAmount}장
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   <div className={cardDetailInputWrapperSx}>
-                    <p className="text-18-20-light">장당 가격</p>
-                    <p className="text-18-20-light">/장당 가격 인풋</p>
+                    <p className="text-18-20-normal">장당 가격</p>
+                    <div className="w-[202px] lg:w-[245px] h-[45px] lg:h-[50px] flex items-center">
+                      <PriceInput onChange={handlePriceChange} value={params.price} />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -77,7 +108,18 @@ export const OnSaleCardEditForm: React.FC<OnSaleCardEditFormProps> = ({ data, on
             <div className="w-[100%] pb-[10px] border-b-[2px] border-gray-100">
               <p className="market-detail-subtitle">교환 희망 정보</p>
             </div>
-            <div>교환 희망정보 인풋</div>
+            <div className="w-[100%] flex flex-col gap-[30px]">
+              <div className="w-[100%] flex flex-col md:flex-row gap-[30px] md:gap-[20px] lg:gap-[40px] items-center">
+                <div className="text-18-20-normal">등급 드롭다운</div>
+                <div className="text-18-20-normal">장르 드롭다운</div>
+              </div>
+              <CommonTextarea
+                label="교환 희망 설명"
+                placeholder="설명을 입력해주세요"
+                value={params.exchangeOffer.description}
+                onChange={handleDescriptionChange}
+              />
+            </div>
           </div>
         </div>
 
@@ -86,7 +128,9 @@ export const OnSaleCardEditForm: React.FC<OnSaleCardEditFormProps> = ({ data, on
           <ThinBtn buttonType="Secondary" onClick={onClose}>
             취소하기
           </ThinBtn>
-          <ThinBtn onClick={() => {}}>수정하기</ThinBtn>
+          <ThinBtn onClick={handleUpdateSaleCard} disabled={isDisabled}>
+            수정하기
+          </ThinBtn>
         </div>
       </div>
     </div>

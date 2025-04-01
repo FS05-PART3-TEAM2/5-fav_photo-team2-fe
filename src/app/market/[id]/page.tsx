@@ -23,6 +23,7 @@ export default function PhotoCardDetailPage() {
     price: 15,
     availableAmount: 2,
     totalAmount: 5,
+    maxAmount: 7,
     exchangeDetail: {
       grade: "RARE" as Grade,
       genre: "인물",

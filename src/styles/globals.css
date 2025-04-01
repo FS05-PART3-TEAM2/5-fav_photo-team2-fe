@@ -41,8 +41,11 @@
 @layer components {
   /* 공용 텍스트 스타일 */
   /* text-기본-반응형-weight 형식으로 작성했습니다 */
-  .text-18-20-light {
+  .text-18-20-normal {
     @apply text-[18px] lg:text-[20px] font-normal leading-none;
+  }
+  .text-18-20-bold {
+    @apply text-[18px] lg:text-[20px] font-bold leading-none;
   }
   .text-18-24-bold {
     @apply text-[18px] lg:text-[24px] font-bold leading-none;

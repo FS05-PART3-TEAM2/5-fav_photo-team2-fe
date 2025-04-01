@@ -12,7 +12,7 @@ export const ExchangeCard: React.FC<ExchangeCardProps> = ({ data, button }) => {
   const cardHeaderProps = {
     grade: data.grade,
     genre: data.genre,
-    owner: data.offererNickname,
+    creator: data.offererNickname,
     points: data.price,
     cardType: "list" as CardType,
   };

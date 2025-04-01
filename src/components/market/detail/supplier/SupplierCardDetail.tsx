@@ -7,7 +7,7 @@ import CardDetail from "@/components/common/card/CardDetail";
 import { useState } from "react";
 import { CommonModal } from "@/components/common/modal/CommonModal";
 import ResponsiveForm from "@/components/common/responsiveForm/ResponsiveForm";
-import { OnSaleCardEditForm } from "./OnSaleCardEditForm";
+import { SaleCardEditForm } from "./SaleCardEditForm";
 interface CardDetailProps {
   data: PhotoCardDetailDto;
 }
@@ -32,7 +32,7 @@ export const SupplierCardDetail: React.FC<CardDetailProps> = ({ data }) => {
   const cardHeaderProps = {
     grade: data.grade,
     genre: data.genre,
-    owner: data.userNickname,
+    creator: data.userNickname,
     cardType: "details" as CardType,
   };
   const cardDetailProps = {
@@ -102,7 +102,7 @@ export const SupplierCardDetail: React.FC<CardDetailProps> = ({ data }) => {
           isOpen={isEditSaleModalOpen}
           onClose={handleEditSaleModalClose}
         >
-          <OnSaleCardEditForm data={data} onClose={handleEditSaleModalClose} />
+          <SaleCardEditForm data={data} onClose={handleEditSaleModalClose} />
         </ResponsiveForm>
       )}
       {/* 판매 내리기 모달 */}
