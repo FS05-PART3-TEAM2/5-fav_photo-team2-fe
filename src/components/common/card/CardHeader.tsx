@@ -5,7 +5,7 @@ interface CardHeaderProps {
   grade: Grade;
   genre: string;
   points?: number;
-  owner?: string;
+  creator?: string;
   cardType: CardType;
 }
 
@@ -28,18 +28,13 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
 
   return (
     <div
-      className={clsx(
-        `flex justify-between items-center ${textStyle} text-gray-300 relative`,
-        {
-          ["items-end"]: props.points !== undefined,
-        }
-      )}
+      className={clsx(`flex justify-between items-center ${textStyle} text-gray-300 relative`, {
+        ["items-end"]: props.points !== undefined,
+      })}
     >
       <div className="flex flex-col lg:flex-row lg:items-center gap-[10px] lg:gap-4">
         <div className="flex items-center gap-[10px] lg:gap-4">
-          <div
-            className={`${gradeColor[props.grade]} inline-block leading-none`}
-          >
+          <div className={`${gradeColor[props.grade]} inline-block leading-none`}>
             {props.grade}
           </div>
           <div className={`${verticalLineStyle}`}></div>
@@ -55,10 +50,8 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
           </div>
         )}
       </div>
-      {props.owner && (
-        <div className={`text-white underline decoration-white`}>
-          {props.owner}
-        </div>
+      {props.creator && (
+        <div className={`text-white underline decoration-white`}>{props.creator}</div>
       )}
     </div>
   );
