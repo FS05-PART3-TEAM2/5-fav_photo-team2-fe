@@ -32,12 +32,22 @@ export const FORM_CONFIG = {
     grade: {
       label: "등급",
       placeholder: "등급을 선택해 주세요",
-      options: ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"],
+      options: {
+        COMMON: "COMMON",
+        RARE: "RARE",
+        SUPER_RARE: "SUPER RARE",
+        LEGENDARY: "LEGENDARY",
+      },
     },
     genre: {
       label: "장르",
       placeholder: "장르를 선택해 주세요",
-      options: ["여행", "풍경", "인물", "사물"],
+      options: {
+        travel: "여행",
+        landscape: "풍경",
+        portrait: "인물",
+        object: "사물",
+      },
     },
   },
 };

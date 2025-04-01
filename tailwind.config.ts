@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import lineClamp from "@tailwindcss/line-clamp";
+import lineClamp from "@tailwindcss/line-clamp"; // require() 대신 import 사용
 
 export default {
   content: [
