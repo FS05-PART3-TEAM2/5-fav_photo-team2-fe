@@ -16,7 +16,7 @@ export default function PhotoCardList({ photoCards }: PhotoCardListProps) {
           className=" border p-[10px] md:p-[20px] lg:p-[40px] rounded-[2px] bg-gray-500"
         >
           <Image
-            src={card.imageUrl}
+            src={card.image}
             alt={card.name}
             width={150}
             height={112}

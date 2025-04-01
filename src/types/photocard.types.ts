@@ -11,7 +11,7 @@ export interface PhotoCard {
   grade: Grade;
   price: number;
   description: string;
-  imageUrl: string;
+  image: string;
   createdAt: string;
   updatedAt: string;
 }

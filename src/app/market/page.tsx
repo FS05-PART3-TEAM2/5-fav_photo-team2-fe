@@ -15,16 +15,16 @@ export default function MarketplacePage() {
       .then(res => res.json())
       .then(data => {
         console.log("📌 불러온 데이터 확인용:", data);
-        setPhotoCards(data);
+        if (data?.list) {
+          setPhotoCards(data.list); // 🟢 'list' 배열만 저장
+        }
       })
       .catch(err => console.error("데이터 불러오기 실패:", err));
   }, []);
 
   // 검색어를 포함하는 카드만 필터링
-  const filteredPhotoCards = photoCards.filter(
-    card =>
-      card.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      card.description.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredPhotoCards = photoCards.filter(card =>
+    card.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
