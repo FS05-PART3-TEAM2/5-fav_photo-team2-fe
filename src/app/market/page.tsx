@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { CommonLayout } from "@/components/common/layout/CommonLayout";
-import { PhotoCard } from "@/types/photocard.types";
+import { UpdateSaleCardResponseDto } from "@/types/photocard.types";
 import MarketplaceHeader from "@/components/market/list/MarketplaceHeader";
 import PhotoCardList from "@/components/market/list/CardGrid";
 
 export default function MarketplacePage() {
-  const [photoCards, setPhotoCards] = useState<PhotoCard[]>([]);
+  const [photoCards, setPhotoCards] = useState<UpdateSaleCardResponseDto[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {

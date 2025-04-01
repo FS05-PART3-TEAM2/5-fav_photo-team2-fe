@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { PhotoCard } from "@/types/photocard.types";
+import { UpdateSaleCardResponseDto } from "@/types/photocard.types";
 import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
 import Link from "next/link";
 
 interface PhotoCardListProps {
-  photoCards: PhotoCard[];
+  photoCards: UpdateSaleCardResponseDto[];
 }
 
 export default function PhotoCardList({ photoCards }: PhotoCardListProps) {
