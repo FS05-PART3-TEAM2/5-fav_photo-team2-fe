@@ -4,7 +4,7 @@ import Image from "next/image";
 import ThickBtn from "@/components/common/button/ThickBtn";
 import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { CommonModal } from "@/components/common/modal/CommonModal";
 import ResponsiveForm from "@/components/common/responsiveForm/ResponsiveForm";
 import { SaleCardEditForm } from "./SaleCardEditForm";
@@ -25,9 +25,10 @@ export const SupplierCardDetail: React.FC<CardDetailProps> = ({ data }) => {
   const handleEditSaleModalOpen = () => {
     setIsEditSaleModalOpen(true);
   };
-  const handleEditSaleModalClose = () => {
+
+  const handleEditSaleModalClose = useCallback(() => {
     setIsEditSaleModalOpen(false);
-  };
+  }, []);
 
   const cardHeaderProps = {
     grade: data.grade,

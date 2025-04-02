@@ -1,9 +1,9 @@
-import { ConsumerCardDetail } from '@/components/market/detail/consumer/ConsumerCardDetail';
-import { ExchangeDetail } from '@/components/market/detail/consumer/ExchangeDetail';
-import { PhotoCardDetail } from '@/types/photocard.types';
+import { ConsumerCardDetail } from "@/components/market/detail/consumer/ConsumerCardDetail";
+import { ExchangeDetail } from "@/components/market/detail/consumer/ExchangeDetail";
+import { PhotoCardDetailDto } from "@/types/photocard.types";
 
 interface ConsumerPageProps {
-  data: PhotoCardDetail;
+  data: PhotoCardDetailDto;
 }
 
 export const ConsumerPage: React.FC<ConsumerPageProps> = ({ data }) => {

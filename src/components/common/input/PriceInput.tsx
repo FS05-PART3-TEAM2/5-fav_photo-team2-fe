@@ -5,7 +5,6 @@ interface PriceInputProps {
   value?: number;
 }
 
-// TODO: 수정 핸들러 붙이기
 export default function PriceInput({ onChange, value = 0 }: PriceInputProps) {
   const [inputValue, setInputValue] = useState<number>(value);
 

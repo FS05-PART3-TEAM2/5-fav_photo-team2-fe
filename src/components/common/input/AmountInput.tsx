@@ -7,7 +7,6 @@ interface AmountInputProps {
   max?: number;
 }
 
-// TODO: 수정 핸들러 붙이기
 export default function AmountInput({ onChange, value = 0, max = 10 }: AmountInputProps) {
   const [inputValue, setInputValue] = useState<number>(value);
 
