@@ -50,7 +50,7 @@ export default function Dropdown<T extends FieldValues>({ name, ...props }: Drop
             isOpen ? "rotate-180" : ""
           }`}
         />
-        {isOpen && <Menu options={options} onSelect={handleSelect} />}
+        {isOpen && <Menu options={options} onSelect={handleSelect} widthStyle="w-full" />}
       </div>
     </div>
   );

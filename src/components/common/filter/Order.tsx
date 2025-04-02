@@ -44,7 +44,9 @@ export default function Order({ orderBy, setOrderBy }: OrderProps) {
         />
       </div>
 
-      {isOpen && <Menu options={FILTER_CONFIG.orderBy} onSelect={handleSelect} />}
+      {isOpen && (
+        <Menu options={FILTER_CONFIG.orderBy} onSelect={handleSelect} widthStyle="w-full" />
+      )}
     </div>
   );
 }
