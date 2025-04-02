@@ -1,27 +1,22 @@
 "use client";
 
-import { Grade } from "@/types/photocard.types";
+import { Grade, PhotoCardDto } from "@/types/photocard.types";
 import { CommonLayout } from "@/components/common/layout/CommonLayout";
-import HeaderSection from "@/components/mypage/HeaderSection";
-import PhotoCardGrades from "@/components/mypage/PhotoCardGrades";
-import MobileCreateButton from "@/components/mypage/MobileCreateButton";
-import CardFilter from "@/components/mypage/CardFilter";
+import HeaderSection from "@/components/my-photos/HeaderSection";
+import PhotoCardGrades from "@/components/my-photos/PhotoCardGrades";
+import MobileCreateButton from "@/components/my-photos/MobileCreateButton";
+import CardFilter from "@/components/my-photos/CardFilter";
+import { useRouter } from "next/navigation";
 
-const MyPage = () => {
-  // 임시 카드 데이터
-  const cards = [
+const MyPhotos = () => {
+  const router = useRouter();
+
+  /* 임시 카드 데이터
+   * TODO : 포토카드 목록 데이터 API 연동 후 데이터 변경
+   */
+  const cards: PhotoCardDto[] = [
     {
-      id: 1,
-      grade: "RARE" as Grade,
-      genre: "풍경",
-      name: "스페인 여행",
-      price: 4,
-      availableAmount: 1,
-      totalAmount: 10,
-      creator: "프로여행러",
-    },
-    {
-      id: 2,
+      id: "2",
       grade: "COMMON" as Grade,
       genre: "풍경",
       name: "우리집 앞마당",
@@ -31,7 +26,7 @@ const MyPage = () => {
       creator: "미쓰손",
     },
     {
-      id: 3,
+      id: "3",
       grade: "SUPER_RARE" as Grade,
       genre: "풍경",
       name: "How Far I'll Go",
@@ -41,7 +36,7 @@ const MyPage = () => {
       creator: "랍스타",
     },
     {
-      id: 4,
+      id: "4",
       grade: "LEGENDARY" as Grade,
       genre: "인물",
       name: "웃는 모습",
@@ -51,7 +46,7 @@ const MyPage = () => {
       creator: "프로여행러",
     },
     {
-      id: 5,
+      id: "5",
       grade: "COMMON" as Grade,
       genre: "동물",
       name: "귀여운 강아지",
@@ -61,7 +56,7 @@ const MyPage = () => {
       creator: "미쓰손",
     },
     {
-      id: 6,
+      id: "6",
       grade: "RARE" as Grade,
       genre: "음식",
       name: "맛있는 파스타",
@@ -71,7 +66,7 @@ const MyPage = () => {
       creator: "랍스타",
     },
     {
-      id: 7,
+      id: "7",
       grade: "SUPER_RARE" as Grade,
       genre: "풍경",
       name: "일몰",
@@ -81,7 +76,7 @@ const MyPage = () => {
       creator: "프로여행러",
     },
     {
-      id: 8,
+      id: "8",
       grade: "COMMON" as Grade,
       genre: "인물",
       name: "친구들과 함께",
@@ -91,7 +86,7 @@ const MyPage = () => {
       creator: "미쓰손",
     },
     {
-      id: 9,
+      id: "9",
       grade: "LEGENDARY" as Grade,
       genre: "풍경",
       name: "오로라",
@@ -101,7 +96,7 @@ const MyPage = () => {
       creator: "랍스타",
     },
     {
-      id: 10,
+      id: "10",
       grade: "RARE" as Grade,
       genre: "동물",
       name: "잠자는 고양이",
@@ -111,7 +106,7 @@ const MyPage = () => {
       creator: "프로여행러",
     },
     {
-      id: 11,
+      id: "11",
       grade: "SUPER_RARE" as Grade,
       genre: "음식",
       name: "홈메이드 케이크",
@@ -121,7 +116,7 @@ const MyPage = () => {
       creator: "미쓰손",
     },
     {
-      id: 12,
+      id: "12",
       grade: "COMMON" as Grade,
       genre: "풍경",
       name: "도시야경",
@@ -131,7 +126,7 @@ const MyPage = () => {
       creator: "랍스타",
     },
     {
-      id: 13,
+      id: "13",
       grade: "LEGENDARY" as Grade,
       genre: "인물",
       name: "공연현장",
@@ -141,7 +136,7 @@ const MyPage = () => {
       creator: "프로여행러",
     },
     {
-      id: 14,
+      id: "14",
       grade: "RARE" as Grade,
       genre: "동물",
       name: "새들의 군무",
@@ -151,7 +146,7 @@ const MyPage = () => {
       creator: "미쓰손",
     },
     {
-      id: 15,
+      id: "15",
       grade: "SUPER_RARE" as Grade,
       genre: "음식",
       name: "디저트 플레이팅",
@@ -161,7 +156,7 @@ const MyPage = () => {
       creator: "랍스타",
     },
     {
-      id: 16,
+      id: "16",
       grade: "COMMON" as Grade,
       genre: "풍경",
       name: "산정상",
@@ -171,7 +166,7 @@ const MyPage = () => {
       creator: "프로여행러",
     },
     {
-      id: 17,
+      id: "17",
       grade: "LEGENDARY" as Grade,
       genre: "인물",
       name: "졸업식",
@@ -181,7 +176,7 @@ const MyPage = () => {
       creator: "미쓰손",
     },
     {
-      id: 18,
+      id: "18",
       grade: "RARE" as Grade,
       genre: "동물",
       name: "수족관",
@@ -192,21 +187,32 @@ const MyPage = () => {
     },
   ];
 
-  // 임시 사용자 데이터
+  const nickname = "유디"; // 추후 Zustand 스토어에서 가져올 예정
+
+  // 카드 등급별 개수 계산
+  const cardCountByGrade = {
+    common: cards.filter(card => card.grade === "COMMON").length,
+    rare: cards.filter(card => card.grade === "RARE").length,
+    superRare: cards.filter(card => card.grade === "SUPER_RARE").length,
+    legendary: cards.filter(card => card.grade === "LEGENDARY").length,
+  };
+
+  // 총 카드 수 계산
+  const totalCards = cards.length;
+
   const user = {
-    nickname: "유디",
-    photoCard: {
-      common: 20,
-      rare: 8,
-      superRare: 3,
-      legendary: 5,
-    },
-    total: 36,
+    nickname,
+    photoCard: cardCountByGrade,
+    total: totalCards,
   };
 
   const handleCreateCardClick = () => {
     // 포토카드 생성 페이지로 이동 또는 모달 표시 등의 로직
     console.log("포토카드 생성 클릭");
+  };
+
+  const handleCardClick = (cardId: string) => {
+    router.push(`/my-photos/${cardId}`);
   };
 
   return (
@@ -220,7 +226,7 @@ const MyPage = () => {
           photoCard={user.photoCard}
         />
 
-        <CardFilter cards={cards} />
+        <CardFilter cards={cards} onCardClick={handleCardClick} />
 
         <MobileCreateButton onClick={handleCreateCardClick} />
       </div>
@@ -228,4 +234,4 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default MyPhotos;

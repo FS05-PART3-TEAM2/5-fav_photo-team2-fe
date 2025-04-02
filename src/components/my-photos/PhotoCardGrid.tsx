@@ -5,7 +5,7 @@ import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
 
 interface PhotoCard {
-  id: number;
+  id: string;
   grade: Grade;
   genre: string;
   name: string;
@@ -17,14 +17,22 @@ interface PhotoCard {
 
 interface PhotoCardGridProps {
   cards: PhotoCard[];
+  onCardClick?: (cardId: string) => void;
 }
 
-const PhotoCardGrid: React.FC<PhotoCardGridProps> = ({ cards }) => {
+const PhotoCardGrid: React.FC<PhotoCardGridProps> = ({ cards, onCardClick }) => {
+  const handleClick = (cardId: string) => {
+    if (onCardClick) {
+      onCardClick(cardId);
+    }
+  };
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 md:mt-15 md:gap-7 lg:gap-10">
       {cards.map(card => (
         <div
           key={card.id}
+          onClick={() => handleClick(card.id)}
           className="bg-gray-500 border border-white/10 rounded-md overflow-hidden cursor-pointer shadow-lg w-full p-2 md:p-4 lg:p-8"
         >
           <div className="p-3 md:p-4 lg:p-5">

@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Filter from "@/components/common/filter/Filter";
-import SearchBar from "@/components/mypage/SearchBar";
-import { GradeFilter, GenreFilter } from "@/components/mypage/CardFilter";
+import SearchBar from "@/components/my-photos/SearchBar";
+import { GradeFilter, GenreFilter } from "@/components/my-photos/CardFilter";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
 
 interface FilterSectionProps {

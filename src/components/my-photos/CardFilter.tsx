@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Grade } from "@/types/photocard.types";
-import FilterSection from "@/components/mypage/FilterSection";
-import PhotoCardGrid from "@/components/mypage/PhotoCardGrid";
+import FilterSection from "@/components/my-photos/FilterSection";
+import PhotoCardGrid from "@/components/my-photos/PhotoCardGrid";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
 
 export type GradeFilter = "default" | Grade;
 export type GenreFilter = "default" | string;
 
 interface PhotoCard {
-  id: number;
+  id: string;
   grade: Grade;
   genre: string;
   name: string;
@@ -20,9 +20,10 @@ interface PhotoCard {
 
 interface CardFilterProps {
   cards: PhotoCard[];
+  onCardClick?: (cardId: string) => void;
 }
 
-const CardFilter: React.FC<CardFilterProps> = ({ cards }) => {
+const CardFilter: React.FC<CardFilterProps> = ({ cards, onCardClick }) => {
   const [gradeFilter, setGradeFilter] = useState<GradeFilter>("default");
   const [genreFilter, setGenreFilter] = useState<GenreFilter>("default");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -78,7 +79,7 @@ const CardFilter: React.FC<CardFilterProps> = ({ cards }) => {
         onGenreFilterChange={setGenreFilter}
         onSearch={handleSearch}
       />
-      <PhotoCardGrid cards={filteredCards} />
+      <PhotoCardGrid cards={filteredCards} onCardClick={onCardClick} />
     </>
   );
 };
