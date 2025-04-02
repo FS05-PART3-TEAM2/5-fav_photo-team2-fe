@@ -21,7 +21,7 @@ interface PhotoCardGridProps {
 
 const PhotoCardGrid: React.FC<PhotoCardGridProps> = ({ cards }) => {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7 lg:gap-10">
+    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 md:mt-15 md:gap-7 lg:gap-10">
       {cards.map(card => (
         <div
           key={card.id}
