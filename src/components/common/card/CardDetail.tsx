@@ -14,17 +14,21 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
   const commonStyle =
     props.cardType === "details"
       ? "py-[30px] border-t border-gray-400"
-      : "pt-[10px] md:pt-[20px] mb-[10px] md:mb-[20px] border-t border-gray-400";
+      : "pt-[10px] md:pt-[20px] mb-[10px] md:mb-[20px] border-t border-gray-400 font-normal";
   const descriptionStyle =
     props.cardType === "details" ? "font-normal text-[16px] lg:text-[18px]" : "card-header__list";
-  const grayStyle =
+  const labelStyle =
     props.cardType === "list"
       ? "font-light text-gray-300 text-[10px] md:text-[16px]"
-      : "text-gray-300 text-[18px] font-normal";
-  const responseStyle =
+      : "font-normal text-gray-300 text-[18px] lg:text-[20px]";
+  const responsiveWhiteStyle =
     props.cardType === "list"
-      ? "font-normal text-white text-[10px] md:text-[18px]"
-      : "text-white text-[20px] lg:text-[24px] font-bold";
+      ? "text-white font-normal text-[10px] md:text-[18px]"
+      : "text-white font-bold text-[20px] lg:text-[24px] ";
+  const responsiveGrayStyle =
+    props.cardType === "list"
+      ? "text-gray-300 font-light text-[10px] md:text-[18px]"
+      : "text-gray-300 font-normal text-[20px] lg:text-[24px]";
 
   return (
     <div>
@@ -37,17 +41,18 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
           {props.description}
         </div>
       )}
+      {/* 잔여인 경우 */}
       {props.price && props.availableAmount && props.totalAmount && props.amountText === "잔여" && (
         <div className={`${commonStyle} flex flex-col gap-[10px]`}>
           <div className="flex justify-between items-center">
-            <div className={grayStyle}>가격</div>
-            <div className={responseStyle}>{props.price}&nbsp;P</div>
+            <div className={labelStyle}>가격</div>
+            <div className={responsiveWhiteStyle}>{props.price}&nbsp;P</div>
           </div>
           <div className="flex justify-between items-center">
-            <div className={grayStyle}>잔여</div>
+            <div className={labelStyle}>잔여</div>
             <div className="flex items-center text-[20px] lg:text-[24px]">
-              <p className={responseStyle}>{props.availableAmount}</p>
-              <p className="text-gray-300 font-light text-[10px] md:text-[18px]">
+              <p className={responsiveWhiteStyle}>{props.availableAmount}</p>
+              <p className={responsiveGrayStyle}>
                 &nbsp;{"/"}
                 &nbsp;{props.totalAmount}
               </p>
@@ -55,35 +60,35 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
           </div>
         </div>
       )}
+      {/* 보유량인 경우 */}
       {props.price &&
         props.availableAmount &&
         props.totalAmount &&
         props.amountText === "보유량" && (
           <div className={`${commonStyle} flex flex-col gap-[10px]`}>
             <div className="flex justify-between items-center">
-              <div className={grayStyle}>가격</div>
-              <div className="text-white text-[20px] lg:text-[24px] font-bold">
-                {props.price}&nbsp;P
-              </div>
+              <div className={labelStyle}>가격</div>
+              <div className={responsiveWhiteStyle}>{props.price}&nbsp;P</div>
             </div>
             <div className="flex justify-between items-center">
-              <div className={grayStyle}>{props.amountText}</div>
+              <div className={labelStyle}>{props.amountText}</div>
               <div className="flex items-center">
-                <p className={responseStyle}>{props.availableAmount}</p>
+                <p className={responsiveWhiteStyle}>{props.availableAmount}</p>
               </div>
             </div>
           </div>
         )}
+      {/* 수량인 경우 */}
       {props.price && props.totalAmount && props.amountText === "수량" && (
         <div className={`${commonStyle} flex flex-col gap-[10px]`}>
           <div className="flex justify-between items-center">
-            <div className={grayStyle}>가격</div>
-            <div className={responseStyle}>{props.price}&nbsp;P</div>
+            <div className={labelStyle}>가격</div>
+            <div className={responsiveWhiteStyle}>{props.price}&nbsp;P</div>
           </div>
           <div className="flex justify-between items-center">
-            <div className={grayStyle}>{props.amountText}</div>
+            <div className={labelStyle}>{props.amountText}</div>
             <div className="flex items-center">
-              <p className={responseStyle}>{props.totalAmount}</p>
+              <p className={responsiveWhiteStyle}>{props.totalAmount}</p>
             </div>
           </div>
         </div>
