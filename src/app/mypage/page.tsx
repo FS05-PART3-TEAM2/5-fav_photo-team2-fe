@@ -1,17 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { Grade } from "@/types/photocard.types";
-import ThinBtn from "@/components/common/button/ThinBtn";
-import CardHeader from "@/components/common/card/CardHeader";
-import CardDetail from "@/components/common/card/CardDetail";
 import { CommonLayout } from "@/components/common/layout/CommonLayout";
-import { useRouter } from "next/navigation";
+import HeaderSection from "@/components/mypage/HeaderSection";
+import PhotoCardGrades from "@/components/mypage/PhotoCardGrades";
+import PhotoCardGrid from "@/components/mypage/PhotoCardGrid";
+import MobileCreateButton from "@/components/mypage/MobileCreateButton";
 import Filter from "@/components/common/filter/Filter";
-import { useState } from "react";
+import SearchBar from "@/components/mypage/SearchBar";
 
 const MyPage = () => {
-  const router = useRouter();
   const [gradeFilter, setGradeFilter] = useState<
     "default" | "COMMON" | "RARE" | "SUPER_RARE" | "LEGENDARY"
   >("default");
@@ -215,171 +215,70 @@ const MyPage = () => {
     },
   ];
 
+  const handleCreateCardClick = () => {
+    // 포토카드 생성 페이지로 이동 또는 모달 표시 등의 로직
+    console.log("포토카드 생성 클릭");
+  };
+
+  const handleSearch = (query: string) => {
+    console.log("검색어:", query);
+    // 검색 로직 구현
+  };
+
   return (
     <CommonLayout>
       <div className="relative min-h-screen pb-[80px] md:pb-0">
-        {/* 헤더 섹션 */}
-        <div className="relative flex flex-row justify-between items-center mb-10 md:border-b-[2px] md:border-color-gray-100 md:pb-5">
-          {/* 모바일 뒤로가기 버튼 */}
-          <button
-            className="absolute left-0 top-1/2 -translate-y-1/2 md:hidden"
-            onClick={() => router.back()}
-          >
+        <HeaderSection onCreateClick={handleCreateCardClick} />
+
+        <PhotoCardGrades
+          nickname={user.nickname}
+          totalCards={user.total}
+          photoCard={user.photoCard}
+        />
+
+        {/* 검색 및 필터 */}
+        <div className="flex justify-start items-center gap-3 mb-4">
+          {/* 모바일 필터
+           * 모바일 화면에서 필터 버튼을 누르면 필터 모달이 나타나도록 구현 - 추후 모바일 필터 컴포넌트 완성시 구현 예정
+           */}
+          <button className="md:hidden flex items-center justify-center w-[45px] h-[45px] border border-gray-200 rounded-[2px] flex-shrink-0">
             <Image
-              src="/assets/icons/back.png"
-              alt="back"
-              width={24}
-              height={24}
-              className="w-6 h-6"
+              src="/assets/icons/filter.png"
+              alt="filter"
+              width={20}
+              height={20}
+              className="w-5 h-5 object-contain"
             />
           </button>
 
-          {/* 제목 */}
-          <h1 className="font-BR-B text-[20px] md:text-[48px] lg:text-[62px] text-white my-5 w-full md:w-auto text-center md:text-left">
-            마이갤러리
-          </h1>
+          <SearchBar onSearch={handleSearch} />
 
-          {/* 데스크탑 버튼 */}
-          <ThinBtn buttonType="Primary" className="hidden md:block w-[342px] lg:w-[440px]">
-            포토카드 생성하기
-          </ThinBtn>
-        </div>
-
-        {/* 갤러리 정보 */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-5">
-            <h2 className="text-white text-[24px] font-bold">
-              {user.nickname}님이 보유한 포토카드
-            </h2>
-            <span className="text-gray-300 text-[24px] ">({user.total}장)</span>
-          </div>
-
-          {/* 라벨 탭 */}
-          <div className="flex mb-5 pb-10 border-b border-gray-400">
-            <div className="flex gap-5">
-              <button className="px-5 py-2 text-main border border-main">
-                COMMON <span className="text-main">{user.photoCard.common}장</span>
-              </button>
-              <button className="px-5 py-2 text-blue border border-blue">
-                RARE <span className="text-blue">{user.photoCard.rare}장</span>
-              </button>
-              <button className="px-5 py-2 text-purple border border-purple">
-                SUPER RARE <span className="text-purple">{user.photoCard.superRare}장</span>
-              </button>
-              <button className="px-5 py-2 text-red border border-red">
-                LEGENDARY <span className="text-red">{user.photoCard.legendary}장</span>
-              </button>
-            </div>
-          </div>
-
-          {/* 검색 및 정렬 */}
-          <div className="flex justify-start items-center gap-3 mb-4">
-            {/* 모바일 필터 버튼 */}
-            <button className="md:hidden flex items-center justify-center w-[45px] h-[45px] border border-gray-200 rounded-[2px] flex-shrink-0">
-              <Image
-                src="/assets/icons/filter.png"
-                alt="filter"
-                width={20}
-                height={20}
-                className="w-5 h-5 object-contain"
-              />
-            </button>
-            <div className="relative flex-1 md:w-[200px] lg:w-[320px] md:flex-none">
-              <input
-                type="text"
-                placeholder="검색"
-                className="w-full h-[45px] px-5 bg-dark text-gray-200 border border-gray-200 rounded-[2px] text-[14px]"
-              />
-              <button className="absolute right-5 top-1/2 transform -translate-y-1/2">
-                <Image
-                  src="/assets/icons/search.png"
-                  alt="search"
-                  width={20}
-                  height={20}
-                  className="w-5 h-5 object-contain"
-                />
-              </button>
-            </div>
-            {/* 데스크탑 필터 */}
-            <div className="hidden md:flex md:items-center md:justify-center md:ml-[60px]">
-              <Filter<"grade">
-                name="grade"
-                value={gradeFilter}
-                onFilter={value => {
-                  if (typeof value === "string") {
-                    setGradeFilter(value as typeof gradeFilter);
-                  }
-                }}
-              />
-              <Filter<"genre">
-                name="genre"
-                value={genreFilter}
-                onFilter={value => {
-                  if (typeof value === "string") {
-                    setGenreFilter(value as typeof genreFilter);
-                  }
-                }}
-              />
-            </div>
+          {/* 데스크탑 필터 */}
+          <div className="hidden md:flex md:items-center md:justify-center md:ml-[30px] lg:ml-[60px] md:gap-[25px] lg:gap-[45px]">
+            <Filter<"grade">
+              name="grade"
+              value={gradeFilter}
+              onFilter={value => {
+                if (typeof value === "string") {
+                  setGradeFilter(value as typeof gradeFilter);
+                }
+              }}
+            />
+            <Filter<"genre">
+              name="genre"
+              value={genreFilter}
+              onFilter={value => {
+                if (typeof value === "string") {
+                  setGenreFilter(value as typeof genreFilter);
+                }
+              }}
+            />
           </div>
         </div>
 
-        {/* 카드 그리드 */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7 lg:gap-10 ">
-          {cards.map(card => (
-            <div
-              key={card.id}
-              className="bg-dark border border-white/10 rounded-md overflow-hidden cursor-pointer shadow-lg w-full p-2 md:p-4 lg:p-8"
-            >
-              <div className="p-3 md:p-4 lg:p-5">
-                <div className="relative aspect-[360/270] overflow-hidden mb-[10px] md:mb-[25px]">
-                  <Image
-                    src="/assets/images/mock1.png"
-                    alt={card.name}
-                    fill
-                    sizes="(max-width: 768px) 100%, (max-width: 1024px) 50%, 33%"
-                    className="object-cover"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-white font-bold text-[14px] md:text-[22px] mb-[10px]">
-                    {card.name}
-                  </h3>
-                  <div className="pb-[10px] md:pb-[20px]">
-                    <CardHeader
-                      grade={card.grade}
-                      genre={card.genre}
-                      creator={card.creator}
-                      cardType="list"
-                    />
-                  </div>
-                  <CardDetail
-                    price={card.price}
-                    availableAmount={card.availableAmount}
-                    totalAmount={card.totalAmount}
-                    amountText="수량"
-                    cardType="list"
-                  />
-                  <div className="hidden md:block md:mt-[30px] lg:mt-[40px] text-center">
-                    <span className="font-BR-B text-white text-[18px]">
-                      최애<span className="text-main">의</span>
-                      <span className="text-white">포토</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <PhotoCardGrid cards={cards} />
 
-        {/* 모바일 포토카드 생성 버튼 */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
-          <div className="mx-5 mb-8">
-            <ThinBtn buttonType="Primary" className="w-full bg-main shadow-lg">
-              포토카드 생성하기
-            </ThinBtn>
-          </div>
-        </div>
+        <MobileCreateButton onClick={handleCreateCardClick} />
       </div>
     </CommonLayout>
   );
