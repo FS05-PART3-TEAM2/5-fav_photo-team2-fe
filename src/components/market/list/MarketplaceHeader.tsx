@@ -5,6 +5,7 @@ import Filter from "@/components/common/filter/Filter";
 import Order from "@/components/common/filter/Order";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
 import { UpdateSaleCardResponseDto } from "@/types/photocard.types";
+// import FilterModal from "@/components/common/filter/FilterModal";
 
 interface MarketplaceHeaderProps {
   photoCards: UpdateSaleCardResponseDto[];
