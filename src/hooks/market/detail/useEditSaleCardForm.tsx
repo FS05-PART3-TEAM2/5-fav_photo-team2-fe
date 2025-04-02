@@ -136,16 +136,16 @@ export const useEditSaleCardForm = (initialData: PhotoCardDetailDto, onClose: ()
 
       openSnackbar(
         "SUCCESS",
-        "수정",
-        `[${initialData.grade} | ${initialData.name}] 판매 카드 수정에 성공했습니다!`
+        `[${initialData.grade} | ${initialData.name}] 판매 카드 수정에 성공했습니다!`,
+        "수정"
       );
 
       onClose();
     } catch (error) {
       openSnackbar(
         "ERROR",
-        "수정",
-        `[${initialData.grade} | ${initialData.name}] 판매 카드 수정에 실패했습니다.`
+        `[${initialData.grade} | ${initialData.name}] 판매 카드 수정에 실패했습니다.`,
+        "수정"
       );
       throw error;
     }

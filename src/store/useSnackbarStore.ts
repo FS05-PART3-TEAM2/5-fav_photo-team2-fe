@@ -7,7 +7,7 @@ interface SnackbarState {
   SnackbarType: SnackbarType;
   SnackbarTitle: string;
   SnackbarMessage: string;
-  openSnackbar: (type: SnackbarType, title: string, message: string) => void;
+  openSnackbar: (type: SnackbarType, message: string, title?: string) => void;
   closeSnackbar: () => void;
 }
 
@@ -16,7 +16,7 @@ export const useSnackbarStore = createStore<SnackbarState>(set => ({
   SnackbarType: "SUCCESS",
   SnackbarTitle: "",
   SnackbarMessage: "",
-  openSnackbar: (type: SnackbarType, title: string, message: string) =>
+  openSnackbar: (type: SnackbarType, message: string, title?: string) =>
     set({
       isSnackbarOpened: true,
       SnackbarType: type,

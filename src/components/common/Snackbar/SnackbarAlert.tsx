@@ -27,14 +27,16 @@ export const SnackbarAlert = () => {
         shadow-[0px_4px_10px_0px_rgba(0,0,0,0.1)] bg-gray-500 text-white border border-gray-300`}
       >
         <div className="flex flex-col items-center justify-center gap-[10px] text-center">
-          <div className="flex items-center justify-center font-BR-B text-[24px] md:text-[28px] lg:text-[36px] gap-[4px]">
-            {SnackbarTitle}
-            {SnackbarType === "SUCCESS" ? (
-              <p className="text-main">성공</p>
-            ) : (
-              <p className="text-gray-300">실패</p>
-            )}
-          </div>
+          {SnackbarTitle && (
+            <div className="flex items-center justify-center font-BR-B text-[24px] md:text-[28px] lg:text-[36px] gap-[4px]">
+              {SnackbarTitle}
+              {SnackbarType === "SUCCESS" ? (
+                <p className="text-main">성공</p>
+              ) : (
+                <p className="text-gray-300">실패</p>
+              )}
+            </div>
+          )}
           <p className="w-full max-w-[300px] lg:max-w-[400px] text-[14px] md:text-[16px] lg:text-[20px] font-bold break-keep">
             {SnackbarMessage}
           </p>
