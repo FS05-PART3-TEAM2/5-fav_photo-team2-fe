@@ -26,7 +26,7 @@ export default function PhotoCardList({ photoCards }: PhotoCardListProps) {
                 height={112}
                 layout="responsive" // 부모 컨테이너 크기에 맞춰 자동 조절
                 objectFit="cover" // 기존 object-cover 효과 적용
-                className={`rounded-md transition-all duration-300 ${
+                className={`transition-all duration-300 ${
                   card.status === "SOLD_OUT" ? "brightness-30" : ""
                 }`}
               />

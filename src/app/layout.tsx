@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { baskinBold } from "../../public/assets/fonts/font";
-import { SnackbarAlert } from "@/components/common/snackbar/SnackbarAlert";
+import { SnackbarAlert } from "@/components/common/Snackbar/SnackbarAlert";
 
 export const metadata: Metadata = {
   title: "최애의 포토카드",
