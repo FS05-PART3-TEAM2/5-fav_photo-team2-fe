@@ -3,7 +3,7 @@ export type CardType = "details" | "list";
 export type AmountText = "잔여" | "수량" | "보유량";
 export type SaleCardStatus = "ON_SALE" | "CANCELED" | "SOLD_OUT";
 
-export interface PhotoCardDto {
+export interface MyPhotoCardDto {
   id: string;
   grade: Grade;
   genre: string;
@@ -12,6 +12,7 @@ export interface PhotoCardDto {
   availableAmount: number;
   totalAmount: number;
   creator: string;
+  imageUrl: string;
 }
 
 export interface ExchangeCardDto {

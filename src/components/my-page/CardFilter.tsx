@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Grade } from "@/types/photocard.types";
-import FilterSection from "@/components/my-pages/FilterSection";
-import PhotoCardGrid from "@/components/my-pages/PhotoCardGrid";
+import FilterSection from "@/components/my-page/FilterSection";
+import PhotoCardGrid from "@/components/my-page/PhotoCardGrid";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
 
 export type GradeFilter = "default" | Grade;
 export type GenreFilter = "default" | string;
 
-interface PhotoCard {
+interface MyPhotoCard {
   id: string;
   grade: Grade;
   genre: string;
@@ -19,7 +19,7 @@ interface PhotoCard {
 }
 
 interface CardFilterProps {
-  cards: PhotoCard[];
+  cards: MyPhotoCard[];
   onCardClick?: (cardId: string) => void;
 }
 

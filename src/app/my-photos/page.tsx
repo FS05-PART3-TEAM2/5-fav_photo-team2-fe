@@ -1,11 +1,11 @@
 "use client";
 
-import { Grade, PhotoCardDto } from "@/types/photocard.types";
+import { Grade, MyPhotoCardDto } from "@/types/photocard.types";
 import { CommonLayout } from "@/components/common/layout/CommonLayout";
-import HeaderSection from "@/components/my-pages/HeaderSection";
-import PhotoCardGrades from "@/components/my-pages/PhotoCardGrades";
-import MobileCreateButton from "@/components/my-pages/MobileCreateButton";
-import CardFilter from "@/components/my-pages/CardFilter";
+import HeaderSection from "@/components/my-page/HeaderSection";
+import PhotoCardGrades from "@/components/my-page/PhotoCardGrades";
+import MobileCreateButton from "@/components/my-page/MobileCreateButton";
+import CardFilter from "@/components/my-page/CardFilter";
 import { useRouter } from "next/navigation";
 
 const MyPhotos = () => {
@@ -14,7 +14,7 @@ const MyPhotos = () => {
   /* 임시 카드 데이터
    * TODO : 포토카드 목록 데이터 API 연동 후 데이터 변경
    */
-  const cards: PhotoCardDto[] = [
+  const cards: MyPhotoCardDto[] = [
     {
       id: "2",
       grade: "COMMON" as Grade,
