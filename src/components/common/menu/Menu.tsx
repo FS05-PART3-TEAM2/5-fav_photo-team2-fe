@@ -1,14 +1,18 @@
 interface MenuProps<T extends Record<string, string>> {
   options: T;
   onSelect: (value: keyof T) => void;
+  widthStyle?: string;
 }
 
 export default function Menu<T extends Record<string, string>>({
   options,
   onSelect,
+  widthStyle,
 }: MenuProps<T>) {
   return (
-    <ul className="bg-dark w-full border border-gray-200 rounded-[2px] p-[10px] mt-1 z-10 absolute">
+    <ul
+      className={`bg-dark ${widthStyle || ""} border border-gray-200 rounded-[2px] p-[10px] mt-1 z-10 absolute`}
+    >
       {Object.entries(options).map(([key, value]) => (
         <li
           key={key}
