@@ -12,7 +12,7 @@ export default function PhotoCardList({ photoCards }: PhotoCardListProps) {
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3 gap-[5px] md:gap-[20px] lg:gap-[40px]">
       {photoCards.map(card => (
-        <Link key={card.id} href={`/photoCard/${card.id}`}>
+        <Link key={card.id} href={`/market/${card.id}`}>
           {/* 상세 페이지로 이동하는 링크 */}
           <div
             style={{ border: "1px solid rgba(255, 255, 255, 0.1)" }}

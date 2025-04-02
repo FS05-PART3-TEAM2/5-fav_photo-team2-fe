@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { CommonLayout } from "@/components/common/layout/CommonLayout";
 import { UpdateSaleCardResponseDto } from "@/types/photocard.types";
 import MarketplaceHeader from "@/components/market/list/MarketplaceHeader";
 import PhotoCardList from "@/components/market/list/CardGrid";
@@ -22,9 +21,9 @@ export default function MarketplacePage() {
   }, []);
 
   return (
-    <CommonLayout>
+    <div>
       <MarketplaceHeader photoCards={photoCards} setFilteredCards={setFilteredCards} />
       <PhotoCardList photoCards={filteredCards} />
-    </CommonLayout>
+    </div>
   );
 }
