@@ -83,6 +83,11 @@
   .market-detail-subtitle {
     @apply text-[22px] lg:text-[28px] font-bold leading-none text-white;
   }
+
+  /* form - auth form style */
+  .form-auth {
+    @apply w-full max-w-110 md:w-110 xl:w-130 flex flex-col gap-[30px] mb-10;
+  }
 }
 
 :root {
