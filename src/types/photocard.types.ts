@@ -59,10 +59,10 @@ export interface UpdateSaleCardResponseDto {
   image: string;
   remaining: number;
   total: number;
-  createdAt: string;
-  updatedAt: string;
-  owner: {
+  creator: {
     id: string;
     nickname: string;
   };
+  createdAt: string;
+  updatedAt: string;
 }
