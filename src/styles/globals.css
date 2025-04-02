@@ -28,6 +28,7 @@
   If we ever want to remove these styles, we need to add an explicit border
   color utility to any element that depends on these defaults.
 */
+
 @layer base {
   *,
   ::after,
@@ -94,4 +95,24 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-body);
+}
+
+/* 스낵바 컴포넌트 애니메이션 */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-fadeInOut {
+  animation: fadeInOut 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }

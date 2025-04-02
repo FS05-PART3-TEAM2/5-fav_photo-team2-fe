@@ -1,0 +1,906 @@
+{
+  "hasMore": true,
+  "nextCursor": "cursor_20250401",
+  "list": [
+    {
+      "id": "sale_001",
+      "userPhotoCardId": "userpc_001",
+      "status": "ON_SALE",
+      "name": "포토카드 001",
+      "genre": "사물",
+      "grade": "LEGENDARY",
+      "price": 41955,
+      "image": "/assets/images/mock2.png",
+      "remaining": 5,
+      "total": 8,
+      "creator": {
+        "id": "user_004",
+        "nickname": "사용자004"
+      },
+      "createdAt": "2025-03-14T02:18:41.856Z",
+      "updatedAt": "2025-03-15T02:18:41.856Z"
+    },
+    {
+      "id": "sale_002",
+      "userPhotoCardId": "userpc_002",
+      "status": "ON_SALE",
+      "name": "포토카드 002",
+      "genre": "사물",
+      "grade": "LEGENDARY",
+      "price": 21269,
+      "image": "/assets/images/mock3.png",
+      "remaining": 5,
+      "total": 6,
+      "creator": {
+        "id": "user_011",
+        "nickname": "사용자011"
+      },
+      "createdAt": "2025-03-13T02:18:41.856Z",
+      "updatedAt": "2025-03-14T07:18:41.856Z"
+    },
+    {
+      "id": "sale_003",
+      "userPhotoCardId": "userpc_003",
+      "status": "SOLD_OUT",
+      "name": "포토카드 003",
+      "genre": "사물",
+      "grade": "RARE",
+      "price": 9598,
+      "image": "/assets/images/mock2.png",
+      "remaining": 5,
+      "total": 7,
+      "creator": {
+        "id": "user_002",
+        "nickname": "사용자002"
+      },
+      "createdAt": "2025-03-29T02:18:41.856Z",
+      "updatedAt": "2025-03-29T05:18:41.856Z"
+    },
+    {
+      "id": "sale_004",
+      "userPhotoCardId": "userpc_004",
+      "status": "ON_SALE",
+      "name": "포토카드 004",
+      "genre": "여행",
+      "grade": "LEGENDARY",
+      "price": 30784,
+      "image": "/assets/images/mock1.png",
+      "remaining": 2,
+      "total": 4,
+      "creator": {
+        "id": "user_016",
+        "nickname": "사용자016"
+      },
+      "createdAt": "2025-03-28T02:18:41.856Z",
+      "updatedAt": "2025-03-29T01:18:41.856Z"
+    },
+    {
+      "id": "sale_005",
+      "userPhotoCardId": "userpc_005",
+      "status": "SOLD_OUT",
+      "name": "포토카드 005",
+      "genre": "풍경",
+      "grade": "LEGENDARY",
+      "price": 10574,
+      "image": "/assets/images/mock1.png",
+      "remaining": 0,
+      "total": 2,
+      "creator": {
+        "id": "user_006",
+        "nickname": "사용자006"
+      },
+      "createdAt": "2025-03-31T02:18:41.856Z",
+      "updatedAt": "2025-03-31T14:18:41.856Z"
+    },
+    {
+      "id": "sale_006",
+      "userPhotoCardId": "userpc_006",
+      "status": "SOLD_OUT",
+      "name": "포토카드 006",
+      "genre": "여행",
+      "grade": "COMMON",
+      "price": 14234,
+      "image": "/assets/images/mock2.png",
+      "remaining": 6,
+      "total": 10,
+      "creator": {
+        "id": "user_011",
+        "nickname": "사용자011"
+      },
+      "createdAt": "2025-03-17T02:18:41.856Z",
+      "updatedAt": "2025-03-17T16:18:41.856Z"
+    },
+    {
+      "id": "sale_007",
+      "userPhotoCardId": "userpc_007",
+      "status": "ON_SALE",
+      "name": "포토카드 007",
+      "genre": "풍경",
+      "grade": "LEGENDARY",
+      "price": 29330,
+      "image": "/assets/images/mock3.png",
+      "remaining": 1,
+      "total": 3,
+      "creator": {
+        "id": "user_006",
+        "nickname": "사용자006"
+      },
+      "createdAt": "2025-03-12T02:18:41.856Z",
+      "updatedAt": "2025-03-12T11:18:41.856Z"
+    },
+    {
+      "id": "sale_008",
+      "userPhotoCardId": "userpc_008",
+      "status": "SOLD_OUT",
+      "name": "포토카드 008",
+      "genre": "풍경",
+      "grade": "COMMON",
+      "price": 18058,
+      "image": "/assets/images/mock3.png",
+      "remaining": 7,
+      "total": 8,
+      "creator": {
+        "id": "user_020",
+        "nickname": "사용자020"
+      },
+      "createdAt": "2025-03-10T02:18:41.856Z",
+      "updatedAt": "2025-03-11T17:18:41.856Z"
+    },
+    {
+      "id": "sale_009",
+      "userPhotoCardId": "userpc_009",
+      "status": "SOLD_OUT",
+      "name": "포토카드 009",
+      "genre": "여행",
+      "grade": "COMMON",
+      "price": 21577,
+      "image": "/assets/images/mock3.png",
+      "remaining": 1,
+      "total": 4,
+      "creator": {
+        "id": "user_007",
+        "nickname": "사용자007"
+      },
+      "createdAt": "2025-03-17T02:18:41.856Z",
+      "updatedAt": "2025-03-17T23:18:41.856Z"
+    },
+    {
+      "id": "sale_010",
+      "userPhotoCardId": "userpc_010",
+      "status": "SOLD_OUT",
+      "name": "포토카드 010",
+      "genre": "사물",
+      "grade": "RARE",
+      "price": 33609,
+      "image": "/assets/images/mock2.png",
+      "remaining": 4,
+      "total": 6,
+      "creator": {
+        "id": "user_014",
+        "nickname": "사용자014"
+      },
+      "createdAt": "2025-03-20T02:18:41.856Z",
+      "updatedAt": "2025-03-21T04:18:41.856Z"
+    },
+    {
+      "id": "sale_011",
+      "userPhotoCardId": "userpc_011",
+      "status": "SOLD_OUT",
+      "name": "포토카드 011",
+      "genre": "사물",
+      "grade": "RARE",
+      "price": 20535,
+      "image": "/assets/images/mock1.png",
+      "remaining": 9,
+      "total": 13,
+      "creator": {
+        "id": "user_006",
+        "nickname": "사용자006"
+      },
+      "createdAt": "2025-03-14T02:18:41.856Z",
+      "updatedAt": "2025-03-15T22:18:41.856Z"
+    },
+    {
+      "id": "sale_012",
+      "userPhotoCardId": "userpc_012",
+      "status": "SOLD_OUT",
+      "name": "포토카드 012",
+      "genre": "사물",
+      "grade": "COMMON",
+      "price": 16905,
+      "image": "/assets/images/mock1.png",
+      "remaining": 5,
+      "total": 7,
+      "creator": {
+        "id": "user_019",
+        "nickname": "사용자019"
+      },
+      "createdAt": "2025-03-28T02:18:41.856Z",
+      "updatedAt": "2025-03-28T02:18:41.856Z"
+    },
+    {
+      "id": "sale_013",
+      "userPhotoCardId": "userpc_013",
+      "status": "SOLD_OUT",
+      "name": "포토카드 013",
+      "genre": "여행",
+      "grade": "LEGENDARY",
+      "price": 7565,
+      "image": "/assets/images/mock1.png",
+      "remaining": 0,
+      "total": 0,
+      "creator": {
+        "id": "user_003",
+        "nickname": "사용자003"
+      },
+      "createdAt": "2025-03-31T02:18:41.856Z",
+      "updatedAt": "2025-04-01T20:18:41.856Z"
+    },
+    {
+      "id": "sale_014",
+      "userPhotoCardId": "userpc_014",
+      "status": "ON_SALE",
+      "name": "포토카드 014",
+      "genre": "인물",
+      "grade": "RARE",
+      "price": 30726,
+      "image": "/assets/images/mock1.png",
+      "remaining": 4,
+      "total": 5,
+      "creator": {
+        "id": "user_004",
+        "nickname": "사용자004"
+      },
+      "createdAt": "2025-03-08T02:18:41.856Z",
+      "updatedAt": "2025-03-09T01:18:41.856Z"
+    },
+    {
+      "id": "sale_015",
+      "userPhotoCardId": "userpc_015",
+      "status": "SOLD_OUT",
+      "name": "포토카드 015",
+      "genre": "풍경",
+      "grade": "SUPER RARE",
+      "price": 45901,
+      "image": "/assets/images/mock2.png",
+      "remaining": 7,
+      "total": 10,
+      "creator": {
+        "id": "user_008",
+        "nickname": "사용자008"
+      },
+      "createdAt": "2025-03-06T02:18:41.856Z",
+      "updatedAt": "2025-03-07T00:18:41.856Z"
+    },
+    {
+      "id": "sale_016",
+      "userPhotoCardId": "userpc_016",
+      "status": "ON_SALE",
+      "name": "포토카드 016",
+      "genre": "사물",
+      "grade": "RARE",
+      "price": 18897,
+      "image": "/assets/images/mock1.png",
+      "remaining": 6,
+      "total": 7,
+      "creator": {
+        "id": "user_007",
+        "nickname": "사용자007"
+      },
+      "createdAt": "2025-03-09T02:18:41.856Z",
+      "updatedAt": "2025-03-09T19:18:41.856Z"
+    },
+    {
+      "id": "sale_017",
+      "userPhotoCardId": "userpc_017",
+      "status": "SOLD_OUT",
+      "name": "포토카드 017",
+      "genre": "풍경",
+      "grade": "LEGENDARY",
+      "price": 18514,
+      "image": "/assets/images/mock3.png",
+      "remaining": 8,
+      "total": 9,
+      "creator": {
+        "id": "user_003",
+        "nickname": "사용자003"
+      },
+      "createdAt": "2025-03-09T02:18:41.856Z",
+      "updatedAt": "2025-03-10T02:18:41.856Z"
+    },
+    {
+      "id": "sale_018",
+      "userPhotoCardId": "userpc_018",
+      "status": "ON_SALE",
+      "name": "포토카드 018",
+      "genre": "여행",
+      "grade": "RARE",
+      "price": 23509,
+      "image": "/assets/images/mock3.png",
+      "remaining": 1,
+      "total": 4,
+      "creator": {
+        "id": "user_006",
+        "nickname": "사용자006"
+      },
+      "createdAt": "2025-03-30T02:18:41.856Z",
+      "updatedAt": "2025-03-30T10:18:41.856Z"
+    },
+    {
+      "id": "sale_019",
+      "userPhotoCardId": "userpc_019",
+      "status": "SOLD_OUT",
+      "name": "포토카드 019",
+      "genre": "인물",
+      "grade": "LEGENDARY",
+      "price": 43829,
+      "image": "/assets/images/mock2.png",
+      "remaining": 6,
+      "total": 10,
+      "creator": {
+        "id": "user_019",
+        "nickname": "사용자019"
+      },
+      "createdAt": "2025-03-07T02:18:41.856Z",
+      "updatedAt": "2025-03-07T21:18:41.856Z"
+    },
+    {
+      "id": "sale_020",
+      "userPhotoCardId": "userpc_020",
+      "status": "ON_SALE",
+      "name": "포토카드 020",
+      "genre": "여행",
+      "grade": "LEGENDARY",
+      "price": 48431,
+      "image": "/assets/images/mock2.png",
+      "remaining": 6,
+      "total": 10,
+      "creator": {
+        "id": "user_013",
+        "nickname": "사용자013"
+      },
+      "createdAt": "2025-03-09T02:18:41.856Z",
+      "updatedAt": "2025-03-10T17:18:41.856Z"
+    },
+    {
+      "id": "sale_021",
+      "userPhotoCardId": "userpc_021",
+      "status": "ON_SALE",
+      "name": "포토카드 021",
+      "genre": "사물",
+      "grade": "COMMON",
+      "price": 48364,
+      "image": "/assets/images/mock3.png",
+      "remaining": 4,
+      "total": 4,
+      "creator": {
+        "id": "user_019",
+        "nickname": "사용자019"
+      },
+      "createdAt": "2025-03-12T02:18:41.856Z",
+      "updatedAt": "2025-03-12T12:18:41.856Z"
+    },
+    {
+      "id": "sale_022",
+      "userPhotoCardId": "userpc_022",
+      "status": "ON_SALE",
+      "name": "포토카드 022",
+      "genre": "인물",
+      "grade": "LEGENDARY",
+      "price": 27518,
+      "image": "/assets/images/mock2.png",
+      "remaining": 1,
+      "total": 5,
+      "creator": {
+        "id": "user_019",
+        "nickname": "사용자019"
+      },
+      "createdAt": "2025-03-28T02:18:41.856Z",
+      "updatedAt": "2025-03-29T00:18:41.856Z"
+    },
+    {
+      "id": "sale_023",
+      "userPhotoCardId": "userpc_023",
+      "status": "SOLD_OUT",
+      "name": "포토카드 023",
+      "genre": "사물",
+      "grade": "COMMON",
+      "price": 34183,
+      "image": "/assets/images/mock3.png",
+      "remaining": 2,
+      "total": 2,
+      "creator": {
+        "id": "user_016",
+        "nickname": "사용자016"
+      },
+      "createdAt": "2025-03-06T02:18:41.856Z",
+      "updatedAt": "2025-03-06T15:18:41.856Z"
+    },
+    {
+      "id": "sale_024",
+      "userPhotoCardId": "userpc_024",
+      "status": "SOLD_OUT",
+      "name": "포토카드 024",
+      "genre": "여행",
+      "grade": "RARE",
+      "price": 38040,
+      "image": "/assets/images/mock2.png",
+      "remaining": 1,
+      "total": 2,
+      "creator": {
+        "id": "user_013",
+        "nickname": "사용자013"
+      },
+      "createdAt": "2025-03-07T02:18:41.856Z",
+      "updatedAt": "2025-03-08T21:18:41.856Z"
+    },
+    {
+      "id": "sale_025",
+      "userPhotoCardId": "userpc_025",
+      "status": "ON_SALE",
+      "name": "포토카드 025",
+      "genre": "사물",
+      "grade": "RARE",
+      "price": 32164,
+      "image": "/assets/images/mock2.png",
+      "remaining": 1,
+      "total": 2,
+      "creator": {
+        "id": "user_019",
+        "nickname": "사용자019"
+      },
+      "createdAt": "2025-03-25T02:18:41.856Z",
+      "updatedAt": "2025-03-27T01:18:41.856Z"
+    },
+    {
+      "id": "sale_026",
+      "userPhotoCardId": "userpc_026",
+      "status": "SOLD_OUT",
+      "name": "포토카드 026",
+      "genre": "인물",
+      "grade": "SUPER RARE",
+      "price": 45177,
+      "image": "/assets/images/mock2.png",
+      "remaining": 8,
+      "total": 10,
+      "creator": {
+        "id": "user_008",
+        "nickname": "사용자008"
+      },
+      "createdAt": "2025-03-07T02:18:41.856Z",
+      "updatedAt": "2025-03-08T12:18:41.856Z"
+    },
+    {
+      "id": "sale_027",
+      "userPhotoCardId": "userpc_027",
+      "status": "SOLD_OUT",
+      "name": "포토카드 027",
+      "genre": "사물",
+      "grade": "COMMON",
+      "price": 29658,
+      "image": "/assets/images/mock2.png",
+      "remaining": 1,
+      "total": 5,
+      "creator": {
+        "id": "user_003",
+        "nickname": "사용자003"
+      },
+      "createdAt": "2025-03-07T02:18:41.856Z",
+      "updatedAt": "2025-03-07T03:18:41.856Z"
+    },
+    {
+      "id": "sale_028",
+      "userPhotoCardId": "userpc_028",
+      "status": "ON_SALE",
+      "name": "포토카드 028",
+      "genre": "사물",
+      "grade": "RARE",
+      "price": 46997,
+      "image": "/assets/images/mock3.png",
+      "remaining": 7,
+      "total": 9,
+      "creator": {
+        "id": "user_018",
+        "nickname": "사용자018"
+      },
+      "createdAt": "2025-03-19T02:18:41.856Z",
+      "updatedAt": "2025-03-19T06:18:41.856Z"
+    },
+    {
+      "id": "sale_029",
+      "userPhotoCardId": "userpc_029",
+      "status": "SOLD_OUT",
+      "name": "포토카드 029",
+      "genre": "여행",
+      "grade": "LEGENDARY",
+      "price": 8034,
+      "image": "/assets/images/mock1.png",
+      "remaining": 9,
+      "total": 10,
+      "creator": {
+        "id": "user_009",
+        "nickname": "사용자009"
+      },
+      "createdAt": "2025-03-20T02:18:41.856Z",
+      "updatedAt": "2025-03-21T20:18:41.856Z"
+    },
+    {
+      "id": "sale_030",
+      "userPhotoCardId": "userpc_030",
+      "status": "ON_SALE",
+      "name": "포토카드 030",
+      "genre": "인물",
+      "grade": "RARE",
+      "price": 34714,
+      "image": "/assets/images/mock2.png",
+      "remaining": 1,
+      "total": 4,
+      "creator": {
+        "id": "user_009",
+        "nickname": "사용자009"
+      },
+      "createdAt": "2025-03-03T02:18:41.856Z",
+      "updatedAt": "2025-03-03T15:18:41.856Z"
+    },
+    {
+      "id": "sale_031",
+      "userPhotoCardId": "userpc_031",
+      "status": "SOLD_OUT",
+      "name": "포토카드 031",
+      "genre": "인물",
+      "grade": "SUPER RARE",
+      "price": 23104,
+      "image": "/assets/images/mock2.png",
+      "remaining": 4,
+      "total": 8,
+      "creator": {
+        "id": "user_004",
+        "nickname": "사용자004"
+      },
+      "createdAt": "2025-03-20T02:18:41.856Z",
+      "updatedAt": "2025-03-21T17:18:41.856Z"
+    },
+    {
+      "id": "sale_032",
+      "userPhotoCardId": "userpc_032",
+      "status": "ON_SALE",
+      "name": "포토카드 032",
+      "genre": "사물",
+      "grade": "SUPER RARE",
+      "price": 28312,
+      "image": "/assets/images/mock1.png",
+      "remaining": 6,
+      "total": 10,
+      "creator": {
+        "id": "user_015",
+        "nickname": "사용자015"
+      },
+      "createdAt": "2025-03-29T02:18:41.856Z",
+      "updatedAt": "2025-03-29T06:18:41.856Z"
+    },
+    {
+      "id": "sale_033",
+      "userPhotoCardId": "userpc_033",
+      "status": "SOLD_OUT",
+      "name": "포토카드 033",
+      "genre": "풍경",
+      "grade": "COMMON",
+      "price": 45587,
+      "image": "/assets/images/mock1.png",
+      "remaining": 3,
+      "total": 3,
+      "creator": {
+        "id": "user_013",
+        "nickname": "사용자013"
+      },
+      "createdAt": "2025-03-21T02:18:41.856Z",
+      "updatedAt": "2025-03-22T22:18:41.856Z"
+    },
+    {
+      "id": "sale_034",
+      "userPhotoCardId": "userpc_034",
+      "status": "SOLD_OUT",
+      "name": "포토카드 034",
+      "genre": "여행",
+      "grade": "SUPER RARE",
+      "price": 45790,
+      "image": "/assets/images/mock3.png",
+      "remaining": 6,
+      "total": 10,
+      "creator": {
+        "id": "user_008",
+        "nickname": "사용자008"
+      },
+      "createdAt": "2025-03-30T02:18:41.856Z",
+      "updatedAt": "2025-03-30T07:18:41.856Z"
+    },
+    {
+      "id": "sale_035",
+      "userPhotoCardId": "userpc_035",
+      "status": "ON_SALE",
+      "name": "포토카드 035",
+      "genre": "여행",
+      "grade": "COMMON",
+      "price": 41772,
+      "image": "/assets/images/mock1.png",
+      "remaining": 4,
+      "total": 7,
+      "creator": {
+        "id": "user_006",
+        "nickname": "사용자006"
+      },
+      "createdAt": "2025-03-19T02:18:41.856Z",
+      "updatedAt": "2025-03-20T00:18:41.856Z"
+    },
+    {
+      "id": "sale_036",
+      "userPhotoCardId": "userpc_036",
+      "status": "SOLD_OUT",
+      "name": "포토카드 036",
+      "genre": "사물",
+      "grade": "RARE",
+      "price": 48827,
+      "image": "/assets/images/mock1.png",
+      "remaining": 5,
+      "total": 5,
+      "creator": {
+        "id": "user_006",
+        "nickname": "사용자006"
+      },
+      "createdAt": "2025-03-24T02:18:41.856Z",
+      "updatedAt": "2025-03-24T15:18:41.856Z"
+    },
+    {
+      "id": "sale_037",
+      "userPhotoCardId": "userpc_037",
+      "status": "SOLD_OUT",
+      "name": "포토카드 037",
+      "genre": "여행",
+      "grade": "LEGENDARY",
+      "price": 45153,
+      "image": "/assets/images/mock2.png",
+      "remaining": 9,
+      "total": 10,
+      "creator": {
+        "id": "user_015",
+        "nickname": "사용자015"
+      },
+      "createdAt": "2025-03-16T02:18:41.856Z",
+      "updatedAt": "2025-03-17T12:18:41.856Z"
+    },
+    {
+      "id": "sale_038",
+      "userPhotoCardId": "userpc_038",
+      "status": "ON_SALE",
+      "name": "포토카드 038",
+      "genre": "사물",
+      "grade": "COMMON",
+      "price": 48103,
+      "image": "/assets/images/mock2.png",
+      "remaining": 8,
+      "total": 8,
+      "creator": {
+        "id": "user_013",
+        "nickname": "사용자013"
+      },
+      "createdAt": "2025-03-08T02:18:41.856Z",
+      "updatedAt": "2025-03-09T13:18:41.856Z"
+    },
+    {
+      "id": "sale_039",
+      "userPhotoCardId": "userpc_039",
+      "status": "ON_SALE",
+      "name": "포토카드 039",
+      "genre": "인물",
+      "grade": "COMMON",
+      "price": 31749,
+      "image": "/assets/images/mock3.png",
+      "remaining": 0,
+      "total": 2,
+      "creator": {
+        "id": "user_007",
+        "nickname": "사용자007"
+      },
+      "createdAt": "2025-03-16T02:18:41.856Z",
+      "updatedAt": "2025-03-16T06:18:41.856Z"
+    },
+    {
+      "id": "sale_040",
+      "userPhotoCardId": "userpc_040",
+      "status": "SOLD_OUT",
+      "name": "포토카드 040",
+      "genre": "인물",
+      "grade": "LEGENDARY",
+      "price": 43483,
+      "image": "/assets/images/mock1.png",
+      "remaining": 4,
+      "total": 7,
+      "creator": {
+        "id": "user_018",
+        "nickname": "사용자018"
+      },
+      "createdAt": "2025-03-08T02:18:41.856Z",
+      "updatedAt": "2025-03-08T23:18:41.856Z"
+    },
+    {
+      "id": "sale_041",
+      "userPhotoCardId": "userpc_041",
+      "status": "ON_SALE",
+      "name": "포토카드 041",
+      "genre": "여행",
+      "grade": "COMMON",
+      "price": 45884,
+      "image": "/assets/images/mock2.png",
+      "remaining": 1,
+      "total": 2,
+      "creator": {
+        "id": "user_013",
+        "nickname": "사용자013"
+      },
+      "createdAt": "2025-03-22T02:18:41.856Z",
+      "updatedAt": "2025-03-23T12:18:41.856Z"
+    },
+    {
+      "id": "sale_042",
+      "userPhotoCardId": "userpc_042",
+      "status": "ON_SALE",
+      "name": "포토카드 042",
+      "genre": "인물",
+      "grade": "RARE",
+      "price": 13551,
+      "image": "/assets/images/mock3.png",
+      "remaining": 4,
+      "total": 4,
+      "creator": {
+        "id": "user_017",
+        "nickname": "사용자017"
+      },
+      "createdAt": "2025-03-17T02:18:41.856Z",
+      "updatedAt": "2025-03-17T06:18:41.856Z"
+    },
+    {
+      "id": "sale_043",
+      "userPhotoCardId": "userpc_043",
+      "status": "ON_SALE",
+      "name": "포토카드 043",
+      "genre": "인물",
+      "grade": "LEGENDARY",
+      "price": 11407,
+      "image": "/assets/images/mock2.png",
+      "remaining": 7,
+      "total": 11,
+      "creator": {
+        "id": "user_015",
+        "nickname": "사용자015"
+      },
+      "createdAt": "2025-03-30T02:18:41.856Z",
+      "updatedAt": "2025-03-30T04:18:41.856Z"
+    },
+    {
+      "id": "sale_044",
+      "userPhotoCardId": "userpc_044",
+      "status": "ON_SALE",
+      "name": "포토카드 044",
+      "genre": "풍경",
+      "grade": "COMMON",
+      "price": 28385,
+      "image": "/assets/images/mock1.png",
+      "remaining": 0,
+      "total": 2,
+      "creator": {
+        "id": "user_006",
+        "nickname": "사용자006"
+      },
+      "createdAt": "2025-03-20T02:18:41.856Z",
+      "updatedAt": "2025-03-20T04:18:41.856Z"
+    },
+    {
+      "id": "sale_045",
+      "userPhotoCardId": "userpc_045",
+      "status": "ON_SALE",
+      "name": "포토카드 045",
+      "genre": "풍경",
+      "grade": "SUPER RARE",
+      "price": 49761,
+      "image": "/assets/images/mock1.png",
+      "remaining": 8,
+      "total": 10,
+      "creator": {
+        "id": "user_013",
+        "nickname": "사용자013"
+      },
+      "createdAt": "2025-03-18T02:18:41.856Z",
+      "updatedAt": "2025-03-18T23:18:41.856Z"
+    },
+    {
+      "id": "sale_046",
+      "userPhotoCardId": "userpc_046",
+      "status": "SOLD_OUT",
+      "name": "포토카드 046",
+      "genre": "풍경",
+      "grade": "RARE",
+      "price": 25603,
+      "image": "/assets/images/mock2.png",
+      "remaining": 2,
+      "total": 5,
+      "creator": {
+        "id": "user_010",
+        "nickname": "사용자010"
+      },
+      "createdAt": "2025-03-26T02:18:41.856Z",
+      "updatedAt": "2025-03-26T22:18:41.856Z"
+    },
+    {
+      "id": "sale_047",
+      "userPhotoCardId": "userpc_047",
+      "status": "SOLD_OUT",
+      "name": "포토카드 047",
+      "genre": "인물",
+      "grade": "COMMON",
+      "price": 47505,
+      "image": "/assets/images/mock2.png",
+      "remaining": 9,
+      "total": 12,
+      "creator": {
+        "id": "user_003",
+        "nickname": "사용자003"
+      },
+      "createdAt": "2025-03-10T02:18:41.856Z",
+      "updatedAt": "2025-03-11T07:18:41.856Z"
+    },
+    {
+      "id": "sale_048",
+      "userPhotoCardId": "userpc_048",
+      "status": "ON_SALE",
+      "name": "포토카드 048",
+      "genre": "사물",
+      "grade": "RARE",
+      "price": 35418,
+      "image": "/assets/images/mock3.png",
+      "remaining": 9,
+      "total": 9,
+      "creator": {
+        "id": "user_011",
+        "nickname": "사용자011"
+      },
+      "createdAt": "2025-03-17T02:18:41.856Z",
+      "updatedAt": "2025-03-18T12:18:41.856Z"
+    },
+    {
+      "id": "sale_049",
+      "userPhotoCardId": "userpc_049",
+      "status": "SOLD_OUT",
+      "name": "포토카드 049",
+      "genre": "여행",
+      "grade": "SUPER RARE",
+      "price": 42734,
+      "image": "/assets/images/mock3.png",
+      "remaining": 3,
+      "total": 6,
+      "creator": {
+        "id": "user_011",
+        "nickname": "사용자011"
+      },
+      "createdAt": "2025-03-23T02:18:41.856Z",
+      "updatedAt": "2025-03-24T03:18:41.856Z"
+    },
+    {
+      "id": "sale_050",
+      "userPhotoCardId": "userpc_050",
+      "status": "ON_SALE",
+      "name": "포토카드 050",
+      "genre": "인물",
+      "grade": "SUPER RARE",
+      "price": 16769,
+      "image": "/assets/images/mock1.png",
+      "remaining": 3,
+      "total": 7,
+      "creator": {
+        "id": "user_020",
+        "nickname": "사용자020"
+      },
+      "createdAt": "2025-03-29T02:18:41.856Z",
+      "updatedAt": "2025-03-29T14:18:41.856Z"
+    }
+  ]
+}

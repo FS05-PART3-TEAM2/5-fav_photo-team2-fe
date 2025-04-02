@@ -28,8 +28,8 @@ export default function Filter<T extends FilterName>({ name, value, onFilter }: 
   };
 
   return (
-    <div className="w-32 md:w-35 xl:w-45 relative cursor-pointer">
-      <div className="flex gap-2 items-center mb-4" onClick={() => setIsOpen(prev => !prev)}>
+    <div className="relative cursor-pointer">
+      <div className="inline-flex gap-2 items-center py-3" onClick={() => setIsOpen(prev => !prev)}>
         <p>{isDefault ? label : options[value as keyof typeof options]}</p>
         <Image
           src="/assets/icons/down.png"
@@ -40,7 +40,7 @@ export default function Filter<T extends FilterName>({ name, value, onFilter }: 
         />
       </div>
 
-      {isOpen && <Menu options={options} onSelect={handleSelect} />}
+      {isOpen && <Menu options={options} onSelect={handleSelect} widthStyle="min-w-max" />}
     </div>
   );
 }
