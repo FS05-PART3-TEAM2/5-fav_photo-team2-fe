@@ -9,6 +9,13 @@ import { UpdateSaleCardResponseDto } from "@/types/photocard.types";
 type FilterName = "grade" | "genre" | "isSoldOut";
 type FilterValue = string;
 
+const GRADE_COLOR_MAP: Record<string, string> = {
+  default: "text-gray-300",
+  COMMON: "text-main",
+  RARE: "text-blue",
+  SUPER_RARE: "text-purple",
+  LEGENDARY: "text-pink",
+};
 interface FilterModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -129,6 +136,13 @@ export default function FilterModal({
         <div className="flex-grow">
           {Object.entries(FILTER_CONFIG.filter[activeTab].options).map(([key, label]) => {
             const isSelected = selectedFilters[activeTab] === key;
+            const isGradeFilter = activeTab === "grade";
+            // 등급(grade) 필터일 때만 색상을 적용
+            const textColorClass = isGradeFilter
+              ? GRADE_COLOR_MAP[key] || "text-gray-300"
+              : isSelected
+                ? "text-white"
+                : "text-gray-300";
 
             return (
               <button
@@ -140,7 +154,7 @@ export default function FilterModal({
                     : "hover:bg-gray-500 text-gray-300"
                 }`}
               >
-                <span className={isSelected ? "text-white" : "text-gray-300"}>{label}</span>
+                <span className={textColorClass}>{label}</span>
                 <span className={isSelected ? "text-white" : "text-gray-300"}>
                   {getOptionCount(activeTab, key)}개
                 </span>
