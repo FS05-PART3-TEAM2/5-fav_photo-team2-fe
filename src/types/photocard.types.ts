@@ -2,7 +2,7 @@ export type Grade = "COMMON" | "RARE" | "SUPER RARE" | "LEGENDARY";
 export type CardType = "details" | "list";
 export type AmountText = "잔여" | "수량" | "보유량";
 export type SaleCardStatus = "ON_SALE" | "CANCELED" | "SOLD_OUT";
-
+export type FilterName = "grade" | "genre" | "isSoldOut" | "tradeStatus"; // 필터 가능한 타입 정의
 export interface ExchangeCardDto {
   id: string;
   offererNickname: string;
