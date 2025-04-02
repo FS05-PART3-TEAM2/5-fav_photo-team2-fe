@@ -36,7 +36,7 @@ export const ReceivedExchangeCard: React.FC<ReceivedExchangeCardProps> = ({ data
 
   const ExchangeAcceptBtn: React.FC = () => {
     return (
-      <XSBtn className="w-[72.5px] md:w-[141px] lg:w-[170px]" onClick={handleAcceptModalOpen}>
+      <XSBtn className="w-full" onClick={handleAcceptModalOpen}>
         <span className="hidden md:inline">승인하기</span>
         <span className="inline md:hidden">승인</span>
       </XSBtn>
@@ -45,11 +45,7 @@ export const ReceivedExchangeCard: React.FC<ReceivedExchangeCardProps> = ({ data
 
   const ExchangeRejectBtn: React.FC = () => {
     return (
-      <XSBtn
-        className="w-[72.5px] md:w-[141px] lg:w-[170px]"
-        buttonType="Secondary"
-        onClick={handleRejectModalOpen}
-      >
+      <XSBtn className="w-full" buttonType="Secondary" onClick={handleRejectModalOpen}>
         <span className="hidden md:inline">거절하기</span>
         <span className="inline md:hidden">거절</span>
       </XSBtn>
