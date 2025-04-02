@@ -2,10 +2,10 @@
 
 import { Grade, PhotoCardDto } from "@/types/photocard.types";
 import { CommonLayout } from "@/components/common/layout/CommonLayout";
-import HeaderSection from "@/components/my-photos/HeaderSection";
-import PhotoCardGrades from "@/components/my-photos/PhotoCardGrades";
-import MobileCreateButton from "@/components/my-photos/MobileCreateButton";
-import CardFilter from "@/components/my-photos/CardFilter";
+import HeaderSection from "@/components/my-pages/HeaderSection";
+import PhotoCardGrades from "@/components/my-pages/PhotoCardGrades";
+import MobileCreateButton from "@/components/my-pages/MobileCreateButton";
+import CardFilter from "@/components/my-pages/CardFilter";
 import { useRouter } from "next/navigation";
 
 const MyPhotos = () => {
@@ -24,6 +24,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "미쓰손",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "3",
@@ -34,6 +35,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "랍스타",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "4",
@@ -44,6 +46,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "프로여행러",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "5",
@@ -54,6 +57,7 @@ const MyPhotos = () => {
       availableAmount: 2,
       totalAmount: 10,
       creator: "미쓰손",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "6",
@@ -64,6 +68,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "랍스타",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "7",
@@ -74,6 +79,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "프로여행러",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "8",
@@ -84,6 +90,7 @@ const MyPhotos = () => {
       availableAmount: 3,
       totalAmount: 10,
       creator: "미쓰손",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "9",
@@ -94,6 +101,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "랍스타",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "10",
@@ -104,6 +112,7 @@ const MyPhotos = () => {
       availableAmount: 2,
       totalAmount: 10,
       creator: "프로여행러",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "11",
@@ -114,6 +123,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "미쓰손",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "12",
@@ -124,6 +134,7 @@ const MyPhotos = () => {
       availableAmount: 2,
       totalAmount: 10,
       creator: "랍스타",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "13",
@@ -134,6 +145,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "프로여행러",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "14",
@@ -144,6 +156,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "미쓰손",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "15",
@@ -154,6 +167,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "랍스타",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "16",
@@ -164,6 +178,7 @@ const MyPhotos = () => {
       availableAmount: 2,
       totalAmount: 10,
       creator: "프로여행러",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "17",
@@ -174,6 +189,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "미쓰손",
+      imageUrl: "/assets/images/mock1.png",
     },
     {
       id: "18",
@@ -184,6 +200,7 @@ const MyPhotos = () => {
       availableAmount: 1,
       totalAmount: 10,
       creator: "랍스타",
+      imageUrl: "/assets/images/mock1.png",
     },
   ];
 

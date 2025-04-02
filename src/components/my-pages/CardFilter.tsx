@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grade } from "@/types/photocard.types";
-import FilterSection from "@/components/my-photos/FilterSection";
-import PhotoCardGrid from "@/components/my-photos/PhotoCardGrid";
+import FilterSection from "@/components/my-pages/FilterSection";
+import PhotoCardGrid from "@/components/my-pages/PhotoCardGrid";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
 
 export type GradeFilter = "default" | Grade;
