@@ -42,6 +42,7 @@ export const SnackbarAlert = () => {
           </p>
         </div>
       </div>
+      {}
     </div>
   );
 };
