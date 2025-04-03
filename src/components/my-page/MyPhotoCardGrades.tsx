@@ -1,6 +1,6 @@
 import React from "react";
 
-interface PhotoCardGradesProps {
+interface MyPhotoCardGradesProps {
   nickname: string;
   totalCards: number;
   photoCard: {
@@ -11,7 +11,11 @@ interface PhotoCardGradesProps {
   };
 }
 
-const PhotoCardGrades: React.FC<PhotoCardGradesProps> = ({ nickname, totalCards, photoCard }) => {
+const MyPhotoCardGrades: React.FC<MyPhotoCardGradesProps> = ({
+  nickname,
+  totalCards,
+  photoCard,
+}) => {
   return (
     <div className="mb-8">
       <div className="flex items-center gap-3 mb-5">
@@ -40,4 +44,4 @@ const PhotoCardGrades: React.FC<PhotoCardGradesProps> = ({ nickname, totalCards,
   );
 };
 
-export default PhotoCardGrades;
+export default MyPhotoCardGrades;

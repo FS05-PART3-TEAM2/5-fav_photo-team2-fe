@@ -1,37 +1,18 @@
 import React from "react";
 import Image from "next/image";
-import { Grade } from "@/types/photocard.types";
+import { MyPhotoCardDto } from "@/types/photocard.types";
 import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
 
-interface PhotoCardProps {
-  id: string;
-  grade: Grade;
-  genre: string;
-  name: string;
-  price: number;
-  availableAmount: number;
-  totalAmount: number;
-  creator: string;
-  imageUrl: string;
+interface MyPhotoCardProps {
+  myPhotoCard: MyPhotoCardDto;
   onClick?: (cardId: string) => void;
 }
 
-const PhotoCard: React.FC<PhotoCardProps> = ({
-  id,
-  grade,
-  genre,
-  name,
-  price,
-  availableAmount,
-  totalAmount,
-  creator,
-  imageUrl,
-  onClick,
-}) => {
+const MyPhotoCard: React.FC<MyPhotoCardProps> = ({ myPhotoCard, onClick }) => {
   const handleClick = () => {
     if (onClick) {
-      onClick(id);
+      onClick(myPhotoCard.id);
     }
   };
 
@@ -43,22 +24,29 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
       <div className="p-3 md:p-4 lg:p-5">
         <div className="relative aspect-[360/270] overflow-hidden mb-[10px] md:mb-[25px]">
           <Image
-            src={imageUrl}
-            alt={name}
+            src={myPhotoCard.imageUrl || "/assets/images/default.png"}
+            alt={myPhotoCard.name}
             fill
             sizes="(max-width: 768px) 100%, (max-width: 1024px) 50%, 33%"
             className="object-cover"
           />
         </div>
         <div>
-          <h3 className="text-white font-bold text-[14px] md:text-[22px] mb-[10px]">{name}</h3>
+          <h3 className="text-white font-bold text-[14px] md:text-[22px] mb-[10px]">
+            {myPhotoCard.name}
+          </h3>
           <div className="pb-[10px] md:pb-[20px]">
-            <CardHeader grade={grade} genre={genre} creator={creator} cardType="list" />
+            <CardHeader
+              grade={myPhotoCard.grade}
+              genre={myPhotoCard.genre}
+              creator={myPhotoCard.creator}
+              cardType="list"
+            />
           </div>
           <CardDetail
-            price={price}
-            availableAmount={availableAmount}
-            totalAmount={totalAmount}
+            price={myPhotoCard.price}
+            availableAmount={myPhotoCard.availableAmount}
+            totalAmount={myPhotoCard.totalAmount}
             amountText="수량"
             cardType="list"
           />
@@ -74,4 +62,4 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
   );
 };
 
-export default PhotoCard;
+export default MyPhotoCard;

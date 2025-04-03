@@ -5,7 +5,7 @@ import MyPhotoCardGrid from "@/components/my-page/MyPhotoCardGrid";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
 
 export type GradeFilter = "default" | Grade;
-export type GenreFilter = "default" | string;
+export type GenreFilter = "default" | "TRAVEL" | "LANDSCAPE" | "PORTRAIT" | "OBJECT";
 
 interface CardFilterProps {
   myPhotoCards?: MyPhotoCardDto[];
@@ -30,11 +30,8 @@ const CardFilter: React.FC<CardFilterProps> = ({ myPhotoCards = [], onCardClick 
 
       // 장르 필터 적용
       if (genreFilter !== "default") {
-        // 장르 필터 키에 해당하는 값 가져오기 (예: landscape -> 풍경)
-        const genreValue =
-          FILTER_CONFIG.filter.genre.options[
-            genreFilter as keyof typeof FILTER_CONFIG.filter.genre.options
-          ];
+        const genreKey = genreFilter as keyof typeof FILTER_CONFIG.filter.genre.options;
+        const genreValue = FILTER_CONFIG.filter.genre.options[genreKey];
 
         if (myPhotoCard.genre !== genreValue) {
           return false;
@@ -69,7 +66,7 @@ const CardFilter: React.FC<CardFilterProps> = ({ myPhotoCards = [], onCardClick 
         onGenreFilterChange={setGenreFilter}
         onSearch={handleSearch}
       />
-      <MyPhotoCardGrid cards={filteredCards || []} onCardClick={onCardClick} />
+      <MyPhotoCardGrid myPhotoCards={filteredCards || []} onCardClick={onCardClick} />
     </>
   );
 };
