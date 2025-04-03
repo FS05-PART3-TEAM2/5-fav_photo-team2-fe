@@ -9,6 +9,7 @@ import ThinBtn from "../common/button/ThinBtn";
 import signupAction from "@/lib/actions/signup.action";
 import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSnackbarStore } from "@/store/useSnackbarStore";
 
 export default function SignupForm() {
   const {
@@ -26,6 +27,7 @@ export default function SignupForm() {
   });
   const [state, formAction, isPending] = useActionState(signupAction, null);
   const router = useRouter();
+  const { openSnackbar } = useSnackbarStore(); // Snackbar 상태 업데이트 함수 가져오기
 
   useEffect(() => {
     if (!state) return; // 초기 state가 null인 경우 처리
@@ -38,9 +40,9 @@ export default function SignupForm() {
       // 완전히 새로고침 없이 페이지 이동이 되기 때문에 상태가 유지
     } else {
       // 회원가입 실패
-      alert(state.message); // 실패 메시지 출력
+      openSnackbar("ERROR", state.message); // Snackbar를 통해 에러 메시지 표시
     }
-  }, [state, router]);
+  }, [state, router, openSnackbar]);
 
   return (
     <form action={formAction} className="form-auth">
