@@ -5,19 +5,19 @@ import Search from "@/components/common/input/Search";
 import Filter from "@/components/common/filter/Filter";
 import Order from "@/components/common/filter/Order";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
-import { UpdateSaleCardResponseDto } from "@/types/photocard.types";
+import { MarketplacePhotoCardDto } from "@/types/photocard.types";
 
 interface MarketplaceHeaderProps {
-  photoCards: UpdateSaleCardResponseDto[];
-  setFilteredCards: (cards: UpdateSaleCardResponseDto[]) => void;
+  photoCards: MarketplacePhotoCardDto[];
+  setFilteredCards: (cards: MarketplacePhotoCardDto[]) => void;
 }
 
 // 한글->영어->한글로 변환해줘야 genre 필터 동작?? -> 백엔드 데이터 들어오면 수정할수도...
 const GENRE_MAP_KO_TO_EN: Record<string, string> = {
-  여행: "travel",
-  풍경: "landscape",
-  인물: "portrait",
-  사물: "object",
+  여행: "TRAVEL",
+  풍경: "LANDSCAPE",
+  인물: "PORTRAIT",
+  사물: "OBJECT",
 };
 
 const GENRE_MAP_EN_TO_KO = Object.fromEntries(
@@ -60,7 +60,7 @@ export default function MarketplaceHeader({
     // isSoldOut 필터링
     if (isSoldOut !== "default") {
       filteredCards = filteredCards.filter(card =>
-        isSoldOut === "soldOut" ? card.status === "SOLD_OUT" : card.status !== "SOLD_OUT"
+        isSoldOut === "SOLD_OUT" ? card.status === "SOLD_OUT" : card.status !== "SOLD_OUT"
       );
     }
     // 정렬

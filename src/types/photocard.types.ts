@@ -78,3 +78,30 @@ export interface UpdateSaleCardResponseDto {
   createdAt: string;
   updatedAt: string;
 }
+
+// 마켓플레이스 페이지(공통)에서 사용하는 포토카드 타입
+export interface MarketplacePhotoCardDto {
+  saleCardId: string;
+  userPhotoCardId: string;
+  status: SaleCardStatus;
+  name: string;
+  grade: Grade;
+  genre: string;
+  price: number;
+  image: string;
+  remaining: number;
+  total: number;
+  exchangeDescription: string;
+  exchangeGrade: Grade;
+  exchangeGenre: string;
+  creator: {
+    id: string;
+    nickname: string;
+  };
+  seller: {
+    id: string;
+    nickname: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
