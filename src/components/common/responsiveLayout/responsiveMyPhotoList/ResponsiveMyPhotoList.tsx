@@ -1,7 +1,7 @@
 import ResponsiveModal from "../ResponsiveModal";
 import ResponsiveDrawer from "../ResponsiveDrawer";
 import { MyPhotoListContent } from "./MyPhotoListContent";
-// import { MyPhotoCardDto } from "@/types/photocard.types";
+import { MyPhotoCardDto } from "@/types/photocard.types";
 
 // 마켓플레이스 목록에서 [판매하기] 버튼 클릭시,
 // 또는 상세페이지에서 [교환하기] 버튼 클릭시
@@ -10,8 +10,7 @@ interface ResponsiveMyPhotoListProps {
   title: string; //판매하기 또는 교환하기
   isOpen: boolean;
   onClose: () => void;
-  // onClickCard: (card: MyPhotoCardDto) => void; //리스트에서 카드 클릭시 이벤트를 전달
-  onCardClick: () => void;
+  onCardClick: (cardId: string, cardData: MyPhotoCardDto) => void; //리스트에서 카드 클릭시 이벤트를 전달
 }
 
 export default function ResponsiveMyPhotoList({

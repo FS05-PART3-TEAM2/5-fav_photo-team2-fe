@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SectionTitle } from "../SectionTitle";
 import ThinBtn from "@/components/common/button/ThinBtn";
-import { CardType, Grade } from "@/types/photocard.types";
+import { CardType, Grade, MyPhotoCardDto } from "@/types/photocard.types";
 import CardHeader from "@/components/common/card/CardHeader";
 import ResponsiveMyPhotoList from "@/components/common/responsiveLayout/responsiveMyPhotoList/ResponsiveMyPhotoList";
 import { ExchangeOfferInputForm } from "./ExchangeOfferInputForm";
@@ -18,24 +18,24 @@ interface ExchangeDetailProps {
 export const ExchangeDetail: React.FC<ExchangeDetailProps> = ({ exchangeDetail }) => {
   const [isMyPhotoListModalOpen, setIsMyPhotoListModalOpen] = useState(false);
   const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
-  // const [selectedCard, setSelectedCard] = useState<MyPhotoCardDto | null>(null);
+  const [selectedCard, setSelectedCard] = useState<MyPhotoCardDto | null>(null);
 
   // 보유 카드 목록 모달 핸들러
   const handleMyPhotoListModalOpen = () => {
     setIsMyPhotoListModalOpen(true);
-    // setSelectedCard(null);
+    setSelectedCard(null);
   };
   const handleMyPhotoListModalClose = () => {
     setIsMyPhotoListModalOpen(false);
-    // setSelectedCard(null);
+    setSelectedCard(null);
   };
 
-  // 카드 선택 핸들러
-  // const handleCardSelect = (card: MyPhotoCardDto) => {
-  //   setSelectedCard(card);
-  //   setIsMyPhotoListModalOpen(false);
-  //   setIsExchangeModalOpen(true);
-  // };
+  // MyPhotoListContent에서 카드 선택 시 호출될 콜백
+  const handleCardSelect = (cardId: string, cardData: MyPhotoCardDto) => {
+    setSelectedCard(cardData);
+    setIsMyPhotoListModalOpen(false);
+    setIsExchangeModalOpen(true);
+  };
 
   // 교환 제시 입력 폼 모달 핸들러
   const handleExchangeModalClose = () => {
@@ -48,7 +48,7 @@ export const ExchangeDetail: React.FC<ExchangeDetailProps> = ({ exchangeDetail }
     // TODO: 교환 제시 api 붙이기
     setIsMyPhotoListModalOpen(false);
     setIsExchangeModalOpen(false);
-    // setSelectedCard(null);
+    setSelectedCard(null);
   };
 
   const exchangeDetailHeaderProps = {
@@ -84,20 +84,17 @@ export const ExchangeDetail: React.FC<ExchangeDetailProps> = ({ exchangeDetail }
           isOpen={isMyPhotoListModalOpen}
           onClose={handleMyPhotoListModalClose}
           title="포토카드 교환하기"
-          // onCardClick={handleCardSelect}
-          onCardClick={handleMyPhotoListModalClose}
+          onCardClick={handleCardSelect}
         />
       )}
-
-      {/* {isExchangeModalOpen && selectedCard && ( */}
-      {isExchangeModalOpen && (
+      {isExchangeModalOpen && selectedCard && (
         <ResponsiveForm
           title="포토카드 교환하기"
           isOpen={isExchangeModalOpen}
           onClose={handleExchangeModalClose}
         >
           <ExchangeOfferInputForm
-            // data={selectedCard}
+            data={selectedCard}
             onCancel={handleExchangeModalClose}
             onExchange={handleSubmitExchange}
           />

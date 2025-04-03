@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AmountText, CardType, PhotoCardDetailDto } from "@/types/photocard.types";
+import { AmountText, CardType, SaleCardDetailDto } from "@/types/photocard.types";
 import { SectionTitle } from "../SectionTitle";
 import Image from "next/image";
 import ThickBtn from "@/components/common/button/ThickBtn";
@@ -10,7 +10,7 @@ import { PurchaseAmountInput } from "./PurchaseAmountInput";
 import { useSaleCardPurchase } from "@/hooks/market/detail/useSaleCardPurchase";
 
 interface CardDetailProps {
-  data: PhotoCardDetailDto;
+  data: SaleCardDetailDto;
 }
 
 export const ConsumerCardDetail: React.FC<CardDetailProps> = ({ data }) => {

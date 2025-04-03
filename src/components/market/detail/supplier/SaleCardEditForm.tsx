@@ -1,6 +1,6 @@
 "use client";
 
-import { CardType, PhotoCardDetailDto } from "@/types/photocard.types";
+import { CardType, SaleCardDetailDto } from "@/types/photocard.types";
 import { useEditSaleCardForm } from "@/hooks/market/detail/useEditSaleCardForm";
 import Image from "next/image";
 import CardHeader from "@/components/common/card/CardHeader";
@@ -13,7 +13,7 @@ import CommonTextarea from "@/components/common/input/CommonTextarea";
 // import { useState } from "react";
 
 interface SaleCardEditFormProps {
-  data: PhotoCardDetailDto;
+  data: SaleCardDetailDto;
   onClose: () => void;
 }
 

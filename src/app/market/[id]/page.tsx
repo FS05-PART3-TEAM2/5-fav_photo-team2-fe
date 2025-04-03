@@ -5,13 +5,16 @@
 import { SupplierPage } from "./SupplierPage";
 import { ConsumerPage } from "./ConsumerPage";
 import { Grade } from "@/types/photocard.types";
+
+// XXX: 판매 카드 기본 상세 정보는 서버사이드 fetch,
+// XXX: 교환 목록은 reactQuery로 CSR 처리
 export default function PhotoCardDetailPage() {
   //   const { id } = useParams();
   // TODO: id로 포토카드 상세정보 조회하는 훅 추가될 예정. 상세정보 조회 후 isMine 여부에 따라 판매자/구매자 페이지 렌더링
 
   // XXX: 아직 api 연동 전, 상세페이지 ui 작업 위해 목데이터로 넣어둠
   const isLoading = false;
-  const data = {
+  const saleCardData = {
     id: "acg",
     userNickname: "총명한판다",
     imageUrl: "/assets/images/mock1.png",
@@ -31,6 +34,10 @@ export default function PhotoCardDetailPage() {
     },
     isMine: false,
     createdAt: "2025-03-27",
+  };
+
+  const exchangeListData = {
+    isMine: false,
     // receivedOffers: null,
     receivedOffers: [
       {
@@ -163,12 +170,12 @@ export default function PhotoCardDetailPage() {
         <div className="flex justify-center items-center min-h-[200px]">
           <div className="w-12 h-12 border-4 border-gray-200 border-t-main rounded-full animate-spin"></div>
         </div>
-      ) : data.isMine ? (
+      ) : saleCardData.isMine ? (
         // 판매자 페이지
-        <SupplierPage data={data} />
+        <SupplierPage saleCardData={saleCardData} exchangeListData={exchangeListData} />
       ) : (
         // 구매자 페이지
-        <ConsumerPage data={data} />
+        <ConsumerPage saleCardData={saleCardData} exchangeListData={exchangeListData} />
       )}
     </div>
   );

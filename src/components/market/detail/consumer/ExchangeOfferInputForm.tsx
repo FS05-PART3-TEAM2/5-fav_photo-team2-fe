@@ -1,25 +1,21 @@
 "use client";
 
-// TODO:
-// 4. 하윤님 리스트 부분 받아서 연결하기
-// 5. api 테스트해보기
-// 6. 완성된 api 붙여서 나머지 판매자, 구매자 완성하기
-
-// import { MyPhotoCardDto } from "@/types/photocard.types";
+import { MyPhotoCardDto } from "@/types/photocard.types";
 import ThinBtn from "@/components/common/button/ThinBtn";
-// import { SectionTitle } from "../SectionTitle";
+import { SectionTitle } from "../SectionTitle";
 import CommonTextarea from "@/components/common/input/CommonTextarea";
+import MyPhotoCard from "@/components/my-page/MyPhotoCard";
 // import { useState } from "react";
 
 interface ExchangeOfferInputFormProps {
-  // data: MyPhotoCardDto;
+  data: MyPhotoCardDto;
   onCancel: () => void;
   onExchange: () => void;
 }
 
 // TODO: 교환하기 api 연결
 export const ExchangeOfferInputForm: React.FC<ExchangeOfferInputFormProps> = ({
-  //   data,
+  data,
   onCancel,
   onExchange,
 }) => {
@@ -36,7 +32,7 @@ export const ExchangeOfferInputForm: React.FC<ExchangeOfferInputFormProps> = ({
   // };
 
   return (
-    <div className="w-[100%] h-full flex flex-col ">
+    <div className="w-[100%] h-full flex flex-col">
       {/* 태블릿/데스크탑 타이틀 */}
       <div className="hidden md:block w-[100%] pb-[40px]">
         <p className="text-gray-300 text-[16px] lg:text-[24px] font-BR-B">포토카드 교환하기</p>
@@ -44,11 +40,13 @@ export const ExchangeOfferInputForm: React.FC<ExchangeOfferInputFormProps> = ({
 
       {/* 컨텐츠 영역 */}
       <div className={contentContainerSx}>
-        {/* <SectionTitle title={MyPhotoCardDto.name} /> */}
+        <SectionTitle title={data.name} />
 
         <div className={contentWrapperSx}>
           {/* 선택한 카드 정보 */}
-          <div className="w-[100%] md:w-[342px] lg:w-[440px]">{/* <PhotoCard data={data}/> */}</div>
+          <div className="w-[100%] md:w-[342px] lg:w-[440px] flex-shrink-0">
+            <MyPhotoCard myPhotoCard={data} />
+          </div>
 
           {/* 교환 제시 입력 폼*/}
           <div className={exchangeOfferInputFormSx}>
@@ -75,8 +73,7 @@ export const ExchangeOfferInputForm: React.FC<ExchangeOfferInputFormProps> = ({
   );
 };
 
-const contentContainerSx = "w-full h-fit flex flex-col gap-[20px] md:gap-[40px]";
+const contentContainerSx = "w-full h-fit flex flex-col gap-[20px] md:gap-[40px] pb-10 md:pb-[0px]";
 const contentWrapperSx = "w-full h-fit flex flex-col md:flex-row gap-[20px] lg:gap-[40px]";
-const exchangeOfferInputFormSx =
-  "w-full md:w-[342px] lg:w-[440px] h-fit flex flex-col gap-[40px] md:gap-[60px] flex-shrink-0";
+const exchangeOfferInputFormSx = "w-full  h-fit flex flex-col gap-[40px] md:gap-[60px] ";
 const btnWrapperSx = "w-[100%] flex gap-[15px] md:gap-[20px]";
