@@ -1,6 +1,6 @@
-import ResponsiveModal from "./ResponsiveModal";
-import ResponsivePage from "./ResponsivePage";
-import ResponsiveDrawer from "./ResponsiveDrawer";
+import ResponsiveModal from "../ResponsiveModal";
+import ResponsivePage from "../ResponsivePage";
+import ResponsiveDrawer from "../ResponsiveDrawer";
 
 interface ResponsiveFormProps {
   children: React.ReactNode;
