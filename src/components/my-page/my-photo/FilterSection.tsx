@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Filter from "@/components/common/filter/Filter";
 import SearchBar from "@/components/my-page/SearchBar";
-import { GradeFilter, GenreFilter } from "@/components/my-page/CardFilter";
+import { GradeFilter, GenreFilter } from "@/types/filter.types";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
 
 interface FilterSectionProps {
