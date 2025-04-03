@@ -1,5 +1,5 @@
 import { AmountText, CardType, PhotoCardDetailDto } from "@/types/photocard.types";
-import { SectionTitle } from "../SectionTitle";
+import { SectionTitle } from "@/components/market/detail/SectionTitle";
 import Image from "next/image";
 import ThickBtn from "@/components/common/button/ThickBtn";
 import CardHeader from "@/components/common/card/CardHeader";
