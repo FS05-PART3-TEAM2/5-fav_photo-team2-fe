@@ -5,7 +5,7 @@ export const FORM_CONFIG = {
       placeholder: "포토카드 이름을 입력해 주세요",
     },
     email: { label: "이메일", placeholder: "이메일을 입력해주세요" },
-    nick: { label: "닉네임", placeholder: "닉네임을 입력해주세요" },
+    nickname: { label: "닉네임", placeholder: "닉네임을 입력해주세요" },
     price: { label: "가격", placeholder: "가격을 입력해 주세요" },
     stock: { label: "총 발행량", placeholder: "총 발행량을 입력해 주세요" },
   },

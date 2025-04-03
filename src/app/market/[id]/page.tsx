@@ -29,7 +29,7 @@ export default function PhotoCardDetailPage() {
       genre: "인물",
       description: "푸릇푸릇한 여름 풍경, 눈 많이 내린 겨울 풍경 사진에 관심이 많습니다.",
     },
-    isMine: true,
+    isMine: false,
     createdAt: "2025-03-27",
     // receivedOffers: null,
     receivedOffers: [
@@ -116,8 +116,20 @@ export default function PhotoCardDetailPage() {
     myOffers: [
       {
         id: "acg",
+        offererNickname: "룰루",
+        imageUrl: "/assets/images/mock3.png",
+        name: "how far i'll go",
+        grade: "SUPER RARE" as Grade,
+        genre: "풍경",
+        description:
+          "여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요 여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요 여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요",
+        price: 4,
+        createdAt: "2025-03-27",
+      },
+      {
+        id: "acwegas",
         offererNickname: "난나",
-        imageUrl: "/assets/images/mock1.png",
+        imageUrl: "/assets/images/mock2.png",
         name: "스페인 여행",
         grade: "COMMON" as Grade,
         genre: "인물",
@@ -126,14 +138,58 @@ export default function PhotoCardDetailPage() {
         createdAt: "2025-03-27",
       },
       {
-        id: "acgasd",
-        offererNickname: "난나",
-        imageUrl: "/assets/images/mock1.png",
-        name: "포르투갈 여행",
+        id: "acgfgg",
+        offererNickname: "락토핏",
+        imageUrl: "/assets/images/mock3.png",
+        name: "how far i'll go",
         grade: "SUPER RARE" as Grade,
         genre: "풍경",
-        description: "포르투갈 여행 포토카드입니다. 오랜만에 보니 너무 좋아요.",
+        description: "여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요",
+        price: 4,
+        createdAt: "2025-03-27",
+      },
+      {
+        id: "acwegasssss",
+        offererNickname: "금명이",
+        imageUrl: "/assets/images/mock2.png",
+        name: "스페인 여행",
+        grade: "COMMON" as Grade,
+        genre: "인물",
+        description: "스페인 여행 포토카드입니다. 오랜만에 보니 너무 좋아요.",
         price: 10,
+        createdAt: "2025-03-27",
+      },
+      {
+        id: "acgasdfg",
+        offererNickname: "관식",
+        imageUrl: "/assets/images/mock3.png",
+        name: "how far i'll go",
+        grade: "SUPER RARE" as Grade,
+        genre: "풍경",
+        description: "여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요",
+        price: 4,
+        createdAt: "2025-03-27",
+      },
+      {
+        id: "acwegaasssssdf",
+        offererNickname: "판다",
+        imageUrl: "/assets/images/mock2.png",
+        name: "스페인 여행",
+        grade: "COMMON" as Grade,
+        genre: "인물",
+        description: "스페인 여행 포토카드입니다. 오랜만에 보니 너무 좋아요.",
+        price: 10,
+        createdAt: "2025-03-27",
+      },
+      {
+        id: "acgasdfsdf",
+        offererNickname: "코어",
+        imageUrl: "/assets/images/mock3.png",
+        name: "how far i'll go",
+        grade: "SUPER RARE" as Grade,
+        genre: "풍경",
+        description: "여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요",
+        price: 4,
         createdAt: "2025-03-27",
       },
     ],
@@ -141,6 +197,7 @@ export default function PhotoCardDetailPage() {
 
   return (
     <div className="w-[100%] pt-[20px] md:pt-[0px] pb-[40px] md:pb-[60px] lg:pb-[180px]">
+      {/* XXX: 모바일에서는 페이지 타이틀 헤더에서 관리 */}
       <div className="hidden md:block py-[40px] lg:py-[60px] w-[100%]">
         <p className="text-gray-300 text-[16px] lg:text-[24px] font-BR-B">마켓플레이스</p>
       </div>

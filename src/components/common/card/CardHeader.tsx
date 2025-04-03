@@ -12,15 +12,19 @@ interface CardHeaderProps {
 const gradeColor = {
   COMMON: "text-main",
   RARE: "text-blue",
-  "SUPER RARE": "text-purple",
+  SUPER_RARE: "text-purple",
   LEGENDARY: "text-red",
+};
+
+const formatGradeDisplay = (grade: Grade): string => {
+  return grade.replace("_", " ");
 };
 
 const CardHeader = ({ ...props }: CardHeaderProps) => {
   const textStyle =
     props.cardType === "details"
       ? "card-header__details pb-[30px]"
-      : "card-header__list pb-[10px] md:pb-[10px]";
+      : "card-header__list pb-[10px] md:pb-[20px]";
   const verticalLineStyle =
     props.cardType === "details"
       ? "w-0.5 bg-gray-300 min-h-[18px] lg:min-h-[24px]"
@@ -32,10 +36,10 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
         ["items-end"]: props.points !== undefined,
       })}
     >
-      <div className="flex flex-col lg:flex-row lg:items-center gap-[10px] lg:gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-[5px] md:gap-[10px] lg:gap-4">
         <div className="flex items-center gap-[10px] lg:gap-4">
           <div className={`${gradeColor[props.grade]} inline-block leading-none`}>
-            {props.grade}
+            {formatGradeDisplay(props.grade)}
           </div>
           <div className={`${verticalLineStyle}`}></div>
           <div className="inline-block leading-none">{props.genre}</div>
