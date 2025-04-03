@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grade } from "@/types/photocard.types";
+import { Grade, MyPhotoCardDto } from "@/types/photocard.types";
 import FilterSection from "@/components/my-page/FilterSection";
 import PhotoCardGrid from "@/components/my-page/PhotoCardGrid";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
@@ -7,34 +7,23 @@ import { FILTER_CONFIG } from "@/components/common/filter/constants";
 export type GradeFilter = "default" | Grade;
 export type GenreFilter = "default" | string;
 
-interface MyPhotoCard {
-  id: string;
-  grade: Grade;
-  genre: string;
-  name: string;
-  price: number;
-  availableAmount: number;
-  totalAmount: number;
-  creator: string;
-}
-
 interface CardFilterProps {
-  cards: MyPhotoCard[];
+  myPhotoCards?: MyPhotoCardDto[];
   onCardClick?: (cardId: string) => void;
 }
 
-const CardFilter: React.FC<CardFilterProps> = ({ cards, onCardClick }) => {
+const CardFilter: React.FC<CardFilterProps> = ({ myPhotoCards = [], onCardClick }) => {
   const [gradeFilter, setGradeFilter] = useState<GradeFilter>("default");
   const [genreFilter, setGenreFilter] = useState<GenreFilter>("default");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filteredCards, setFilteredCards] = useState(cards);
+  const [filteredCards, setFilteredCards] = useState<MyPhotoCardDto[]>(myPhotoCards);
 
   useEffect(() => {
     // 검색어와 필터를 적용하여 카드 필터링
-    const filtered = cards.filter(card => {
+    const filtered = myPhotoCards.filter(myPhotoCard => {
       // 등급 필터 적용
       if (gradeFilter !== "default") {
-        if (card.grade !== gradeFilter) {
+        if (myPhotoCard.grade !== gradeFilter) {
           return false;
         }
       }
@@ -47,7 +36,7 @@ const CardFilter: React.FC<CardFilterProps> = ({ cards, onCardClick }) => {
             genreFilter as keyof typeof FILTER_CONFIG.filter.genre.options
           ];
 
-        if (card.genre !== genreValue) {
+        if (myPhotoCard.genre !== genreValue) {
           return false;
         }
       }
@@ -56,7 +45,8 @@ const CardFilter: React.FC<CardFilterProps> = ({ cards, onCardClick }) => {
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase();
         return (
-          card.name.toLowerCase().includes(query) || card.creator.toLowerCase().includes(query)
+          myPhotoCard.name.toLowerCase().includes(query) ||
+          myPhotoCard.creator.toLowerCase().includes(query)
         );
       }
 
@@ -64,7 +54,7 @@ const CardFilter: React.FC<CardFilterProps> = ({ cards, onCardClick }) => {
     });
 
     setFilteredCards(filtered);
-  }, [gradeFilter, genreFilter, searchQuery, cards]);
+  }, [gradeFilter, genreFilter, searchQuery, myPhotoCards]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -79,7 +69,7 @@ const CardFilter: React.FC<CardFilterProps> = ({ cards, onCardClick }) => {
         onGenreFilterChange={setGenreFilter}
         onSearch={handleSearch}
       />
-      <PhotoCardGrid cards={filteredCards} onCardClick={onCardClick} />
+      <PhotoCardGrid cards={filteredCards || []} onCardClick={onCardClick} />
     </>
   );
 };

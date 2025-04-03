@@ -243,7 +243,7 @@ const MyPhotos = () => {
           photoCard={user.photoCard}
         />
 
-        <CardFilter cards={cards} onCardClick={handleCardClick} />
+        <CardFilter myPhotoCards={cards} onCardClick={handleCardClick} />
 
         <MobileCreateButton onClick={handleCreateCardClick} />
       </div>
