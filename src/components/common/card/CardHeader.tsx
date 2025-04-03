@@ -12,8 +12,12 @@ interface CardHeaderProps {
 const gradeColor = {
   COMMON: "text-main",
   RARE: "text-blue",
-  "SUPER RARE": "text-purple",
+  SUPER_RARE: "text-purple",
   LEGENDARY: "text-red",
+};
+
+const formatGradeDisplay = (grade: Grade): string => {
+  return grade.replace("_", " ");
 };
 
 const CardHeader = ({ ...props }: CardHeaderProps) => {
@@ -35,7 +39,7 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
       <div className="flex flex-col lg:flex-row lg:items-center gap-[5px] md:gap-[10px] lg:gap-4">
         <div className="flex items-center gap-[10px] lg:gap-4">
           <div className={`${gradeColor[props.grade]} inline-block leading-none`}>
-            {props.grade}
+            {formatGradeDisplay(props.grade)}
           </div>
           <div className={`${verticalLineStyle}`}></div>
           <div className="inline-block leading-none">{props.genre}</div>

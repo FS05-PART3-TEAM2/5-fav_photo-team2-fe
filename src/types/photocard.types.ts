@@ -1,7 +1,19 @@
-export type Grade = "COMMON" | "RARE" | "SUPER RARE" | "LEGENDARY";
+export type Grade = "COMMON" | "RARE" | "SUPER_RARE" | "LEGENDARY";
 export type CardType = "details" | "list";
 export type AmountText = "잔여" | "수량" | "보유량";
 export type SaleCardStatus = "ON_SALE" | "CANCELED" | "SOLD_OUT";
+
+export interface MyPhotoCardDto {
+  id: string;
+  grade: Grade;
+  genre: string;
+  name: string;
+  price: number;
+  availableAmount: number;
+  totalAmount: number;
+  creator: string;
+  imageUrl: string;
+}
 
 export interface ExchangeCardDto {
   id: string;
