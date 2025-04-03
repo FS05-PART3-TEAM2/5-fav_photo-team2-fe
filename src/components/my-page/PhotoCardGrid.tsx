@@ -1,25 +1,13 @@
 import React from "react";
-import { Grade } from "@/types/photocard.types";
+import { MyPhotoCardDto } from "@/types/photocard.types";
 import PhotoCard from "./PhotoCard";
 
-interface PhotoCard {
-  id: string;
-  grade: Grade;
-  genre: string;
-  name: string;
-  price: number;
-  availableAmount: number;
-  totalAmount: number;
-  creator: string;
-  imageUrl?: string;
-}
-
 interface PhotoCardGridProps {
-  cards: PhotoCard[];
+  cards?: MyPhotoCardDto[];
   onCardClick?: (cardId: string) => void;
 }
 
-const PhotoCardGrid: React.FC<PhotoCardGridProps> = ({ cards, onCardClick }) => {
+const PhotoCardGrid: React.FC<PhotoCardGridProps> = ({ cards = [], onCardClick }) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 md:mt-15 md:gap-7 lg:gap-10">
       {cards.map(card => (
