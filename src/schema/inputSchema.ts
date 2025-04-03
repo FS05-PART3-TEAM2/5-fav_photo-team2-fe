@@ -12,8 +12,6 @@ const validatePassword = (password: string, ctx: z.RefinementCtx) => {
   const errors = [];
 
   if (password.length < 9) errors.push("9자 이상");
-  if (!/[A-Z]/.test(password)) errors.push("대문자 1개 이상");
-  if (!/[a-z]/.test(password)) errors.push("소문자 1개 이상");
   if (!/[0-9]/.test(password)) errors.push("숫자 1개 이상");
   if (!/[^A-Za-z0-9]/.test(password)) errors.push("특수기호 1개 이상");
 
