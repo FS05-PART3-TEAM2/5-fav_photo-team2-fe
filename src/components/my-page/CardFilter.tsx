@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grade, MyPhotoCardDto } from "@/types/photocard.types";
 import FilterSection from "@/components/my-page/FilterSection";
-import PhotoCardGrid from "@/components/my-page/PhotoCardGrid";
+import MyPhotoCardGrid from "@/components/my-page/MyPhotoCardGrid";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
 
 export type GradeFilter = "default" | Grade;
@@ -69,7 +69,7 @@ const CardFilter: React.FC<CardFilterProps> = ({ myPhotoCards = [], onCardClick 
         onGenreFilterChange={setGenreFilter}
         onSearch={handleSearch}
       />
-      <PhotoCardGrid cards={filteredCards || []} onCardClick={onCardClick} />
+      <MyPhotoCardGrid cards={filteredCards || []} onCardClick={onCardClick} />
     </>
   );
 };

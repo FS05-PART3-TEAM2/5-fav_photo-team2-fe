@@ -3,7 +3,7 @@
 import { Grade, MyPhotoCardDto } from "@/types/photocard.types";
 import { CommonLayout } from "@/components/common/layout/CommonLayout";
 import HeaderSection from "@/components/my-page/HeaderSection";
-import PhotoCardGrades from "@/components/my-page/PhotoCardGrades";
+import MyPhotoCardGrades from "@/components/my-page/MyPhotoCardGrades";
 import MobileCreateButton from "@/components/my-page/MobileCreateButton";
 import CardFilter from "@/components/my-page/CardFilter";
 import { useRouter } from "next/navigation";
@@ -237,7 +237,7 @@ const MyPhotos = () => {
       <div className="relative min-h-screen pb-[80px] md:pb-0">
         <HeaderSection onCreateClick={handleCreateCardClick} />
 
-        <PhotoCardGrades
+        <MyPhotoCardGrades
           nickname={user.nickname}
           totalCards={user.total}
           photoCard={user.photoCard}
