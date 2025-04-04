@@ -37,13 +37,13 @@ export default function PhotoCardDetailPage() {
   };
 
   const exchangeListData = {
-    saleCardId: "acg",
+    saleId: "acg",
     isMine: false,
     // receivedOffers: null,
     receivedOffers: [
       {
         id: "acg",
-        offererNickname: "룰루",
+        creatorNickname: "룰루",
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
@@ -55,7 +55,7 @@ export default function PhotoCardDetailPage() {
       },
       {
         id: "acwegas",
-        offererNickname: "난나",
+        creatorNickname: "난나",
         imageUrl: "/assets/images/mock2.png",
         name: "스페인 여행",
         grade: "COMMON" as Grade,
@@ -66,7 +66,7 @@ export default function PhotoCardDetailPage() {
       },
       {
         id: "acgfgg",
-        offererNickname: "락토핏",
+        creatorNickname: "락토핏",
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
@@ -77,7 +77,7 @@ export default function PhotoCardDetailPage() {
       },
       {
         id: "acwegasssss",
-        offererNickname: "금명이",
+        creatorNickname: "금명이",
         imageUrl: "/assets/images/mock2.png",
         name: "스페인 여행",
         grade: "COMMON" as Grade,
@@ -88,7 +88,7 @@ export default function PhotoCardDetailPage() {
       },
       {
         id: "acgasdfg",
-        offererNickname: "관식",
+        creatorNickname: "관식",
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
@@ -99,7 +99,7 @@ export default function PhotoCardDetailPage() {
       },
       {
         id: "acwegaasssssdf",
-        offererNickname: "판다",
+        creatorNickname: "판다",
         imageUrl: "/assets/images/mock2.png",
         name: "스페인 여행",
         grade: "COMMON" as Grade,
@@ -110,7 +110,7 @@ export default function PhotoCardDetailPage() {
       },
       {
         id: "acgasdfsdf",
-        offererNickname: "코어",
+        creatorNickname: "코어",
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
@@ -124,7 +124,7 @@ export default function PhotoCardDetailPage() {
     myOffers: [
       {
         id: "acg",
-        offererNickname: "룰루",
+        creatorNickname: "룰루",
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
@@ -136,7 +136,7 @@ export default function PhotoCardDetailPage() {
       },
       {
         id: "acwegas",
-        offererNickname: "난나",
+        creatorNickname: "난나",
         imageUrl: "/assets/images/mock2.png",
         name: "스페인 여행",
         grade: "COMMON" as Grade,
@@ -147,7 +147,7 @@ export default function PhotoCardDetailPage() {
       },
       {
         id: "acgfgg",
-        offererNickname: "락토핏",
+        creatorNickname: "락토핏",
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,

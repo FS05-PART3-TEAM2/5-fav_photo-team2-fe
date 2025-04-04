@@ -48,7 +48,7 @@ export interface SaleCardDetailDto {
  */
 export interface ExchangeCardDto {
   id: string;
-  offererNickname: string;
+  creatorNickname: string;
   imageUrl: string;
   name: string;
   grade: Grade;
@@ -62,7 +62,7 @@ export interface ExchangeCardDto {
  * 판매 포토카드 교환 목록 조회 API 응답 타입
  */
 export interface SaleCardExchangeListDto {
-  saleCardId: string;
+  saleId: string;
   isMine: boolean;
   receivedOffers: ExchangeCardDto[] | null;
   myOffers: ExchangeCardDto[] | null;
