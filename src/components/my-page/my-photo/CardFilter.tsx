@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Grade, MyPhotoCardDto } from "@/types/photocard.types";
-import FilterSection from "@/components/my-page/FilterSection";
+import { MyPhotoCardDto } from "@/types/photocard.types";
+import { GradeFilter, GenreFilter } from "@/types/filter.types";
+import FilterSection from "@/components/my-page/my-photo/FilterSection";
 import MyPhotoCardGrid from "@/components/my-page/MyPhotoCardGrid";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
-
-export type GradeFilter = "default" | Grade;
-export type GenreFilter = "default" | "TRAVEL" | "LANDSCAPE" | "PORTRAIT" | "OBJECT";
 
 interface CardFilterProps {
   myPhotoCards?: MyPhotoCardDto[];
