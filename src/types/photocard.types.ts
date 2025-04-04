@@ -1,4 +1,5 @@
 export type Grade = "COMMON" | "RARE" | "SUPER_RARE" | "LEGENDARY";
+export type Genre = "TRAVEL" | "LANDSCAPE" | "PORTRAIT" | "OBJECT";
 export type CardType = "details" | "list";
 export type AmountText = "잔여" | "수량" | "보유량";
 export type SaleCardStatus = "ON_SALE" | "CANCELED" | "SOLD_OUT";
@@ -109,7 +110,7 @@ export interface MarketplacePhotoCardDto {
   status: SaleCardStatus;
   name: string;
   grade: Grade;
-  genre: string;
+  genre: Genre;
   price: number;
   image: string;
   remaining: number;

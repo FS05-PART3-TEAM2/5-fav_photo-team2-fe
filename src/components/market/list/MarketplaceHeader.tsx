@@ -6,6 +6,8 @@ import Filter from "@/components/common/filter/Filter";
 import Order from "@/components/common/filter/Order";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
 import { MarketplacePhotoCardDto } from "@/types/photocard.types";
+import FilterModal from "@/components/common/filter/FilterModal";
+import { buildMarketCountUrl } from "@/components/common/filter/FilterUtils";
 
 interface MarketplaceHeaderProps {
   photoCards: MarketplacePhotoCardDto[];
@@ -22,7 +24,18 @@ export default function MarketplaceHeader({
   const [isSoldOut, setIsSoldOut] =
     useState<keyof typeof FILTER_CONFIG.filter.isSoldOut.options>("default");
   const [orderBy, setOrderBy] = useState<"latest" | "oldest" | "expensive" | "cheap">("latest");
-  // const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+
+  // 필터 변경 핸들러 (FilterModal에서 사용)
+  const handleFilterChange = (filterName: "grade" | "genre" | "isSoldOut", value: string) => {
+    if (filterName === "grade") {
+      setGrade(value as keyof typeof FILTER_CONFIG.filter.grade.options);
+    } else if (filterName === "genre") {
+      setGenre(value as keyof typeof FILTER_CONFIG.filter.genre.options);
+    } else if (filterName === "isSoldOut") {
+      setIsSoldOut(value as keyof typeof FILTER_CONFIG.filter.isSoldOut.options);
+    }
+  };
 
   // 필터링 및 정렬 함수
   useEffect(() => {
@@ -93,8 +106,8 @@ export default function MarketplaceHeader({
         {/* 모바일에서는 필터 아이콘만 보이도록 설정 */}
         <div className="md:hidden">
           <button
-            // onClick={() => setIsFilterModalOpen(true)}
-            className="border border-gray-200 p-[3px]"
+            onClick={() => setIsFilterModalOpen(true)}
+            className="border border-gray-200 p-[3px]  cursor-pointer"
           >
             <Image src="/assets/icons/filter.png" alt="필터 아이콘" width={35} height={35} />
           </button>
@@ -106,8 +119,16 @@ export default function MarketplaceHeader({
         </div>
         <Order orderBy={orderBy} setOrderBy={setOrderBy} />
       </div>
-
-      {/* SEJEONG: 필터 모달 (모바일용) 추가 되면 넣기 */}
+      {isFilterModalOpen && (
+        <FilterModal
+          isOpen={isFilterModalOpen}
+          onClose={() => setIsFilterModalOpen(false)}
+          selectedFilters={{ grade, genre, isSoldOut }}
+          onFilterChange={handleFilterChange}
+          availableFilters={["grade", "genre", "isSoldOut"]}
+          buildCountUrl={buildMarketCountUrl}
+        />
+      )}
     </>
   );
 }
