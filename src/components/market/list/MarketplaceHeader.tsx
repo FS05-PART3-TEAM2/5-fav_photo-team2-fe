@@ -58,7 +58,7 @@ export default function MarketplaceHeader({
     // isSoldOut 필터링
     if (isSoldOut !== "default") {
       filteredCards = filteredCards.filter(card =>
-        isSoldOut === "soldOut" ? card.status === "SOLD_OUT" : card.status !== "SOLD_OUT"
+        isSoldOut === "SOLD_OUT" ? card.status === "SOLD_OUT" : card.status !== "SOLD_OUT"
       );
     }
     // 정렬
