@@ -76,7 +76,7 @@ export interface UpdateSaleCardBodyParams {
   price: number;
   exchangeOffer: {
     grade: Grade;
-    genre: string;
+    genre: Genre;
     description: string;
   };
 }

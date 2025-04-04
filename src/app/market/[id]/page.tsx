@@ -6,8 +6,6 @@ import { SupplierPage } from "./SupplierPage";
 import { ConsumerPage } from "./ConsumerPage";
 import { Grade, Genre } from "@/types/photocard.types";
 
-// TODO: 등급/장르 포맷팅시키는 유틸함수 추가하기
-
 // XXX: 판매 카드 기본 상세 정보는 서버사이드 fetch,
 // XXX: 교환 목록은 reactQuery로 CSR 처리
 export default function PhotoCardDetailPage() {
