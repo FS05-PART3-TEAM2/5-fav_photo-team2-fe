@@ -16,15 +16,15 @@ export default function ResponsiveModal({ onClose, children }: ModalProps) {
       <div className={modalStyle}>
         <div className="h-full flex justify-between gap-[10px]">
           {/* 컨텐츠 영역 */}
-          <div
+          {/* <div
             className="w-full h-[calc(90vh-80px)] pr-[40px] overflow-y-auto
             [&::-webkit-scrollbar]:w-[8px] 
             [&::-webkit-scrollbar-track]:bg-transparent 
             [&::-webkit-scrollbar-thumb]:bg-gray-400 
             [&::-webkit-scrollbar-thumb]:rounded-full"
-          >
-            {children}
-          </div>
+          > */}
+          {children}
+          {/* </div> */}
 
           {/* 닫기 버튼 */}
           <div className="w-[32px] h-[32px] flex-shrink-0 cursor-pointer">

@@ -1,17 +1,21 @@
-import { AmountText, CardType, PhotoCardDetailDto } from "@/types/photocard.types";
-import { SectionTitle } from "@/components/market/detail/SectionTitle";
+import { useState } from "react";
+import { AmountText, CardType, SaleCardDetailDto } from "@/types/photocard.types";
+import { SectionTitle } from "../SectionTitle";
 import Image from "next/image";
 import ThickBtn from "@/components/common/button/ThickBtn";
 import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
-import { useState } from "react";
 import { CommonModal } from "@/components/common/modal/CommonModal";
+import { PurchaseAmountInput } from "./PurchaseAmountInput";
+import { useSaleCardPurchase } from "@/hooks/market/detail/useSaleCardPurchase";
 
 interface CardDetailProps {
-  data: PhotoCardDetailDto;
+  data: SaleCardDetailDto;
 }
 
 export const ConsumerCardDetail: React.FC<CardDetailProps> = ({ data }) => {
+  const { purchaseAmount, handleChangePurchaseAmount, handlePurchaseSaleCard } =
+    useSaleCardPurchase(data.id, data.grade, data.name);
   const [isPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
   const handlePurchaseModalOpen = () => {
     setIsPurchaseModalOpen(true);
@@ -19,9 +23,12 @@ export const ConsumerCardDetail: React.FC<CardDetailProps> = ({ data }) => {
   const handlePurchaseModalClose = () => {
     setIsPurchaseModalOpen(false);
   };
+  const handleClickPurchaseBtn = () => {
+    handlePurchaseSaleCard(); // 구매로직
+    handlePurchaseModalClose(); // 모달닫기
+  };
   const purchaseModalTitle = `포토카드 구매`;
-  // TODO: 구매 수량 표시 수정 필요 - input 이랑 연결하기
-  const purchaseModalDesc = `[${data.grade} | ${data.name}] ${data.availableAmount}장을 구매하시겠습니까?`;
+  const purchaseModalDesc = `[${data.grade} | ${data.name}] ${purchaseAmount}장을 구매하시겠습니까?`;
   const purchaseModalBtnText = `구매하기`;
 
   const cardHeaderProps = {
@@ -49,16 +56,21 @@ export const ConsumerCardDetail: React.FC<CardDetailProps> = ({ data }) => {
         </div>
 
         <div className={cardDetailWrapperSx}>
-          <div className="w-[100%] flex flex-col gap-[30px]">
-            <div className="w-[100%] flex flex-col ">
-              <CardHeader {...cardHeaderProps} />
-              <CardDetail {...cardDetailProps} />
-              <div className="w-[100%] flex flex-col gap-[10px]">구매수량 인풋</div>
-            </div>
+          <div className="w-[100%] flex flex-col ">
+            <CardHeader {...cardHeaderProps} />
+            <CardDetail {...cardDetailProps} />
+            <PurchaseAmountInput
+              maxAmount={data.availableAmount}
+              price={data.price}
+              amount={purchaseAmount}
+              onChange={handleChangePurchaseAmount}
+            />
           </div>
 
           <div className="w-[100%]">
-            <ThickBtn onClick={handlePurchaseModalOpen}>포토카드 구매하기</ThickBtn>
+            <ThickBtn onClick={handlePurchaseModalOpen} disabled={purchaseAmount <= 0}>
+              포토카드 구매하기
+            </ThickBtn>
           </div>
         </div>
       </div>
@@ -70,8 +82,7 @@ export const ConsumerCardDetail: React.FC<CardDetailProps> = ({ data }) => {
           title={purchaseModalTitle}
           desc={purchaseModalDesc}
           btnText={purchaseModalBtnText}
-          // TODO: 구매하기 버튼 클릭 시 구매 로직 추가
-          btnClick={handlePurchaseModalClose}
+          btnClick={handleClickPurchaseBtn}
         />
       )}
     </div>
@@ -80,4 +91,4 @@ export const ConsumerCardDetail: React.FC<CardDetailProps> = ({ data }) => {
 
 const cardDetailContainerSx = "w-[100%] h-full flex flex-col md:flex-row gap-[20px] lg:gap-[80px]";
 const cardDetailWrapperSx =
-  "w-[100%] md:w-[342px] lg:w-[440px] h-full flex flex-shrink-0 flex-col gap-[40px] lg:gap-[50px]";
+  "w-[100%] md:w-[342px] lg:w-[440px] h-full flex flex-shrink-0 flex-col gap-[40px] lg:gap-[80px]";

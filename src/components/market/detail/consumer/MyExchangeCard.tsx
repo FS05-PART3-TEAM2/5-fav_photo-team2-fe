@@ -8,7 +8,7 @@ interface MyExchangeCardProps {
   data: ExchangeCardDto;
 }
 
-// TODO: 모달에서 승인/거절 눌렀을 때 api 호출 이벤트핸들러 추가하기
+// TODO: 모달에서 취소하기 api 호출 이벤트핸들러 추가하기
 export const MyExchangeCard: React.FC<MyExchangeCardProps> = ({ data }) => {
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
