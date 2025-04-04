@@ -12,18 +12,6 @@ interface MarketplaceHeaderProps {
   setFilteredCards: (cards: MarketplacePhotoCardDto[]) => void;
 }
 
-// 한글->영어->한글로 변환해줘야 genre 필터 동작?? -> 백엔드 데이터 들어오면 수정할수도...
-const GENRE_MAP_KO_TO_EN: Record<string, string> = {
-  여행: "TRAVEL",
-  풍경: "LANDSCAPE",
-  인물: "PORTRAIT",
-  사물: "OBJECT",
-};
-
-const GENRE_MAP_EN_TO_KO = Object.fromEntries(
-  Object.entries(GENRE_MAP_KO_TO_EN).map(([ko, en]) => [en, ko])
-);
-
 export default function MarketplaceHeader({
   photoCards,
   setFilteredCards,
@@ -54,7 +42,7 @@ export default function MarketplaceHeader({
 
     // genre 필터링
     if (genre !== "default") {
-      filteredCards = filteredCards.filter(card => card.genre === GENRE_MAP_EN_TO_KO[genre]);
+      filteredCards = filteredCards.filter(card => card.genre === genre);
     }
 
     // isSoldOut 필터링
@@ -118,6 +106,7 @@ export default function MarketplaceHeader({
         </div>
         <Order orderBy={orderBy} setOrderBy={setOrderBy} />
       </div>
+
       {/* SEJEONG: 필터 모달 (모바일용) 추가 되면 넣기 */}
     </>
   );

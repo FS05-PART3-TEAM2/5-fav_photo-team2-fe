@@ -21,9 +21,9 @@ export default function MarketplacePage() {
         );
 
         console.log("📌 불러온 데이터 확인용:", response.data);
-        if (Array.isArray(response.data)) {
-          setPhotoCards(response.data);
-          setFilteredCards(response.data);
+        if (Array.isArray(response.data.list)) {
+          setPhotoCards(response.data.list);
+          setFilteredCards(response.data.list);
         } else {
           console.error("❌ 예상된 데이터 형식이 아님:", response.data);
         }
@@ -31,7 +31,6 @@ export default function MarketplacePage() {
         console.error("🚨 API 요청 실패:", error);
       }
     };
-
     fetchPhotoCards();
   }, []);
 
