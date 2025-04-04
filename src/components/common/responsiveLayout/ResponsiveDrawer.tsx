@@ -18,9 +18,9 @@ export default function ResponsiveDrawer({ onClose, children }: DrawerProps) {
         </div>
 
         {/* 컨텐츠 영역 */}
-        <div className="w-full h-[calc(90vh-51px)] overflow-y-auto [&::-webkit-scrollbar]:w-[0px]">
-          {children}
-        </div>
+        {/* <div className="w-full h-[calc(90vh-51px)] overflow-y-auto [&::-webkit-scrollbar]:w-[0px]"> */}
+        {children}
+        {/* </div> */}
       </div>
     </div>
   );

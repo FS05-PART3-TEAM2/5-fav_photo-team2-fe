@@ -1,4 +1,4 @@
-import { AmountText, CardType, PhotoCardDetailDto } from "@/types/photocard.types";
+import { AmountText, CardType, SaleCardDetailDto } from "@/types/photocard.types";
 import { SectionTitle } from "../SectionTitle";
 import Image from "next/image";
 import ThickBtn from "@/components/common/button/ThickBtn";
@@ -6,10 +6,10 @@ import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
 import { useState, useCallback } from "react";
 import { CommonModal } from "@/components/common/modal/CommonModal";
-import ResponsiveForm from "@/components/common/responsiveForm/ResponsiveForm";
+import ResponsiveForm from "@/components/common/responsiveLayout/responsiveForm/ResponsiveForm";
 import { SaleCardEditForm } from "./SaleCardEditForm";
 interface CardDetailProps {
-  data: PhotoCardDetailDto;
+  data: SaleCardDetailDto;
 }
 
 // TODO: 판매 내리기 api 연결 추가

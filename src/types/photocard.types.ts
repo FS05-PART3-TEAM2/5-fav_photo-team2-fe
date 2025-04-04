@@ -3,6 +3,9 @@ export type CardType = "details" | "list";
 export type AmountText = "잔여" | "수량" | "보유량";
 export type SaleCardStatus = "ON_SALE" | "CANCELED" | "SOLD_OUT";
 
+/**
+ * 마이 갤러리 조회 API 응답 - 포토카드 타입
+ */
 export interface MyPhotoCardDto {
   id: string;
   grade: Grade;
@@ -15,18 +18,10 @@ export interface MyPhotoCardDto {
   imageUrl: string;
 }
 
-export interface ExchangeCardDto {
-  id: string;
-  offererNickname: string;
-  imageUrl: string;
-  name: string;
-  grade: Grade;
-  genre: string;
-  price: number;
-  description: string;
-  createdAt: string;
-}
-export interface PhotoCardDetailDto {
+/**
+ * 판매 포토카드 상세 조회 API 응답 타입
+ */
+export interface SaleCardDetailDto {
   id: string;
   userNickname: string;
   imageUrl: string;
@@ -45,10 +40,35 @@ export interface PhotoCardDetailDto {
   };
   isMine: boolean;
   createdAt: string;
+}
+
+/**
+ * 교환 포토카드 타입
+ */
+export interface ExchangeCardDto {
+  id: string;
+  offererNickname: string;
+  imageUrl: string;
+  name: string;
+  grade: Grade;
+  genre: string;
+  price: number;
+  description: string;
+  createdAt: string;
+}
+
+/**
+ * 판매 포토카드 교환 목록 조회 API 응답 타입
+ */
+export interface SaleCardExchangeListDto {
+  isMine: boolean;
   receivedOffers: ExchangeCardDto[] | null;
   myOffers: ExchangeCardDto[] | null;
 }
 
+/**
+ * 판매 포토카드 수정 API 요청 타입
+ */
 export interface UpdateSaleCardBodyParams {
   quantity: number;
   price: number;
@@ -60,6 +80,9 @@ export interface UpdateSaleCardBodyParams {
 }
 
 // TODO: 리스폰스 타입 수정 필요
+/**
+ * 판매 포토카드 수정 API 응답 타입
+ */
 export interface UpdateSaleCardResponseDto {
   id: string;
   userPhotocardId: string;

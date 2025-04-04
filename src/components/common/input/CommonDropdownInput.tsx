@@ -19,11 +19,12 @@ type DropdownType = {
   };
 };
 
+// TODO: 등급 포맷팅 필요
 const dropdownOptions: DropdownType = {
   grade: {
     label: "등급",
     placeholder: "등급을 선택해 주세요",
-    options: ["COMMON", "RARE", "SUPER RARE", "LEGENDARY"],
+    options: ["COMMON", "RARE", "SUPER_RARE", "LEGENDARY"],
     value: "" as Grade,
   },
   genre: {

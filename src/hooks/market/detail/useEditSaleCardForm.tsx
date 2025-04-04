@@ -2,10 +2,10 @@
 
 import { useCallback, useState } from "react";
 // import { useQueryClient } from '@tanstack/react-query';
-import { Grade, PhotoCardDetailDto, UpdateSaleCardBodyParams } from "@/types/photocard.types";
+import { Grade, SaleCardDetailDto, UpdateSaleCardBodyParams } from "@/types/photocard.types";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
 
-export const useEditSaleCardForm = (initialData: PhotoCardDetailDto, onClose: () => void) => {
+export const useEditSaleCardForm = (initialData: SaleCardDetailDto, onClose: () => void) => {
   const [params, setParams] = useState<UpdateSaleCardBodyParams>({
     quantity: initialData.availableAmount,
     price: initialData.price,
