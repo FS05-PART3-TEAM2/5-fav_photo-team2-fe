@@ -4,7 +4,7 @@
 // import { useParams } from 'next/navigation';
 import { SupplierPage } from "./SupplierPage";
 import { ConsumerPage } from "./ConsumerPage";
-import { Grade } from "@/types/photocard.types";
+import { Grade, Genre } from "@/types/photocard.types";
 
 // XXX: 판매 카드 기본 상세 정보는 서버사이드 fetch,
 // XXX: 교환 목록은 reactQuery로 CSR 처리
@@ -20,7 +20,7 @@ export default function PhotoCardDetailPage() {
     imageUrl: "/assets/images/mock1.png",
     name: "우리집 앞마당",
     grade: "LEGENDARY" as Grade,
-    genre: "풍경",
+    genre: "LANDSCAPE" as Genre,
     description:
       "우리집 앞마당 포토카드입니다. 오랜만에 보니 너무 좋아요. 우리집 앞마당 포토카드입니다. 오랜만에 보니 너무 좋아요. 우리집 앞마당 포토카드입니다. 오랜만에 보니 너무 좋아요.",
     price: 4,
@@ -29,14 +29,15 @@ export default function PhotoCardDetailPage() {
     totalOwnAmount: 7,
     exchangeDetail: {
       grade: "RARE" as Grade,
-      genre: "인물",
+      genre: "PORTRAIT" as Genre,
       description: "푸릇푸릇한 여름 풍경, 눈 많이 내린 겨울 풍경 사진에 관심이 많습니다.",
     },
-    isMine: false,
+    isMine: true,
     createdAt: "2025-03-27",
   };
 
   const exchangeListData = {
+    saleCardId: "acg",
     isMine: false,
     // receivedOffers: null,
     receivedOffers: [
@@ -46,7 +47,7 @@ export default function PhotoCardDetailPage() {
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
-        genre: "풍경",
+        genre: "LANDSCAPE" as Genre,
         description:
           "여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요 여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요 여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요",
         price: 4,
@@ -58,7 +59,7 @@ export default function PhotoCardDetailPage() {
         imageUrl: "/assets/images/mock2.png",
         name: "스페인 여행",
         grade: "COMMON" as Grade,
-        genre: "인물",
+        genre: "PORTRAIT" as Genre,
         description: "스페인 여행 포토카드입니다. 오랜만에 보니 너무 좋아요.",
         price: 10,
         createdAt: "2025-03-27",
@@ -69,7 +70,7 @@ export default function PhotoCardDetailPage() {
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
-        genre: "풍경",
+        genre: "LANDSCAPE" as Genre,
         description: "여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요",
         price: 4,
         createdAt: "2025-03-27",
@@ -80,7 +81,7 @@ export default function PhotoCardDetailPage() {
         imageUrl: "/assets/images/mock2.png",
         name: "스페인 여행",
         grade: "COMMON" as Grade,
-        genre: "인물",
+        genre: "PORTRAIT" as Genre,
         description: "스페인 여행 포토카드입니다. 오랜만에 보니 너무 좋아요.",
         price: 10,
         createdAt: "2025-03-27",
@@ -91,7 +92,7 @@ export default function PhotoCardDetailPage() {
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
-        genre: "풍경",
+        genre: "LANDSCAPE" as Genre,
         description: "여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요",
         price: 4,
         createdAt: "2025-03-27",
@@ -102,7 +103,7 @@ export default function PhotoCardDetailPage() {
         imageUrl: "/assets/images/mock2.png",
         name: "스페인 여행",
         grade: "COMMON" as Grade,
-        genre: "인물",
+        genre: "PORTRAIT" as Genre,
         description: "스페인 여행 포토카드입니다. 오랜만에 보니 너무 좋아요.",
         price: 10,
         createdAt: "2025-03-27",
@@ -113,7 +114,7 @@ export default function PhotoCardDetailPage() {
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
-        genre: "풍경",
+        genre: "LANDSCAPE" as Genre,
         description: "여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요",
         price: 4,
         createdAt: "2025-03-27",
@@ -127,7 +128,7 @@ export default function PhotoCardDetailPage() {
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
-        genre: "풍경",
+        genre: "LANDSCAPE" as Genre,
         description:
           "여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요 여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요 여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요",
         price: 4,
@@ -139,7 +140,7 @@ export default function PhotoCardDetailPage() {
         imageUrl: "/assets/images/mock2.png",
         name: "스페인 여행",
         grade: "COMMON" as Grade,
-        genre: "인물",
+        genre: "PORTRAIT" as Genre,
         description: "스페인 여행 포토카드입니다. 오랜만에 보니 너무 좋아요.",
         price: 10,
         createdAt: "2025-03-27",
@@ -150,7 +151,7 @@ export default function PhotoCardDetailPage() {
         imageUrl: "/assets/images/mock3.png",
         name: "how far i'll go",
         grade: "SUPER_RARE" as Grade,
-        genre: "풍경",
+        genre: "LANDSCAPE" as Genre,
         description: "여름 바다 풍경과 교환하실래요? 여름 바다 풍경과 교환하실래요",
         price: 4,
         createdAt: "2025-03-27",
