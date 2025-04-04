@@ -1,10 +1,9 @@
-import { GenreFilter, GradeFilter } from "@/components/my-page/CardFilter";
-import FilterSection from "@/components/my-page/FilterSection";
-import MyPhotoCard from "@/components/my-page/MyPhotoCard";
-import { useEffect } from "react";
+import { GradeFilter, GenreFilter } from "@/types/filter.types";
 import { Grade, MyPhotoCardDto } from "@/types/photocard.types";
-import { useState } from "react";
 import { FILTER_CONFIG } from "../../filter/constants";
+import { useEffect, useState } from "react";
+import FilterSection from "@/components/my-page/my-photo/FilterSection";
+import MyPhotoCard from "@/components/my-page/MyPhotoCard";
 
 interface MyPhotoListContentProps {
   title: string;
