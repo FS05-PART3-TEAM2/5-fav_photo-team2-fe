@@ -1,37 +1,47 @@
 "use client";
 
 import { useState } from "react";
-import { Grade } from "@/types/photocard.types";
+import { Grade, Genre } from "@/types/photocard.types";
 import Image from "next/image";
 
 type DropdownType = {
   grade: {
     label: string;
     placeholder: string;
-    options: Grade[];
+    options: Record<Grade, string>;
     value: Grade;
   };
   genre: {
     label: string;
     placeholder: string;
-    options: string[];
-    value: string;
+    options: Record<Genre, string>;
+    value: Genre;
   };
 };
 
-// TODO: 등급 포맷팅 필요
-const dropdownOptions: DropdownType = {
+const dropdownOptions: Record<
+  keyof DropdownType,
+  Omit<DropdownType[keyof DropdownType], "value">
+> = {
   grade: {
     label: "등급",
     placeholder: "등급을 선택해 주세요",
-    options: ["COMMON", "RARE", "SUPER_RARE", "LEGENDARY"],
-    value: "" as Grade,
+    options: {
+      COMMON: "COMMON",
+      RARE: "RARE",
+      SUPER_RARE: "SUPER RARE",
+      LEGENDARY: "LEGENDARY",
+    },
   },
   genre: {
     label: "장르",
     placeholder: "장르를 선택해 주세요",
-    options: ["여행", "풍경", "인물", "사물"],
-    value: "",
+    options: {
+      TRAVEL: "여행",
+      LANDSCAPE: "풍경",
+      PORTRAIT: "인물",
+      OBJECT: "사물",
+    },
   },
 };
 
@@ -49,25 +59,27 @@ export default function CommonDropdownInput<T extends keyof DropdownType>({
   const [isOpen, setIsOpen] = useState(false);
   const { label, placeholder, options } = dropdownOptions[inputLabel];
 
-  // 현재 선택된 값 표시
-  const selectedValue = value || "";
+  const handleOptionClick = (key: string, event: React.MouseEvent) => {
+    event.stopPropagation();
+    onChange(key as DropdownType[T]["value"]);
+    setIsOpen(false);
+  };
+
+  const selectedText = value ? options[value as keyof typeof options] : "";
 
   return (
     <div className="flex flex-col w-full">
-      <label
-        htmlFor={inputLabel}
-        className="text-white font-bold text-[16px] lg:text-[20px] mb-3 text-left"
-      >
+      <label className="text-white font-bold text-[16px] lg:text-[20px] mb-3 text-left">
         {label}
       </label>
 
       <div className="relative" onClick={() => setIsOpen(prev => !prev)}>
         <input
           type="text"
-          value={selectedValue}
+          value={selectedText}
           className={`rounded-[2px] p-3 font-light text-base w-full outline-none border-[1px] border-gray-200 cursor-pointer text-white
             ${isOpen ? "outline-main" : ""}
-            ${!selectedValue ? "placeholder:text-gray-200 placeholder:font-light" : ""}`}
+            ${!value ? "placeholder:text-gray-200 placeholder:font-light" : ""}`}
           placeholder={placeholder}
           readOnly
         />
@@ -82,18 +94,14 @@ export default function CommonDropdownInput<T extends keyof DropdownType>({
         />
         {isOpen && (
           <ul className="bg-dark w-full border border-gray-200 rounded-[2px] p-[10px] mt-1 z-10 absolute">
-            {options.map(option => (
+            {Object.entries(options).map(([key, text]) => (
               <li
-                key={option}
+                key={key}
                 className={`p-3 cursor-pointer hover:bg-main hover:rounded-[2px] hover:text-dark
-                  ${option === selectedValue ? "text-main" : "text-white"}`}
-                onClick={event => {
-                  event.stopPropagation();
-                  onChange(option as DropdownType[T]["value"]);
-                  setIsOpen(false);
-                }}
+                  ${key === value ? "text-main" : "text-white"}`}
+                onClick={e => handleOptionClick(key, e)}
               >
-                {option}
+                {text}
               </li>
             ))}
           </ul>

@@ -1,4 +1,5 @@
 export type Grade = "COMMON" | "RARE" | "SUPER_RARE" | "LEGENDARY";
+export type Genre = "TRAVEL" | "LANDSCAPE" | "PORTRAIT" | "OBJECT";
 export type CardType = "details" | "list";
 export type AmountText = "잔여" | "수량" | "보유량";
 export type SaleCardStatus = "ON_SALE" | "CANCELED" | "SOLD_OUT";
@@ -9,7 +10,7 @@ export type SaleCardStatus = "ON_SALE" | "CANCELED" | "SOLD_OUT";
 export interface MyPhotoCardDto {
   id: string;
   grade: Grade;
-  genre: string;
+  genre: Genre;
   name: string;
   price: number;
   availableAmount: number;
@@ -27,7 +28,7 @@ export interface SaleCardDetailDto {
   imageUrl: string;
   name: string;
   grade: Grade;
-  genre: string;
+  genre: Genre;
   description: string;
   price: number;
   availableAmount: number;
@@ -35,7 +36,7 @@ export interface SaleCardDetailDto {
   totalOwnAmount: number;
   exchangeDetail: {
     grade: Grade;
-    genre: string;
+    genre: Genre;
     description: string;
   };
   isMine: boolean;
@@ -51,7 +52,7 @@ export interface ExchangeCardDto {
   imageUrl: string;
   name: string;
   grade: Grade;
-  genre: string;
+  genre: Genre;
   price: number;
   description: string;
   createdAt: string;
@@ -61,6 +62,7 @@ export interface ExchangeCardDto {
  * 판매 포토카드 교환 목록 조회 API 응답 타입
  */
 export interface SaleCardExchangeListDto {
+  saleCardId: string;
   isMine: boolean;
   receivedOffers: ExchangeCardDto[] | null;
   myOffers: ExchangeCardDto[] | null;
@@ -89,7 +91,7 @@ export interface UpdateSaleCardResponseDto {
   status: SaleCardStatus;
   name: string;
   grade: Grade;
-  genre: string;
+  genre: Genre;
   price: number;
   image: string;
   remaining: number;
