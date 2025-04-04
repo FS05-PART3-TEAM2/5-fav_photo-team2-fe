@@ -62,7 +62,7 @@ const MyPhotos = () => {
     {
       id: "6",
       grade: "RARE" as Grade,
-      genre: "FOOD" as Genre,
+      genre: "OBJECT" as Genre,
       name: "맛있는 파스타",
       price: 5,
       availableAmount: 1,
@@ -117,7 +117,7 @@ const MyPhotos = () => {
     {
       id: "11",
       grade: "SUPER_RARE" as Grade,
-      genre: "FOOD" as Genre,
+      genre: "OBJECT" as Genre,
       name: "홈메이드 케이크",
       price: 6,
       availableAmount: 1,
@@ -161,7 +161,7 @@ const MyPhotos = () => {
     {
       id: "15",
       grade: "SUPER_RARE" as Grade,
-      genre: "FOOD" as Genre,
+      genre: "OBJECT" as Genre,
       name: "디저트 플레이팅",
       price: 7,
       availableAmount: 1,
