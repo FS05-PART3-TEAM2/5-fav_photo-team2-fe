@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Grade, Genre } from "@/types/photocard.types";
 import Image from "next/image";
 
@@ -48,21 +47,26 @@ const dropdownOptions: Record<
 interface CommonDropdownProps<T extends keyof DropdownType> {
   inputLabel: T;
   value?: DropdownType[T]["value"];
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
   onChange: (value: DropdownType[T]["value"]) => void;
 }
 
 export default function CommonDropdownInput<T extends keyof DropdownType>({
   inputLabel,
   value,
+  isOpen,
+  onOpen,
+  onClose,
   onChange,
 }: CommonDropdownProps<T>) {
-  const [isOpen, setIsOpen] = useState(false);
   const { label, placeholder, options } = dropdownOptions[inputLabel];
 
   const handleOptionClick = (key: string, event: React.MouseEvent) => {
     event.stopPropagation();
     onChange(key as DropdownType[T]["value"]);
-    setIsOpen(false);
+    onClose();
   };
 
   const selectedText = value ? options[value as keyof typeof options] : "";
@@ -73,7 +77,7 @@ export default function CommonDropdownInput<T extends keyof DropdownType>({
         {label}
       </label>
 
-      <div className="relative" onClick={() => setIsOpen(prev => !prev)}>
+      <div className="relative" onClick={() => (isOpen ? onClose() : onOpen())}>
         <input
           type="text"
           value={selectedText}
@@ -92,8 +96,15 @@ export default function CommonDropdownInput<T extends keyof DropdownType>({
             isOpen ? "rotate-180" : ""
           }`}
         />
-        {isOpen && (
-          <ul className="bg-dark w-full border border-gray-200 rounded-[2px] p-[10px] mt-1 z-10 absolute">
+
+        <div
+          className={`absolute w-full mt-1 transition-all duration-200 ease-in-out origin-top ${
+            isOpen
+              ? "opacity-100 scale-y-100 translate-y-0 z-50"
+              : "opacity-0 scale-y-0 -translate-y-2 pointer-events-none"
+          }`}
+        >
+          <ul className="bg-dark w-full border border-gray-200 rounded-[2px] p-[10px] relative">
             {Object.entries(options).map(([key, text]) => (
               <li
                 key={key}
@@ -105,7 +116,7 @@ export default function CommonDropdownInput<T extends keyof DropdownType>({
               </li>
             ))}
           </ul>
-        )}
+        </div>
       </div>
     </div>
   );
