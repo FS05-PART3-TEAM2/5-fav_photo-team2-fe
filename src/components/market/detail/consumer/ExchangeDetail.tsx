@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SectionTitle } from "../SectionTitle";
 import ThinBtn from "@/components/common/button/ThinBtn";
-import { CardType, Grade, MyPhotoCardDto } from "@/types/photocard.types";
+import { CardType, Grade, Genre, MyPhotoCardDto } from "@/types/photocard.types";
 import CardHeader from "@/components/common/card/CardHeader";
 import ResponsiveMyPhotoList from "@/components/common/responsiveLayout/responsiveMyPhotoList/ResponsiveMyPhotoList";
 import { ExchangeOfferInputForm } from "./ExchangeOfferInputForm";
@@ -10,7 +10,7 @@ import ResponsiveForm from "@/components/common/responsiveLayout/responsiveForm/
 interface ExchangeDetailProps {
   exchangeDetail: {
     grade: Grade;
-    genre: string;
+    genre: Genre;
     description: string;
   };
 }

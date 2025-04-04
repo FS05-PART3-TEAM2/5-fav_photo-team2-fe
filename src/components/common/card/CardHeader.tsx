@@ -1,9 +1,9 @@
-import { CardType, Grade } from "@/types/photocard.types";
+import { CardType, Grade, Genre } from "@/types/photocard.types";
 import clsx from "clsx";
 
 interface CardHeaderProps {
   grade: Grade;
-  genre: string;
+  genre: Genre;
   points?: number;
   creator?: string;
   cardType: CardType;
@@ -16,8 +16,19 @@ const gradeColor = {
   LEGENDARY: "text-red",
 };
 
+const genreDisplayMap: Record<Genre, string> = {
+  TRAVEL: "여행",
+  LANDSCAPE: "풍경",
+  PORTRAIT: "인물",
+  OBJECT: "사물",
+};
+
 const formatGradeDisplay = (grade: Grade): string => {
   return grade.replace("_", " ");
+};
+
+const formatGenreDisplay = (genre: Genre): string => {
+  return genreDisplayMap[genre];
 };
 
 const CardHeader = ({ ...props }: CardHeaderProps) => {
@@ -42,7 +53,7 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
             {formatGradeDisplay(props.grade)}
           </div>
           <div className={`${verticalLineStyle}`}></div>
-          <div className="inline-block leading-none">{props.genre}</div>
+          <div className="inline-block leading-none">{formatGenreDisplay(props.genre)}</div>
         </div>
         {props.points && (
           <div className="flex items-center gap-[10px] lg:gap-4">

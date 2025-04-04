@@ -10,7 +10,7 @@ import AmountInput from "@/components/common/input/AmountInput";
 import PriceInput from "@/components/common/input/PriceInput";
 import CommonDropdownInput from "@/components/common/input/CommonDropdownInput";
 import CommonTextarea from "@/components/common/input/CommonTextarea";
-// import { useState } from "react";
+import { useState } from "react";
 
 interface SaleCardEditFormProps {
   data: SaleCardDetailDto;
@@ -30,6 +30,24 @@ export const SaleCardEditForm: React.FC<SaleCardEditFormProps> = ({ data, onClos
     handleUpdateSaleCard,
   } = useEditSaleCardForm(data, onClose);
 
+  // 현재 열린 드롭다운 상태 관리
+  const [openDropdown, setOpenDropdown] = useState<"grade" | "genre" | null>(null);
+
+  const handleDropdownOpen = (dropdownType: "grade" | "genre") => {
+    setOpenDropdown(dropdownType);
+  };
+
+  const handleDropdownClose = () => {
+    setOpenDropdown(null);
+  };
+
+  const cardHeaderProps = {
+    grade: data.grade,
+    genre: data.genre,
+    creator: data.userNickname,
+    cardType: "details" as CardType,
+  };
+
   // XXX: 취소 컨펌 모달 띄울지 고민
   // -> ResponsiveForm 컴포넌트 백드랍 클릭시에도 취소 확인 모달을 띄워줘야하는데, 부모 컴포넌트로 전달할 방법 모르겠어서 일단 보류
   // const [isCancelEditModalOpen, setIsCancelEditModalOpen] = useState(false);
@@ -39,13 +57,6 @@ export const SaleCardEditForm: React.FC<SaleCardEditFormProps> = ({ data, onClos
   // const handleCancelEditModalClose = () => {
   //   setIsCancelEditModalOpen(false);
   // };
-
-  const cardHeaderProps = {
-    grade: data.grade,
-    genre: data.genre,
-    creator: data.userNickname,
-    cardType: "details" as CardType,
-  };
 
   return (
     <div className="w-[100%] h-full flex flex-col ">
@@ -115,11 +126,17 @@ export const SaleCardEditForm: React.FC<SaleCardEditFormProps> = ({ data, onClos
                   inputLabel="grade"
                   value={params.exchangeOffer.grade}
                   onChange={handleGradeChange}
+                  isOpen={openDropdown === "grade"}
+                  onOpen={() => handleDropdownOpen("grade")}
+                  onClose={handleDropdownClose}
                 />
                 <CommonDropdownInput
                   inputLabel="genre"
                   value={params.exchangeOffer.genre}
                   onChange={handleGenreChange}
+                  isOpen={openDropdown === "genre"}
+                  onOpen={() => handleDropdownOpen("genre")}
+                  onClose={handleDropdownClose}
                 />
               </div>
               <CommonTextarea

@@ -1,6 +1,6 @@
 "use client";
 
-import { Grade, MyPhotoCardDto } from "@/types/photocard.types";
+import { Genre, Grade, MyPhotoCardDto } from "@/types/photocard.types";
 import { CommonLayout } from "@/components/common/layout/CommonLayout";
 import HeaderSection from "@/components/my-page/HeaderSection";
 import MyPhotoCardGrades from "@/components/my-page/MyPhotoCardGrades";
@@ -25,7 +25,7 @@ const MySales = () => {
     {
       id: "2",
       grade: "COMMON" as Grade,
-      genre: "풍경",
+      genre: "LANDSCAPE" as Genre,
       name: "우리집 앞마당",
       price: 4,
       availableAmount: 1,
@@ -37,7 +37,7 @@ const MySales = () => {
     {
       id: "3",
       grade: "SUPER_RARE" as Grade,
-      genre: "풍경",
+      genre: "LANDSCAPE" as Genre,
       name: "How Far I'll Go",
       price: 4,
       availableAmount: 1,
@@ -49,7 +49,7 @@ const MySales = () => {
     {
       id: "4",
       grade: "LEGENDARY" as Grade,
-      genre: "인물",
+      genre: "PORTRAIT" as Genre,
       name: "웃는 모습",
       price: 8,
       availableAmount: 1,
@@ -61,7 +61,7 @@ const MySales = () => {
     {
       id: "5",
       grade: "COMMON" as Grade,
-      genre: "동물",
+      genre: "OBJECT" as Genre,
       name: "귀여운 강아지",
       price: 3,
       availableAmount: 2,
@@ -73,7 +73,7 @@ const MySales = () => {
     {
       id: "6",
       grade: "RARE" as Grade,
-      genre: "음식",
+      genre: "OBJECT" as Genre,
       name: "맛있는 파스타",
       price: 5,
       availableAmount: 1,
@@ -85,7 +85,7 @@ const MySales = () => {
     {
       id: "7",
       grade: "SUPER_RARE" as Grade,
-      genre: "풍경",
+      genre: "LANDSCAPE" as Genre,
       name: "일몰",
       price: 7,
       availableAmount: 1,
@@ -97,7 +97,7 @@ const MySales = () => {
     {
       id: "8",
       grade: "COMMON" as Grade,
-      genre: "인물",
+      genre: "PORTRAIT" as Genre,
       name: "친구들과 함께",
       price: 3,
       availableAmount: 3,
@@ -109,7 +109,7 @@ const MySales = () => {
     {
       id: "9",
       grade: "LEGENDARY" as Grade,
-      genre: "풍경",
+      genre: "LANDSCAPE" as Genre,
       name: "오로라",
       price: 10,
       availableAmount: 1,
@@ -121,7 +121,7 @@ const MySales = () => {
     {
       id: "10",
       grade: "RARE" as Grade,
-      genre: "동물",
+      genre: "OBJECT" as Genre,
       name: "잠자는 고양이",
       price: 5,
       availableAmount: 2,
@@ -133,7 +133,7 @@ const MySales = () => {
     {
       id: "11",
       grade: "SUPER_RARE" as Grade,
-      genre: "음식",
+      genre: "OBJECT" as Genre,
       name: "홈메이드 케이크",
       price: 6,
       availableAmount: 1,
@@ -145,7 +145,7 @@ const MySales = () => {
     {
       id: "12",
       grade: "COMMON" as Grade,
-      genre: "풍경",
+      genre: "LANDSCAPE" as Genre,
       name: "도시야경",
       price: 4,
       availableAmount: 2,
@@ -157,7 +157,7 @@ const MySales = () => {
     {
       id: "13",
       grade: "LEGENDARY" as Grade,
-      genre: "인물",
+      genre: "PORTRAIT" as Genre,
       name: "공연현장",
       price: 9,
       availableAmount: 1,
@@ -169,7 +169,7 @@ const MySales = () => {
     {
       id: "14",
       grade: "RARE" as Grade,
-      genre: "동물",
+      genre: "OBJECT" as Genre,
       name: "새들의 군무",
       price: 6,
       availableAmount: 1,
@@ -181,7 +181,7 @@ const MySales = () => {
     {
       id: "15",
       grade: "SUPER_RARE" as Grade,
-      genre: "음식",
+      genre: "OBJECT" as Genre,
       name: "디저트 플레이팅",
       price: 7,
       availableAmount: 1,
@@ -193,7 +193,7 @@ const MySales = () => {
     {
       id: "16",
       grade: "COMMON" as Grade,
-      genre: "풍경",
+      genre: "LANDSCAPE" as Genre,
       name: "산정상",
       price: 3,
       availableAmount: 2,
@@ -205,7 +205,7 @@ const MySales = () => {
     {
       id: "17",
       grade: "LEGENDARY" as Grade,
-      genre: "인물",
+      genre: "PORTRAIT" as Genre,
       name: "졸업식",
       price: 8,
       availableAmount: 1,
@@ -217,7 +217,7 @@ const MySales = () => {
     {
       id: "18",
       grade: "RARE" as Grade,
-      genre: "동물",
+      genre: "OBJECT" as Genre,
       name: "수족관",
       price: 5,
       availableAmount: 1,

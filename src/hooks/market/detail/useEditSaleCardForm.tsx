@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 // import { useQueryClient } from '@tanstack/react-query';
-import { Grade, SaleCardDetailDto, UpdateSaleCardBodyParams } from "@/types/photocard.types";
+import { Grade, Genre, SaleCardDetailDto, UpdateSaleCardBodyParams } from "@/types/photocard.types";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
 
 export const useEditSaleCardForm = (initialData: SaleCardDetailDto, onClose: () => void) => {
@@ -23,7 +23,7 @@ export const useEditSaleCardForm = (initialData: SaleCardDetailDto, onClose: () 
   const updateParams = useCallback(
     (
       field: keyof UpdateSaleCardBodyParams | "grade" | "genre" | "description",
-      value: number | string | Grade
+      value: number | string | Grade | Genre
     ) => {
       setParams(prev => {
         if (field === "quantity" || field === "price") {
@@ -71,7 +71,7 @@ export const useEditSaleCardForm = (initialData: SaleCardDetailDto, onClose: () 
 
   // 장르 변경 핸들러
   const handleGenreChange = useCallback(
-    (value: string) => {
+    (value: Genre) => {
       updateParams("genre", value);
     },
     [updateParams]
