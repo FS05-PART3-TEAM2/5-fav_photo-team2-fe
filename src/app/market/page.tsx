@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosClient } from "@/services/axiosClient/axiosClient";
 import { MarketplacePhotoCardDto } from "@/types/photocard.types";
 import MarketplaceHeader from "@/components/market/list/MarketplaceHeader";
 import PhotoCardList from "@/components/market/list/CardGrid";
@@ -12,13 +12,7 @@ export default function MarketplacePage() {
   useEffect(() => {
     const fetchPhotoCards = async () => {
       try {
-        const response = await axios.get(
-          "https://five-fav-photo-team2-be.onrender.com/api/market",
-          {
-            headers: { "Content-Type": "application/json" },
-            withCredentials: true, // 필요한 경우 유지
-          }
-        );
+        const response = await axiosClient.get("/market");
 
         console.log("📌 불러온 데이터 확인용:", response.data);
         if (Array.isArray(response.data.list)) {
