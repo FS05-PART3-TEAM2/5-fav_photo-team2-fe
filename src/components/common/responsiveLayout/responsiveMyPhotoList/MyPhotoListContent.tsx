@@ -1,20 +1,9 @@
-<<<<<<< HEAD
 import { GradeFilter, GenreFilter } from "@/types/filter.types";
 import { Genre, Grade, MyPhotoCardDto } from "@/types/photocard.types";
 import { FILTER_CONFIG } from "../../filter/constants";
 import { useEffect, useState } from "react";
 import FilterSection from "@/components/my-page/my-photo/FilterSection";
 import MyPhotoCard from "@/components/my-page/MyPhotoCard";
-=======
-import { GenreFilter, GradeFilter } from "@/components/my-page/CardFilter";
-import FilterSection from "@/components/my-page/FilterSection";
-import MyPhotoCard from "@/components/my-page/MyPhotoCard";
-import { useEffect } from "react";
-import { Grade, MyPhotoCardDto } from "@/types/photocard.types";
-import { useState } from "react";
-import { FILTER_CONFIG } from "../../filter/constants";
->>>>>>> df4e6ad2 (구매자 상세페이지 교환하기 반응형 모달 뷰 1차 완성)
-
 interface MyPhotoListContentProps {
   title: string;
   onCardClick: (cardId: string, cardData: MyPhotoCardDto) => void;
