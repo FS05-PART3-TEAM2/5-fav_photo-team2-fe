@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { baskinBold } from "../../public/assets/fonts/font";
 import { SnackbarAlert } from "@/components/common/snackbar/SnackbarAlert";
+// Provider추가
+import QueryProvider from "@/hooks/market/list/QueryProvider";
 
 export const metadata: Metadata = {
   title: "최애의 포토카드",
@@ -12,9 +14,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" className={`${baskinBold.variable}`}>
       <body>
-        {children}
-        {/* 스낵바 팝업 전역 상태로 관리 */}
-        <SnackbarAlert />
+        <QueryProvider>
+          {children}
+          {/* 스낵바 팝업 전역 상태로 관리 */}
+          <SnackbarAlert />
+        </QueryProvider>
       </body>
     </html>
   );
