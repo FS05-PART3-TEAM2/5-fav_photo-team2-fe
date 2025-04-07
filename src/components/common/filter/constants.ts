@@ -31,6 +31,7 @@ export const FILTER_CONFIG = {
       label: "매진 여부",
       options: {
         default: "전체",
+        ON_SALE: "판매중",
         SOLD_OUT: "매진",
       },
     },

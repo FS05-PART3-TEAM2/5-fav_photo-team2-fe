@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { CommonLayout } from "@/components/common/layout/CommonLayout";
-import { AmountText, CardType, Grade } from "@/types/photocard.types";
+import { AmountText, CardType, Grade, Genre } from "@/types/photocard.types";
 import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
 import ThickBtn from "@/components/common/button/ThickBtn";
@@ -14,7 +14,7 @@ const MyPhotoDetailPage = () => {
    */
   const data = {
     grade: "COMMON" as Grade,
-    genre: "풍경",
+    genre: "LANDSCAPE" as Genre,
     name: "우리집 앞마당",
     price: 4,
     availableAmount: 5,
