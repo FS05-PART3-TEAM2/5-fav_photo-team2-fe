@@ -1,27 +1,18 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import ThinBtn from "@/components/common/button/ThinBtn";
 import Search from "@/components/common/input/Search";
 import Filter from "@/components/common/filter/Filter";
 import Order from "@/components/common/filter/Order";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
-import { UpdateSaleCardResponseDto } from "@/types/photocard.types";
+import { MarketplacePhotoCardDto } from "@/types/photocard.types";
+import FilterModal from "@/components/common/filter/FilterModal";
+import { buildMarketCountUrl } from "@/components/common/filter/FilterUtils";
 
 interface MarketplaceHeaderProps {
-  photoCards: UpdateSaleCardResponseDto[];
-  setFilteredCards: (cards: UpdateSaleCardResponseDto[]) => void;
+  photoCards: MarketplacePhotoCardDto[];
+  setFilteredCards: (cards: MarketplacePhotoCardDto[]) => void;
 }
-
-// 한글->영어->한글로 변환해줘야 genre 필터 동작?? -> 백엔드 데이터 들어오면 수정할수도...
-const GENRE_MAP_KO_TO_EN: Record<string, string> = {
-  여행: "travel",
-  풍경: "landscape",
-  인물: "portrait",
-  사물: "object",
-};
-
-const GENRE_MAP_EN_TO_KO = Object.fromEntries(
-  Object.entries(GENRE_MAP_KO_TO_EN).map(([ko, en]) => [en, ko])
-);
 
 export default function MarketplaceHeader({
   photoCards,
@@ -33,6 +24,18 @@ export default function MarketplaceHeader({
   const [isSoldOut, setIsSoldOut] =
     useState<keyof typeof FILTER_CONFIG.filter.isSoldOut.options>("default");
   const [orderBy, setOrderBy] = useState<"latest" | "oldest" | "expensive" | "cheap">("latest");
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+
+  // 필터 변경 핸들러 (FilterModal에서 사용)
+  const handleFilterChange = (filterName: "grade" | "genre" | "isSoldOut", value: string) => {
+    if (filterName === "grade") {
+      setGrade(value as keyof typeof FILTER_CONFIG.filter.grade.options);
+    } else if (filterName === "genre") {
+      setGenre(value as keyof typeof FILTER_CONFIG.filter.genre.options);
+    } else if (filterName === "isSoldOut") {
+      setIsSoldOut(value as keyof typeof FILTER_CONFIG.filter.isSoldOut.options);
+    }
+  };
 
   // 필터링 및 정렬 함수
   useEffect(() => {
@@ -52,7 +55,7 @@ export default function MarketplaceHeader({
 
     // genre 필터링
     if (genre !== "default") {
-      filteredCards = filteredCards.filter(card => card.genre === GENRE_MAP_EN_TO_KO[genre]);
+      filteredCards = filteredCards.filter(card => card.genre === genre);
     }
 
     // isSoldOut 필터링
@@ -81,7 +84,7 @@ export default function MarketplaceHeader({
 
   return (
     <>
-      <div className="hidden md:flex pb-[20px] mb-[20px] border-b">
+      <div className="hidden md:flex pb-[20px] mb-[20px] border-b-[2px] border-white">
         <div className="hidden md:flex justify-between w-full">
           <div className="font-BR-B whitespace-nowrap text-[48px] lg:text-[62px]">마켓플레이스</div>
           <div className="flex items-center w-[345px] md:w-[342px] lg:w-[440px]">
@@ -94,15 +97,38 @@ export default function MarketplaceHeader({
         <ThinBtn onClick={() => console.log("버튼 클릭됨!")}>포토카드 판매하기</ThinBtn>
       </div>
 
-      <div className="flex items-center justify-between my-[20px] gap-[30px] lg:gap-[60px]">
-        <Search onSearch={setSearchTerm} />
-        <div className="flex grow">
+      <div className="flex flex-wrap md:flex-nowrap items-center justify-between my-[20px] gap-[15px] md:gap-[30px] lg:gap-[60px]">
+        <div className="w-full md:w-auto">
+          <Search onSearch={setSearchTerm} />
+        </div>
+
+        <div className="w-full border-t border-gray-400 md:hidden" />
+        {/* 모바일에서는 필터 아이콘만 보이도록 설정 */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setIsFilterModalOpen(true)}
+            className="border border-gray-200 p-[3px]  cursor-pointer"
+          >
+            <Image src="/assets/icons/filter.png" alt="필터 아이콘" width={35} height={35} />
+          </button>
+        </div>
+        <div className="hidden md:flex flex-nowrap grow gap-[25px] lg:gap-[45px]">
           <Filter name="grade" value={grade} onFilter={setGrade} />
           <Filter name="genre" value={genre} onFilter={setGenre} />
           <Filter name="isSoldOut" value={isSoldOut} onFilter={setIsSoldOut} />
         </div>
         <Order orderBy={orderBy} setOrderBy={setOrderBy} />
       </div>
+      {isFilterModalOpen && (
+        <FilterModal
+          isOpen={isFilterModalOpen}
+          onClose={() => setIsFilterModalOpen(false)}
+          selectedFilters={{ grade, genre, isSoldOut }}
+          onFilterChange={handleFilterChange}
+          availableFilters={["grade", "genre", "isSoldOut"]}
+          buildCountUrl={buildMarketCountUrl}
+        />
+      )}
     </>
   );
 }
