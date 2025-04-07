@@ -8,7 +8,7 @@ import { AxiosError } from "axios";
  * @param id SaleCardId (판매 포토카드 ID)
  * @returns SaleCardExchangeListDto (판매 포토카드 교환 목록 정보)
  */
-export const getSaleCardExchangeList = async (id: string): Promise<SaleCardExchangeListDto> => {
+export const getSaleCardExchangeListApi = async (id: string): Promise<SaleCardExchangeListDto> => {
   try {
     const response = await axiosClient.get<SaleCardExchangeListDto>(`/market/${id}/exchange`);
     return response.data;

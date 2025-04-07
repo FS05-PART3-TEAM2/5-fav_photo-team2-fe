@@ -3,6 +3,7 @@ export type Genre = "TRAVEL" | "LANDSCAPE" | "PORTRAIT" | "OBJECT";
 export type Sort = "recent" | "old" | "cheap" | "expensive";
 export type SaleCardStatus = "ON_SALE" | "CANCELED" | "SOLD_OUT"; // TODO: 여기 수정응답에서 쓰이는데 수정사항 있는지 확인 필요 + 쿼리키 saleList 에서도 그냥 이거 사용. 만약 수정하게되면 쿼리키쪽에 문제없는지 확인 필요
 export type TradeStatus = "ON_SALE" | "SOLD_OUT" | "PENDING";
+export type ExchangeOfferStatus = "PENDING" | "ACCEPTED" | "FAILED";
 export type CardType = "details" | "list";
 export type AmountText = "잔여" | "수량" | "보유량";
 
@@ -102,6 +103,31 @@ export interface UpdateSaleCardResponseDto {
     id: string;
     nickname: string;
   };
+  createdAt: string;
+  updatedAt: string;
+}
+
+// TODO: 지영님 api 명세 업데이트 완료되면 수정 필요
+/**
+ * 판매 포토카드 교환 제시 등록 API 요청 타입
+ */
+export interface PostExchangeOfferBodyParams {
+  saleCardId: string;
+  customerId: string;
+  quantity: number;
+  content: string;
+}
+
+/**
+ * 판매 포토카드 교환 제시 등록/승인/거절 API 응답 타입
+ */
+export interface ExchangeCardActionResponseDto {
+  id: string;
+  saleCardId: string;
+  offererId: string;
+  offeredCardId: string;
+  quantity: number;
+  status: ExchangeOfferStatus;
   createdAt: string;
   updatedAt: string;
 }
