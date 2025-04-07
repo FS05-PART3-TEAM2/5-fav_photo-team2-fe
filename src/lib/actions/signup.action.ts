@@ -1,7 +1,6 @@
 "use server";
 
-import { axiosClient } from "@/services/axiosClient/axiosClient";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 
 interface SignupProps {
   email: string;
@@ -10,8 +9,13 @@ interface SignupProps {
 }
 
 export const signup = async ({ email, password, nickname }: SignupProps) => {
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`;
   try {
-    const response = await axiosClient.post("/auth/signup", { email, password, nickname });
+    const response = await axios.post(url, {
+      email,
+      password,
+      nickname,
+    });
     const { message } = response.data;
     return { status: true, message };
   } catch (error) {
