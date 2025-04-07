@@ -8,6 +8,7 @@ import CardFilter from "@/components/my-page/my-photo/PhotoCardFilter";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMyPhotoCards } from "@/hooks/my-page/useMyPhotoCards";
+import useUserStore from "@/store/useUserStore";
 
 const MyPhotos = () => {
   const router = useRouter();
@@ -16,11 +17,10 @@ const MyPhotos = () => {
   // React Query 훅 사용 (초기 로딩용)
   const { cardCountByGrade, totalCards, isLoading } = useMyPhotoCards();
 
-  // Zustand 스토어에서 사용자 정보 가져오기 (실제 구현 시 필요)
+  // Zustand 스토어에서 사용자 정보 가져오기
   useEffect(() => {
-    // TODO: 실제로 Zustand 스토어에서 가져올 예정
-    // 임시로 사용자 닉네임 설정
-    setUserNickname("초록사과");
+    const { userInfo } = useUserStore.getState();
+    setUserNickname(userInfo?.nickname || "");
   }, []);
 
   const handleCreateCardClick = () => {
@@ -49,7 +49,10 @@ const MyPhotos = () => {
           />
         )}
 
-        <CardFilter onCardClick={handleCardClick} />
+        <CardFilter
+          onCardClick={handleCardClick}
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 md:mt-15 md:gap-7 lg:gap-10"
+        />
 
         <MobileCreateButton onClick={handleCreateCardClick} />
       </div>

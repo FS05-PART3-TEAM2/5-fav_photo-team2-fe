@@ -9,6 +9,7 @@ interface PhotoCardsProps {
   onLoadMore: () => void;
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
+  className?: string;
 }
 
 const PhotoCardList: React.FC<PhotoCardsProps> = ({
@@ -17,6 +18,7 @@ const PhotoCardList: React.FC<PhotoCardsProps> = ({
   onLoadMore,
   hasNextPage,
   isFetchingNextPage,
+  className = "",
 }) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -74,14 +76,16 @@ const PhotoCardList: React.FC<PhotoCardsProps> = ({
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 md:mt-15 md:gap-7 lg:gap-10">
-        {photoCards.map(photoCard => (
-          <MyPhotoCardComponent
-            key={photoCard.id}
-            myPhotoCard={convertToMyPhotoCardDto(photoCard)}
-            onClick={(id: string) => onCardClick && onCardClick(id)}
-          />
-        ))}
+      <div className={className}>
+        {photoCards
+          .filter(card => card !== null)
+          .map(photoCard => (
+            <MyPhotoCardComponent
+              key={photoCard.id}
+              myPhotoCard={convertToMyPhotoCardDto(photoCard)}
+              onClick={(id: string) => onCardClick && onCardClick(id)}
+            />
+          ))}
       </div>
 
       {/* 무한 스크롤 로딩 인디케이터 */}

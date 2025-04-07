@@ -7,9 +7,10 @@ import { Grade, Genre, TradeStatus } from "@/types/photocard.types";
 
 interface SaleCardFilterProps {
   onCardClick?: (cardId: string) => void;
+  className?: string;
 }
 
-const SaleCardFilter: React.FC<SaleCardFilterProps> = ({ onCardClick }) => {
+const SaleCardFilter: React.FC<SaleCardFilterProps> = ({ onCardClick, className }) => {
   const [gradeFilter, setGradeFilter] = useState<GradeFilter>("default");
   const [genreFilter, setGenreFilter] = useState<GenreFilter>("default");
   const [tradeStatusFilter, setTradeStatusFilter] = useState<TradeStatusFilter>("default");
@@ -51,6 +52,7 @@ const SaleCardFilter: React.FC<SaleCardFilterProps> = ({ onCardClick }) => {
         </div>
       ) : mySalesCards.length > 0 ? (
         <SaleCardList
+          className={className}
           salesCards={mySalesCards}
           onCardClick={onCardClick}
           onLoadMore={fetchNextPage}

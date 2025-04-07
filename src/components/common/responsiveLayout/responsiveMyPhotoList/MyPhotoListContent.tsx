@@ -4,7 +4,6 @@ import { FILTER_CONFIG } from "../../filter/constants";
 import { useEffect, useState } from "react";
 import FilterSection from "@/components/my-page/my-photo/PhotoFilterSection";
 import MyPhotoCard from "@/components/my-page/MyPhotoCard";
-
 interface MyPhotoListContentProps {
   title: string;
   onCardClick: (cardId: string, cardData: MyPhotoCardDto) => void;

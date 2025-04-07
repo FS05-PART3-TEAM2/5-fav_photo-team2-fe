@@ -7,7 +7,7 @@ import SaleCardFilter from "@/components/my-page/my-sale/SaleCardFilter";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useMySalesCards } from "@/hooks/my-page/useMySalesCards";
-
+import useUserStore from "@/store/useUserStore";
 const MySales = () => {
   const router = useRouter();
   const [userNickname, setUserNickname] = useState<string>(""); // 사용자 닉네임 상태 추가
@@ -15,11 +15,10 @@ const MySales = () => {
   // React Query 훅 사용 (초기 로딩용)
   const { cardCountByGrade, totalCards, isLoading } = useMySalesCards();
 
-  // Zustand 스토어에서 사용자 정보 가져오기 (실제 구현 시 필요)
+  // Zustand 스토어에서 사용자 정보 가져오기
   useEffect(() => {
-    // TODO: 실제로 Zustand 스토어에서 가져올 예정
-    // 임시로 "유디" 닉네임 설정
-    setUserNickname("유디");
+    const { userInfo } = useUserStore.getState();
+    setUserNickname(userInfo?.nickname || "");
   }, []);
 
   const handleCreateCardClick = () => {

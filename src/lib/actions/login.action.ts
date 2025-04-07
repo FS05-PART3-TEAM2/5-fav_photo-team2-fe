@@ -1,7 +1,9 @@
 "use server";
 
-import { axiosClient } from "@/services/axiosClient/axiosClient";
-import { AxiosError } from "axios";
+import { parseSetCookieHeader } from "@/utils/parseSetCookieHeader";
+import { cookies } from "next/headers";
+import { setCookie } from "cookies-next/server";
+import axios, { AxiosError } from "axios";
 
 interface LoginProps {
   email: string;
@@ -10,8 +12,35 @@ interface LoginProps {
 
 export const login = async ({ email, password }: LoginProps) => {
   try {
-    const response = await axiosClient.post("/auth/login", { email, password });
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+      email,
+      password,
+    });
     const { message, user } = response.data;
+
+    // 쿠키 헤더 직접 가져오기
+    const setCookieHeader = response.headers["set-cookie"]; // string 또는 string[]
+    console.log("setCookieHeader: ", setCookieHeader);
+
+    // 쿠키 있는 경우 쿠키 설정
+    if (setCookieHeader) {
+      const parsed = parseSetCookieHeader(setCookieHeader);
+      console.log("parsed: ", parsed);
+      const [token, refreshToken] = parsed;
+      await setCookie(token.name, token.value, { ...token.options, cookies }); // 브라우저 쿠기 설정
+      await setCookie(refreshToken.name, refreshToken.value, { ...refreshToken.options, cookies }); // 브라우저 쿠기 설정
+
+      // await deleteCookie('test1', { cookies }); // 브라우저 쿠기 삭제 (로그아웃 할 때)
+
+      // axiosClient에 Authorization 헤더 설정
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token.value}`;
+
+      console.log(
+        "🔐 axiosClient Authorization 설정됨:",
+        axios.defaults.headers.common["Authorization"]
+      );
+    }
+
     return { status: true, message, user };
   } catch (error) {
     const axiosError = error as AxiosError<{ error?: string }>;

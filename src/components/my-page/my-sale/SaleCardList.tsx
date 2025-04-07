@@ -9,6 +9,7 @@ interface MySalesCardsProps {
   onLoadMore: () => void;
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
+  className?: string;
 }
 
 const SaleCardList: React.FC<MySalesCardsProps> = ({
@@ -17,6 +18,7 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
   onLoadMore,
   hasNextPage,
   isFetchingNextPage,
+  className = "",
 }) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -77,7 +79,7 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 md:mt-15 md:gap-7 lg:gap-10">
+      <div className={className}>
         {salesCards.map(saleCard => (
           <MyPhotoCard
             key={saleCard.saleCardId}

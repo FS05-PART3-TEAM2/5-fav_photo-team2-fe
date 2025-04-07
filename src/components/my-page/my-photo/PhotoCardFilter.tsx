@@ -7,9 +7,10 @@ import { Grade, Genre } from "@/types/photocard.types";
 
 interface PhotoCardFilterProps {
   onCardClick?: (cardId: string) => void;
+  className?: string;
 }
 
-const PhotoCardFilter: React.FC<PhotoCardFilterProps> = ({ onCardClick }) => {
+const PhotoCardFilter: React.FC<PhotoCardFilterProps> = ({ onCardClick, className }) => {
   const [gradeFilter, setGradeFilter] = useState<GradeFilter>("default");
   const [genreFilter, setGenreFilter] = useState<GenreFilter>("default");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -46,6 +47,7 @@ const PhotoCardFilter: React.FC<PhotoCardFilterProps> = ({ onCardClick }) => {
         </div>
       ) : myPhotos.length > 0 ? (
         <PhotoCardList
+          className={className}
           photoCards={myPhotos}
           onCardClick={onCardClick}
           onLoadMore={fetchNextPage}
