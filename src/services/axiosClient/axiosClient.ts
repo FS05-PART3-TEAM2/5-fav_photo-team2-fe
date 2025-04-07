@@ -4,7 +4,7 @@ import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
 const instances: Record<string, AxiosInstance> = {};
 
 // 개발 서버
-// const devURL = "/api"; // 로컬 개발 서버
+// const devURL = "/api";
 
 // 운영 서버
 // const prodURL = "https://#.onrender.com";

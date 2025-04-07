@@ -9,9 +9,8 @@ interface SignupProps {
 }
 
 export const signup = async ({ email, password, nickname }: SignupProps) => {
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`;
   try {
-    const response = await axios.post(url, {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/signup`, {
       email,
       password,
       nickname,
