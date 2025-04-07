@@ -48,7 +48,10 @@ const MySales = () => {
           />
         )}
 
-        <SaleCardFilter onCardClick={handleCardClick} />
+        <SaleCardFilter
+          onCardClick={handleCardClick}
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 md:mt-15 md:gap-7 lg:gap-10"
+        />
       </div>
     </CommonLayout>
   );

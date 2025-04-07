@@ -27,7 +27,10 @@ export default function MarketplaceHeader({
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   // 필터 변경 핸들러 (FilterModal에서 사용)
-  const handleFilterChange = (filterName: "grade" | "genre" | "isSoldOut", value: string) => {
+  const handleFilterChange = (
+    filterName: "grade" | "genre" | "isSoldOut" | "tradeStatus",
+    value: string
+  ) => {
     if (filterName === "grade") {
       setGrade(value as keyof typeof FILTER_CONFIG.filter.grade.options);
     } else if (filterName === "genre") {
