@@ -8,34 +8,39 @@ import ClientPageComponent from "./ClientPageComponent";
 import { photoCardKeys } from "@/utils/queryKeys";
 import { getSaleCardExchangeListApi } from "@/services/market/getSaleCardExchangeList";
 import { getSaleCardDetailApi } from "@/services/market/getSaleCardDetail";
+import { redirect } from "next/navigation";
 
 // XXX: 판매 카드 기본 상세 정보는 서버사이드 fetch,
 // XXX: 교환 목록은 reactQuery로 CSR 처리
-export default async function PhotoCardDetailPage({ params }: { params: { id: string } }) {
-  // const cookieStore = await cookies();
-  // const accessToken = cookieStore.get("accessToken")?.value;
-
+export default async function PhotoCardDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const queryClient = new QueryClient();
 
-  await Promise.all([
-    queryClient.fetchQuery({
-      queryKey: photoCardKeys.detail(params.id),
-      queryFn: () => getSaleCardDetailApi(params.id),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: photoCardKeys.exchangeCardList(params.id),
-      queryFn: () => getSaleCardExchangeListApi(params.id),
-    }),
-  ]);
+  try {
+    const [saleCardDetail, exchangeCardList] = await Promise.all([
+      getSaleCardDetailApi(id),
+      getSaleCardExchangeListApi(id),
+    ]);
 
-  // // 교환 목록 데이터 불러오기
-  // const { data: exchangeListData, isPending: isExchangeListPending } = useExchangeCardList();
+    console.log("detail 불러왔는지:", saleCardDetail);
+    console.log("exchangeList 불러왔는지:", exchangeCardList);
 
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ClientPageComponent saleCardId={params.id} />
-    </HydrationBoundary>
-  );
+    // queryClient에 데이터 설정
+    await Promise.all([
+      queryClient.setQueryData(photoCardKeys.detail(id), saleCardDetail),
+      queryClient.setQueryData(photoCardKeys.exchangeCardList(id), exchangeCardList),
+    ]);
+
+    return (
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ClientPageComponent saleCardId={id} />
+      </HydrationBoundary>
+    );
+  } catch (error) {
+    // 에러 처리
+    console.error("Error fetching data:", error);
+    return redirect("/not-found");
+  }
 
   // return (
   //   <div className="w-[100%] pt-[20px] md:pt-[0px] pb-[40px] md:pb-[60px] lg:pb-[180px]">
