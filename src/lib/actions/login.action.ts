@@ -12,6 +12,7 @@ export const login = async ({ email, password }: LoginProps) => {
   try {
     const response = await axiosClient.post("/auth/login", { email, password });
     const { message, user } = response.data;
+
     return { status: true, message, user };
   } catch (error) {
     const axiosError = error as AxiosError<{ error?: string }>;

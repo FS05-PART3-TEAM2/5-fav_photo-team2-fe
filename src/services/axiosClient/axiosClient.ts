@@ -1,10 +1,12 @@
 import { useSnackbarStore } from "@/store/useSnackbarStore";
-import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import { getCookie } from "cookies-next/client";
 
 const instances: Record<string, AxiosInstance> = {};
 
 // 개발 서버
-const devURL = "https://five-fav-photo-team2-be.onrender.com/api";
+// const devURL = "https://five-fav-photo-team2-be.onrender.com/api";
+const devURL = "http://localhost:8000/api";
 
 // 운영 서버
 // const prodURL = "https://#.onrender.com";
@@ -14,6 +16,7 @@ const baseURL = devURL;
 const AxiosDefault = (baseURL: string): AxiosInstance => {
   if (!instances[baseURL]) {
     const axiosInstance = createAxiosInstance(baseURL);
+    requestInterceptor(axiosInstance);
     responseInterceptor(axiosInstance);
     instances[baseURL] = axiosInstance;
   }
@@ -48,6 +51,30 @@ const responseInterceptor = (axiosInstance: AxiosInstance) => {
       }
       return Promise.reject(error);
     }
+  );
+};
+
+const requestInterceptor = (axiosInstance: AxiosInstance) => {
+  axiosInstance.interceptors.request.use(
+    async (config: InternalAxiosRequestConfig) => {
+      // 쿼리 설정
+      config.params = {
+        ...(config.params || {}),
+      };
+
+      // access token header 설정
+      const auth_header = config.headers["x-auth-not-required"];
+      if (auth_header) return config;
+
+      const token = getCookie("token");
+
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+
+      return config;
+    },
+    (error: AxiosError) => Promise.reject(error)
   );
 };
 
