@@ -1,18 +1,18 @@
 import React, { useEffect, useRef } from "react";
-import { MySaleCard } from "@/services/my-page/getMySalesCards";
-import MyPhotoCard from "../MyPhotoCard";
-import { MyPhotoCardDto, TradeStatus } from "@/types/photocard.types";
+import { MyPhotoCard as MyPhotoCardType } from "@/services/my-page/getMyPhotoCards";
+import MyPhotoCardComponent from "../MyPhotoCard";
+import { MyPhotoCardDto } from "@/types/photocard.types";
 
-interface MySalesCardsProps {
-  salesCards: MySaleCard[];
+interface PhotoCardsProps {
+  photoCards: MyPhotoCardType[];
   onCardClick?: (cardId: string) => void;
   onLoadMore: () => void;
   hasNextPage?: boolean;
   isFetchingNextPage: boolean;
 }
 
-const SaleCardList: React.FC<MySalesCardsProps> = ({
-  salesCards,
+const PhotoCardList: React.FC<PhotoCardsProps> = ({
+  photoCards,
   onCardClick,
   onLoadMore,
   hasNextPage,
@@ -22,23 +22,20 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   /*
-  MySaleCard 객체를 MyPhotoCardDto 객체로 변환하는 함수
+  MyPhotoCard 객체를 MyPhotoCardDto 객체로 변환하는 함수
   MyPhotoCard 컴포넌트가 필요한 데이터 형식에 맞추기 위해 필요합니다.
   */
-  const convertToMyPhotoCardDto = (
-    saleCard: MySaleCard
-  ): MyPhotoCardDto & { status?: TradeStatus } => {
+  const convertToMyPhotoCardDto = (photoCard: MyPhotoCardType): MyPhotoCardDto => {
     return {
-      id: saleCard.saleCardId,
-      grade: saleCard.grade,
-      genre: saleCard.genre,
-      name: saleCard.name,
-      price: saleCard.price,
-      availableAmount: saleCard.remaining,
-      totalAmount: saleCard.total,
-      creator: saleCard.creator.nickname,
-      imageUrl: saleCard.image,
-      status: saleCard.status,
+      id: photoCard.id,
+      grade: photoCard.grade,
+      genre: photoCard.genre,
+      name: photoCard.name,
+      price: photoCard.price,
+      availableAmount: photoCard.amount,
+      totalAmount: photoCard.amount,
+      creator: photoCard.creatorNickname,
+      imageUrl: photoCard.imageUrl,
     };
   };
 
@@ -78,11 +75,11 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
   return (
     <div className="relative">
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 md:mt-15 md:gap-7 lg:gap-10">
-        {salesCards.map(saleCard => (
-          <MyPhotoCard
-            key={saleCard.saleCardId}
-            myPhotoCard={convertToMyPhotoCardDto(saleCard)}
-            onClick={id => onCardClick && onCardClick(id)}
+        {photoCards.map(photoCard => (
+          <MyPhotoCardComponent
+            key={photoCard.id}
+            myPhotoCard={convertToMyPhotoCardDto(photoCard)}
+            onClick={(id: string) => onCardClick && onCardClick(id)}
           />
         ))}
       </div>
@@ -95,4 +92,4 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
   );
 };
 
-export default SaleCardList;
+export default PhotoCardList;

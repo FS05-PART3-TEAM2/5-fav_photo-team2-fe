@@ -13,7 +13,7 @@ interface FilterSectionProps {
   onSearch: (query: string) => void;
 }
 
-const FilterSection: React.FC<FilterSectionProps> = ({
+const PhotoFilterSection: React.FC<FilterSectionProps> = ({
   gradeFilter,
   genreFilter,
   onGradeFilterChange,
@@ -66,4 +66,4 @@ const FilterSection: React.FC<FilterSectionProps> = ({
   );
 };
 
-export default FilterSection;
+export default PhotoFilterSection;
