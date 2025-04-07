@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { baskinBold } from "../../public/assets/fonts/font";
 import { SnackbarAlert } from "@/components/common/snackbar/SnackbarAlert";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 
 export const metadata: Metadata = {
   title: "최애의 포토카드",
@@ -12,11 +13,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" className={`${baskinBold.variable}`}>
       <body>
-        {/* <AuthProvider> */}
-        {children}
-        {/* 스낵바 팝업 전역 상태로 관리 */}
-        <SnackbarAlert />
-        {/* </AuthProvider> */}
+        <AuthProvider>
+          {children}
+          {/* 스낵바 팝업 전역 상태로 관리 */}
+          <SnackbarAlert />
+        </AuthProvider>
       </body>
     </html>
   );
