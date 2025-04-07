@@ -53,7 +53,7 @@ export const declineExchangeOfferApi = async (
 ): Promise<ExchangeCardActionResponseDto> => {
   try {
     const response = await axiosClient.patch<ExchangeCardActionResponseDto>(
-      `/market/exchange/${id}/decline`
+      `/market/exchange/${id}/fail`
     );
     return response.data;
   } catch (error) {
