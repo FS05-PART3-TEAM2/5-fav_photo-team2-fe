@@ -4,12 +4,12 @@ import axios, { AxiosInstance, AxiosError, AxiosResponse } from "axios";
 const instances: Record<string, AxiosInstance> = {};
 
 // 개발 서버
-const devURL = "https://five-fav-photo-team2-be.onrender.com/api";
+// const devURL = "/api"; // 로컬 개발 서버
 
 // 운영 서버
 // const prodURL = "https://#.onrender.com";
 
-const baseURL = devURL;
+const baseURL = "/api";
 
 const AxiosDefault = (baseURL: string): AxiosInstance => {
   if (!instances[baseURL]) {

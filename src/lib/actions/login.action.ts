@@ -1,7 +1,7 @@
 "use server";
 
 import { axiosClient } from "@/services/axiosClient/axiosClient";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { parseSetCookieHeader } from "@/utils/parseSetCookieHeader";
 import { cookies } from "next/headers";
 import { setCookie } from "cookies-next/server";
@@ -13,7 +13,11 @@ interface LoginProps {
 
 export const login = async ({ email, password }: LoginProps) => {
   try {
-    const response = await axiosClient.post("/auth/login", { email, password });
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+      email,
+      password,
+    });
+    // const response = await axios.post("/auth/login", { email, password });
     const { message, user } = response.data;
 
     // 쿠키 헤더 직접 가져오기
@@ -25,8 +29,7 @@ export const login = async ({ email, password }: LoginProps) => {
       const parsed = parseSetCookieHeader(setCookieHeader);
       console.log("parsed: ", parsed);
       const [token, refreshToken] = parsed;
-      // await setCookie(token.name, token.value, { ...token.options, cookies }); // 브라우저 쿠기 설정
-      await setCookie("accessToken", token.value, { ...token.options, cookies }); // 브라우저 쿠기 설정
+      await setCookie(token.name, token.value, { ...token.options, cookies }); // 브라우저 쿠기 설정
       await setCookie(refreshToken.name, refreshToken.value, { ...refreshToken.options, cookies }); // 브라우저 쿠기 설정
 
       // await deleteCookie('test1', { cookies }); // 브라우저 쿠기 삭제 (로그아웃 할 때)
