@@ -5,3 +5,11 @@ import { Genre, Grade, TradeStatus } from "./photocard.types";
 export type GradeFilter = "default" | Grade;
 export type GenreFilter = "default" | Genre;
 export type TradeStatusFilter = "default" | TradeStatus;
+
+// 서버로부터 받아올 카운트 데이터 타입
+export interface FilterCountResponse {
+  grade: string;
+  genre: string;
+  status: string;
+  count: number;
+}

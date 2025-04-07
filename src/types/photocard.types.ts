@@ -107,6 +107,33 @@ export interface UpdateSaleCardResponseDto {
   updatedAt: string;
 }
 
+// 마켓플레이스 페이지(공통)에서 사용하는 포토카드 타입
+export interface MarketplacePhotoCardDto {
+  saleCardId: string;
+  userPhotoCardId: string;
+  status: SaleCardStatus;
+  name: string;
+  grade: Grade;
+  genre: Genre;
+  price: number;
+  image: string;
+  remaining: number;
+  total: number;
+  exchangeDescription: string;
+  exchangeGrade: Grade;
+  exchangeGenre: string;
+  creator: {
+    id: string;
+    nickname: string;
+  };
+  seller: {
+    id: string;
+    nickname: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
 // TODO: 지영님 api 명세 업데이트 완료되면 수정 필요
 /**
  * 판매 포토카드 교환 제시 등록 API 요청 타입
