@@ -27,7 +27,7 @@ export interface MyPhotoCardDto {
  */
 export interface SaleCardDetailDto {
   id: string;
-  userNickname: string;
+  creatorNickname: string;
   imageUrl: string;
   name: string;
   grade: Grade;

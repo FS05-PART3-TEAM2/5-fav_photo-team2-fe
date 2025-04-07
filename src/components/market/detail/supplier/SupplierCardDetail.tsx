@@ -33,7 +33,7 @@ export const SupplierCardDetail: React.FC<CardDetailProps> = ({ data }) => {
   const cardHeaderProps = {
     grade: data.grade,
     genre: data.genre,
-    creator: data.userNickname,
+    creator: data.creatorNickname,
     cardType: "details" as CardType,
   };
   const cardDetailProps = {

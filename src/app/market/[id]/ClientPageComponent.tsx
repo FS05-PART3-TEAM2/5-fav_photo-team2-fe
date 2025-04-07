@@ -1,28 +1,16 @@
 "use client";
 
-import { useExchangeCardList } from "@/hooks/market/detail/useExchangeCardService";
+import { useFetchSaleCardDetailClient } from "@/hooks/market/detail/useFetchSaleCardDetailClient";
 import { ConsumerPage } from "./ConsumerPage";
 import { SupplierPage } from "./SupplierPage";
-import { useQuery } from "@tanstack/react-query";
-import { photoCardKeys } from "@/utils/queryKeys";
-import { getSaleCardDetailApi } from "@/services/market/getSaleCardDetail";
 import { redirect } from "next/navigation";
 
-interface ClientPageComponentProps {
-  saleCardId: string;
-}
+export default function ClientPageComponent() {
+  // 클라이언트 사이드 상세 정보 데이터 불러오기
+  const { saleCardDetailData, exchangeListData, isExchangeListPending } =
+    useFetchSaleCardDetailClient();
 
-export default function ClientPageComponent({ saleCardId }: ClientPageComponentProps) {
-  // 판매 카드 기본 상세 정보 불러오기
-  const { data: saleCardData } = useQuery({
-    queryKey: photoCardKeys.detail(saleCardId),
-    queryFn: () => getSaleCardDetailApi(saleCardId),
-  });
-
-  // 교환 목록 데이터 불러오기
-  const { data: exchangeListData, isPending: isExchangeListPending } = useExchangeCardList();
-
-  if (!saleCardData) {
+  if (!saleCardDetailData || !exchangeListData) {
     return redirect("/not-found");
   }
 
@@ -33,17 +21,17 @@ export default function ClientPageComponent({ saleCardId }: ClientPageComponentP
         <p className="text-gray-300 text-[16px] lg:text-[24px] font-BR-B">마켓플레이스</p>
       </div>
 
-      {saleCardData.isMine ? (
+      {saleCardDetailData.isMine ? (
         // 판매자 페이지
         <SupplierPage
-          saleCardData={saleCardData}
+          saleCardData={saleCardDetailData}
           exchangeListData={exchangeListData}
           isExchangeListPending={isExchangeListPending}
         />
       ) : (
         // 구매자 페이지
         <ConsumerPage
-          saleCardData={saleCardData}
+          saleCardData={saleCardDetailData}
           exchangeListData={exchangeListData}
           isExchangeListPending={isExchangeListPending}
         />

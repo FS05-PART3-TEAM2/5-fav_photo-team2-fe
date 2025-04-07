@@ -9,7 +9,7 @@ const instances: Record<string, AxiosInstance> = {};
 // 운영 서버
 // const prodURL = "https://#.onrender.com";
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL ?? "/api";
+const baseURL = "/api";
 
 const AxiosDefault = (baseURL: string): AxiosInstance => {
   if (!instances[baseURL]) {
