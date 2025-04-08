@@ -6,15 +6,20 @@ import { SaleCardDetailDto, SaleCardExchangeListDto } from "@/types/photocard.ty
 interface ConsumerPageProps {
   saleCardData: SaleCardDetailDto;
   exchangeListData: SaleCardExchangeListDto;
+  isExchangeListPending: boolean;
 }
 
-export const ConsumerPage: React.FC<ConsumerPageProps> = ({ saleCardData, exchangeListData }) => {
+export const ConsumerPage: React.FC<ConsumerPageProps> = ({
+  saleCardData,
+  exchangeListData,
+  isExchangeListPending,
+}) => {
   return (
     <div className="w-[100%] flex flex-col gap-[120px]">
       <ConsumerCardDetail data={saleCardData} />
       <div className="w-[100%] flex flex-col gap-[90px]">
         <ExchangeDetail exchangeDetail={saleCardData.exchangeDetail} />
-        <MyExchangeOffers data={exchangeListData.myOffers} />
+        <MyExchangeOffers data={exchangeListData.myOffers} isLoading={isExchangeListPending} />
       </div>
     </div>
   );

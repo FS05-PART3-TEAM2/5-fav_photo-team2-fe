@@ -1,4 +1,4 @@
-import { Grade, Genre } from "@/types/photocard.types";
+import { Grade, Genre, MyPhotoCardDto } from "@/types/photocard.types";
 import { axiosClient } from "../axiosClient/axiosClient";
 export interface MyPhotosResponse {
   userNickname: string;
@@ -10,23 +10,11 @@ export interface MyPhotosResponse {
   };
   hasMore: boolean;
   nextCursor: string | null;
-  list: MyPhotoCard[];
+  list: MyPhotoCardDto[];
   filterInfo: {
     grade: GradeInfo[];
     genre: GenreInfo[];
   };
-}
-
-export interface MyPhotoCard {
-  id: string;
-  name: string;
-  genre: Genre;
-  grade: Grade;
-  price: number;
-  imageUrl: string;
-  amount: number;
-  creatorNickname: string;
-  createdAt: string;
 }
 
 interface GradeInfo {

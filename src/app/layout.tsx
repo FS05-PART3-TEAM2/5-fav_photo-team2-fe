@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { baskinBold } from "../../public/assets/fonts/font";
+
 import { SnackbarAlert } from "@/components/common/snackbar/SnackbarAlert";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

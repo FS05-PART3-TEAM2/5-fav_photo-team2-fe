@@ -14,6 +14,8 @@ export const photoCardKeys = {
     sort: Sort;
   }) => [...photoCardKeys.all, "saleList", params] as const,
 
+  detail: (saleId: string) => [...photoCardKeys.all, "detail", saleId] as const,
+
   // 교환 포토카드 목록
   exchangeCardList: (saleId: string) => [...photoCardKeys.all, "exchangeCardList", saleId] as const,
 
