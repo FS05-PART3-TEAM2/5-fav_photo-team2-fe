@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Filter from "@/components/common/filter/Filter";
 import SearchBar from "@/components/my-page/SearchBar";
 import { GradeFilter, GenreFilter, TradeStatusFilter } from "@/types/filter.types";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
+import FilterModal from "@/components/common/filter/FilterModal";
 
 interface SaleFilterSectionProps {
   gradeFilter: GradeFilter;
@@ -24,16 +25,54 @@ const SaleFilterSection: React.FC<SaleFilterSectionProps> = ({
   onTradeStatusFilterChange,
   onSearch,
 }) => {
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+
   // 타입 변환을 위한 타입 정의
   type GenreOptionKey = keyof typeof FILTER_CONFIG.filter.genre.options;
   type TradeStatusOptionKey = keyof typeof FILTER_CONFIG.filter.tradeStatus.options;
 
+  const handleFilterChange = (
+    filterName: "grade" | "genre" | "tradeStatus" | "isSoldOut",
+    value: string
+  ) => {
+    switch (filterName) {
+      case "grade":
+        onGradeFilterChange(value as GradeFilter);
+        break;
+      case "genre":
+        onGenreFilterChange(value as GenreFilter);
+        break;
+      case "tradeStatus":
+        onTradeStatusFilterChange(value as TradeStatusFilter);
+        break;
+    }
+  };
+
+  const buildCountUrl = (filterParams: {
+    grade?: string;
+    genre?: string;
+    tradeStatus?: string;
+  }) => {
+    const params = new URLSearchParams();
+    if (filterParams.grade) params.append("grade", filterParams.grade);
+    if (filterParams.genre) params.append("genre", filterParams.genre);
+    if (filterParams.tradeStatus) {
+      params.append("status", filterParams.tradeStatus);
+    }
+    return `/market/me/count${params.toString() ? `?${params.toString()}` : ""}`;
+  };
+
+  const handleCloseModal = () => {
+    setIsFilterModalOpen(false);
+  };
+
   return (
     <div className="flex justify-start items-center gap-3 mb-4">
-      {/* 모바일 필터
-       * 모바일 화면에서 필터 버튼을 누르면 필터 모달이 나타나도록 구현 - 추후 모바일 필터 컴포넌트 완성시 구현 예정
-       */}
-      <button className="md:hidden flex items-center justify-center w-[45px] h-[45px] border border-gray-200 rounded-[2px] flex-shrink-0">
+      {/* 모바일 필터 */}
+      <button
+        className="md:hidden flex items-center justify-center w-[45px] h-[45px] border border-gray-200 rounded-[2px] flex-shrink-0"
+        onClick={() => setIsFilterModalOpen(true)}
+      >
         <Image
           src="/assets/icons/filter.png"
           alt="filter"
@@ -75,6 +114,22 @@ const SaleFilterSection: React.FC<SaleFilterSectionProps> = ({
           }}
         />
       </div>
+
+      {/* 모바일 필터 모달 */}
+      {isFilterModalOpen && (
+        <FilterModal
+          isOpen={isFilterModalOpen}
+          onClose={handleCloseModal}
+          selectedFilters={{
+            grade: gradeFilter,
+            genre: genreFilter,
+            tradeStatus: tradeStatusFilter,
+          }}
+          onFilterChange={handleFilterChange}
+          availableFilters={["grade", "genre", "tradeStatus"]}
+          buildCountUrl={buildCountUrl}
+        />
+      )}
     </div>
   );
 };
