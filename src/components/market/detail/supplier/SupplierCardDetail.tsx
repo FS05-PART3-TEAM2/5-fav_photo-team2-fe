@@ -8,14 +8,18 @@ import { useState, useCallback } from "react";
 import { CommonModal } from "@/components/common/modal/CommonModal";
 import ResponsiveForm from "@/components/common/responsiveLayout/responsiveForm/ResponsiveForm";
 import { SaleCardEditForm } from "./SaleCardEditForm";
+import { useCancelSaleCard } from "@/hooks/market/detail/useCancelSaleCard";
 interface CardDetailProps {
   data: SaleCardDetailDto;
 }
 
-// TODO: 판매 내리기 api 연결 추가
 export const SupplierCardDetail: React.FC<CardDetailProps> = ({ data }) => {
   const [isCloseSaleModalOpen, setIsCloseSaleModalOpen] = useState(false);
   const [isEditSaleModalOpen, setIsEditSaleModalOpen] = useState(false);
+  // 판매 내리기 핸들러 불러오기
+  const { handleCancelSaleCard } = useCancelSaleCard();
+
+  // 확인 모달 상태 핸들러
   const handleCloseSaleModalOpen = () => {
     setIsCloseSaleModalOpen(true);
   };
@@ -25,10 +29,15 @@ export const SupplierCardDetail: React.FC<CardDetailProps> = ({ data }) => {
   const handleEditSaleModalOpen = () => {
     setIsEditSaleModalOpen(true);
   };
-
   const handleEditSaleModalClose = useCallback(() => {
     setIsEditSaleModalOpen(false);
   }, []);
+
+  // 판매 내리기 버튼 클릭
+  const handleClickCancelSaleBtn = () => {
+    handleCancelSaleCard(data);
+    setIsCloseSaleModalOpen(false);
+  };
 
   const cardHeaderProps = {
     grade: data.grade,
@@ -114,7 +123,7 @@ export const SupplierCardDetail: React.FC<CardDetailProps> = ({ data }) => {
           title="포토카드 판매 내리기"
           desc="정말로 판매를 중단하시겠습니까?"
           btnText="판매 내리기"
-          btnClick={handleCloseSaleModalClose}
+          btnClick={handleClickCancelSaleBtn}
         />
       )}
     </div>

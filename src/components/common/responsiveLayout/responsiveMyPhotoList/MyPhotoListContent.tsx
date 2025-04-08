@@ -8,7 +8,7 @@ interface MyPhotoListContentProps {
 }
 
 // XXX: 하윤님 마이갤러리 api + 컴포넌트로 보유하고 있는 카드 보여줌.
-// TODO: 포토카드 등록 가능해지면 등록 테스트 후, 무한스크롤 + 교환제시 모달로 잘 넘어가는지 확인 필요
+// TODO: 무한스크롤 안됨 -> 스크롤 영역 다시 설정 필요
 export const MyPhotoListContent: React.FC<MyPhotoListContentProps> = ({ title, onCardClick }) => {
   // React Query 훅 사용 (초기 로딩용)
   const { myPhotos } = useMyPhotoCards();
