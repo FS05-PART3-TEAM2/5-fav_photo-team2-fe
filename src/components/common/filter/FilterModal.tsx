@@ -13,7 +13,7 @@ const GRADE_COLOR_MAP: Record<string, string> = {
 };
 
 // 필터 가능한 타입 정의
-type FilterName = "grade" | "genre" | "isSoldOut";
+type FilterName = "grade" | "genre" | "tradeStatus" | "isSoldOut";
 type FilterValue = string;
 
 interface FilterModalProps {
@@ -22,11 +22,17 @@ interface FilterModalProps {
   selectedFilters: {
     grade: FilterValue;
     genre: FilterValue;
+    tradeStatus?: FilterValue;
     isSoldOut?: FilterValue;
   };
   onFilterChange: (filterName: FilterName, value: FilterValue) => void;
   availableFilters: FilterName[];
-  buildCountUrl: (filterParams: { grade?: string; genre?: string; isSoldOut?: string }) => string;
+  buildCountUrl: (filterParams: {
+    grade?: string;
+    genre?: string;
+    tradeStatus?: string;
+    isSoldOut?: string;
+  }) => string;
 }
 
 export default function FilterModal({
@@ -44,19 +50,22 @@ export default function FilterModal({
   // API 요청하여 필터별 개수 불러오기
   const fetchCounts = async () => {
     try {
-      const { grade, genre, isSoldOut } = selectedFilters;
+      const { grade, genre, tradeStatus, isSoldOut } = selectedFilters;
       const params = new URLSearchParams();
 
       if (grade !== "default") params.append("grade", grade);
       if (genre !== "default") params.append("genre", genre);
+      if (tradeStatus !== "default") {
+        params.append("status", tradeStatus === "soldOut" ? "SOLD_OUT" : "ON_SALE");
+      }
       if (isSoldOut !== "default") {
         params.append("status", isSoldOut === "soldOut" ? "SOLD_OUT" : "ON_SALE");
       }
 
-      // const url = `/market/count${queryString ? `?${queryString}` : ""}`;
       const url = buildCountUrl({
         grade: grade !== "default" ? grade : undefined,
         genre: genre !== "default" ? genre : undefined,
+        tradeStatus: tradeStatus !== "default" ? tradeStatus : undefined,
         isSoldOut: isSoldOut !== "default" ? isSoldOut : undefined,
       });
       const response = await axiosClient.get<FilterCountResponse>(url);
@@ -96,10 +105,10 @@ export default function FilterModal({
             params.append("genre", selectedFilters.genre);
           }
 
-          if (activeTab !== "isSoldOut" && selectedFilters.isSoldOut !== "default") {
+          if (activeTab !== "tradeStatus" && selectedFilters.tradeStatus !== "default") {
             params.append(
               "status",
-              selectedFilters.isSoldOut === "soldOut" ? "SOLD_OUT" : "ON_SALE"
+              selectedFilters.tradeStatus === "soldOut" ? "SOLD_OUT" : "ON_SALE"
             );
           }
 
@@ -108,11 +117,13 @@ export default function FilterModal({
             params.append("grade", key);
           } else if (activeTab === "genre" && key !== "default") {
             params.append("genre", key);
-          } else if (activeTab === "isSoldOut") {
+          } else if (activeTab === "tradeStatus") {
             if (key === "soldOut") {
               params.append("status", "SOLD_OUT");
             } else if (key === "onSale") {
               params.append("status", "ON_SALE");
+            } else if (key === "pending") {
+              params.append("status", "PENDING");
             }
             // default일 경우 아무것도 추가하지 않음
           }
@@ -136,13 +147,13 @@ export default function FilterModal({
                 : selectedFilters.genre !== "default"
                   ? selectedFilters.genre
                   : undefined,
-            isSoldOut:
-              activeTab === "isSoldOut"
+            tradeStatus:
+              activeTab === "tradeStatus"
                 ? key !== "default"
                   ? key
                   : undefined
-                : selectedFilters.isSoldOut !== "default"
-                  ? selectedFilters.isSoldOut
+                : selectedFilters.tradeStatus !== "default"
+                  ? selectedFilters.tradeStatus
                   : undefined,
           });
           try {

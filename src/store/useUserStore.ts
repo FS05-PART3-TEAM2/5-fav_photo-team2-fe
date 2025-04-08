@@ -1,22 +1,45 @@
+// import { removeQueryKeys } from "@/utils/invalidateQueryKeys";
+// import { QueryClient } from "@tanstack/react-query";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-interface UserInfo {
+export interface UserInfo {
   id: string;
-  email: string;
   nickname: string;
+  email: string;
+  point: number;
 }
 
 interface UserStore {
   userInfo: UserInfo | null;
+  isAuthenticated: boolean; // 로그인 여부
   setUser: (user: UserInfo) => void;
-  clearUser: () => void;
+  logout: () => void;
+  // logout: (queryClient: QueryClient) => void;
 }
 
-// Zustand Store 생성
-const useUserStore = create<UserStore>(set => ({
-  userInfo: null, // 초기값: 로그인되지 않은 상태
-  setUser: userInfo => set({ userInfo }), // 사용자 정보 업데이트
-  clearUser: () => set({ userInfo: null }), // 로그아웃 시 초기화
-}));
+const useUserStore = create<UserStore>()(
+  persist(
+    set => ({
+      userInfo: null,
+      isAuthenticated: false,
+
+      setUser: (userInfo: UserInfo) => {
+        set({ userInfo, isAuthenticated: true });
+      },
+
+      logout: () => {
+        set({ userInfo: null, isAuthenticated: false });
+      },
+      // logout: queryClient => {
+      //   set({ userInfo: null, isAuthenticated: false });
+      //   removeQueryKeys(queryClient); // 로그아웃 시 관련 쿼리 캐시 초기화
+      // },
+    }),
+    {
+      name: "user-storage", // storage name
+    }
+  )
+);
 
 export default useUserStore;

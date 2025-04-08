@@ -44,7 +44,7 @@ export const SaleCardEditForm: React.FC<SaleCardEditFormProps> = ({ data, onClos
   const cardHeaderProps = {
     grade: data.grade,
     genre: data.genre,
-    creator: data.userNickname,
+    creator: data.creatorNickname,
     cardType: "details" as CardType,
   };
 
