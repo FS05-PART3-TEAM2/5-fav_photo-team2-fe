@@ -51,6 +51,7 @@ interface GetMySalesCardsParams {
   grade?: Grade | undefined;
   genre?: Genre | undefined;
   status?: TradeStatus | undefined;
+  limit?: number;
 }
 
 export const getMySalesCards = async ({
@@ -59,6 +60,7 @@ export const getMySalesCards = async ({
   grade,
   genre,
   status,
+  limit,
 }: GetMySalesCardsParams = {}): Promise<MySalesCardsResponse> => {
   const response = await axiosClient.get("/market/me", {
     params: {
@@ -67,6 +69,7 @@ export const getMySalesCards = async ({
       grade,
       genre,
       status,
+      limit,
     },
   });
   return response.data;
