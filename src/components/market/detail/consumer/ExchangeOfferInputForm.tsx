@@ -5,22 +5,24 @@ import ThinBtn from "@/components/common/button/ThinBtn";
 import { SectionTitle } from "../SectionTitle";
 import CommonTextarea from "@/components/common/input/CommonTextarea";
 import MyPhotoCard from "@/components/my-page/MyPhotoCard";
-// import { useState } from "react";
 
 interface ExchangeOfferInputFormProps {
   data: MyPhotoCardDto;
+  inputValue: string;
+  isExchangeBtnDisabled: boolean;
+  onChange: (value: string) => void;
   onCancel: () => void;
   onExchange: () => void;
 }
 
-// TODO: 교환하기 api 연결
 export const ExchangeOfferInputForm: React.FC<ExchangeOfferInputFormProps> = ({
   data,
+  inputValue,
+  isExchangeBtnDisabled,
+  onChange,
   onCancel,
   onExchange,
 }) => {
-  // TODO: 교환 제시 내용 입력 및 구매 핸들러 추가하기
-
   // XXX: 취소 컨펌 모달 띄울지 고민
   // -> ResponsiveForm 컴포넌트 백드랍 클릭시에도 취소 확인 모달을 띄워줘야하는데, 부모 컴포넌트로 전달할 방법 모르겠어서 일단 보류
   // const [isCancelOfferModalOpen, setIsCancelOfferModalOpen] = useState(false);
@@ -53,8 +55,8 @@ export const ExchangeOfferInputForm: React.FC<ExchangeOfferInputFormProps> = ({
             <CommonTextarea
               label="교환 제시 내용"
               placeholder="내용을 입력해주세요"
-              value={"임시 내용 - params 로 바뀔 예정"}
-              onChange={() => {}}
+              value={inputValue}
+              onChange={onChange}
             />
 
             {/* 수정 버튼 */}
@@ -62,7 +64,7 @@ export const ExchangeOfferInputForm: React.FC<ExchangeOfferInputFormProps> = ({
               <ThinBtn buttonType="Secondary" onClick={onCancel}>
                 취소하기
               </ThinBtn>
-              <ThinBtn onClick={onExchange} disabled={false}>
+              <ThinBtn onClick={onExchange} disabled={isExchangeBtnDisabled}>
                 교환하기
               </ThinBtn>
             </div>

@@ -1,10 +1,14 @@
 "use client";
 
 import { useCallback, useState } from "react";
-// import { useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from "@tanstack/react-query";
 import { Grade, Genre, SaleCardDetailDto, UpdateSaleCardBodyParams } from "@/types/photocard.types";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
+import { photoCardKeys } from "@/utils/queryKeys";
+import { updateSaleCardApi } from "@/services/market/saleCardActionService";
+import { useRouter } from "next/navigation";
 
+// 판매카드 수정 훅
 export const useEditSaleCardForm = (initialData: SaleCardDetailDto, onClose: () => void) => {
   const [params, setParams] = useState<UpdateSaleCardBodyParams>({
     quantity: initialData.availableAmount,
@@ -16,8 +20,9 @@ export const useEditSaleCardForm = (initialData: SaleCardDetailDto, onClose: () 
     },
   });
 
-  //   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const { openSnackbar } = useSnackbarStore();
+  const router = useRouter();
 
   // 각 필드 업데이트 함수
   const updateParams = useCallback(
@@ -126,25 +131,30 @@ export const useEditSaleCardForm = (initialData: SaleCardDetailDto, onClose: () 
   // 버튼 활성화 여부
   const isDisabled = !hasChanges() || !isValid();
 
+  // TODO: api 완성 후 잘 돌아가는지, 성공 로직 잘 되는지 확인 필요
   // 수정 요청 핸들러
   const handleUpdateSaleCard = useCallback(async () => {
     try {
-      // const response = await updateSaleCardApi(initialData.id, params);
-      // if (response.isSuccess) {
-      // 수정 완료 후 캐시 무효화
-      //   queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
+      const response = await updateSaleCardApi(initialData.id, params);
+      if (response) {
+        // 수정 완료 후 캐시 무효화
+        queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
 
-      openSnackbar(
-        "SUCCESS",
-        `[${initialData.grade} | ${initialData.name}] 판매 카드 수정에 성공했습니다!`,
-        "수정"
-      );
+        openSnackbar(
+          "SUCCESS",
+          `[${initialData.grade} | ${initialData.name}] \n카드 수정에 성공했습니다!`,
+          "수정"
+        );
 
-      onClose();
+        onClose();
+
+        // XXX: 수정완료 후 새로 생성된 SaleCardId 페이지로 이동
+        router.push(`/market/${response.saleCardId}`);
+      }
     } catch (error) {
       openSnackbar(
         "ERROR",
-        `[${initialData.grade} | ${initialData.name}] 판매 카드 수정에 실패했습니다.`,
+        `[${initialData.grade} | ${initialData.name}] \n카드 수정에 실패했습니다.`,
         "수정"
       );
       throw error;

@@ -3,34 +3,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   acceptExchangeOfferApi,
   declineExchangeOfferApi,
-  postExchangeOfferApi,
 } from "@/services/market/exchangeCardActionService";
-import { PostExchangeOfferBodyParams } from "@/types/photocard.types";
 import { photoCardKeys } from "@/utils/queryKeys";
 
+// 판매카드 교환 제시 승인/거절/취소 핸들러 모음 훅
 export const useExchangeCardActionHook = () => {
   const queryClient = useQueryClient();
   const { openSnackbar } = useSnackbarStore();
-
-  /**
-   * 판매 포토카드 교환 제시 등록 핸들러
-   * @param saleCardId
-   */
-  const handlePostExchangeOffer = async (params: PostExchangeOfferBodyParams) => {
-    try {
-      const response = await postExchangeOfferApi(params);
-      if (response) {
-        // 교환 제시 등록 시 교환 목록 쿼리키 무효화
-        queryClient.invalidateQueries({
-          queryKey: photoCardKeys.exchangeCardList(params.saleCardId),
-        });
-        openSnackbar("SUCCESS", "교환 제시가 완료되었습니다.");
-      }
-    } catch (error) {
-      openSnackbar("ERROR", "다시 시도해주세요.");
-      throw error;
-    }
-  };
 
   /**
    * 판매 포토카드 교환 제시 승인 핸들러
@@ -59,7 +38,7 @@ export const useExchangeCardActionHook = () => {
    * 판매 포토카드 교환 제시 거절 핸들러
    * @param saleCardId
    */
-  const handleDeclineExchangeOffer = async (saleCardId: string) => {
+  const handleRejectExchangeOffer = async (saleCardId: string) => {
     try {
       const response = await declineExchangeOfferApi(saleCardId);
       if (response) {
@@ -90,9 +69,8 @@ export const useExchangeCardActionHook = () => {
   };
 
   return {
-    handlePostExchangeOffer,
     handleAcceptExchangeOffer,
-    handleDeclineExchangeOffer,
+    handleRejectExchangeOffer,
     handleCancelExchangeOffer,
   };
 };

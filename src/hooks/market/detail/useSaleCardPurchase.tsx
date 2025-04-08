@@ -11,6 +11,7 @@ interface ErrorResponse {
   error: string;
 }
 
+// 포토카드 구매 훅
 export const useSaleCardPurchase = (saleCardId: string, grade: Grade, name: string) => {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -37,7 +38,7 @@ export const useSaleCardPurchase = (saleCardId: string, grade: Grade, name: stri
 
         openSnackbar(
           "SUCCESS",
-          `[${grade} | ${name}] ${purchaseAmount}장 구매에 성공했습니다!`,
+          `[${grade} | ${name}] ${purchaseAmount}장 \n구매에 성공했습니다!`,
           "구매"
         );
 

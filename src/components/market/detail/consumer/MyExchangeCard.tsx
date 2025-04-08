@@ -3,20 +3,29 @@ import { useState } from "react";
 import XSBtn from "@/components/common/button/XSBtn";
 import { ExchangeCard } from "../ExchangeCard";
 import { CommonModal } from "@/components/common/modal/CommonModal";
+import { useExchangeCardActionHook } from "@/hooks/market/detail/useExchangeCardActioinHook";
 
 interface MyExchangeCardProps {
   data: ExchangeCardDto;
 }
 
-// TODO: 모달에서 취소하기 api 호출 이벤트핸들러 추가하기
 export const MyExchangeCard: React.FC<MyExchangeCardProps> = ({ data }) => {
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  // api 요청 핸들러 가져오기
+  const { handleCancelExchangeOffer } = useExchangeCardActionHook();
 
+  // 확인 모달 상태 컨트롤
   const handleCancelModalOpen = () => {
     setIsCancelModalOpen(true);
   };
   const handleCancelModalClose = () => {
     setIsCancelModalOpen(false);
+  };
+
+  // 버튼 클릭 : api 요청, 모달 닫기
+  const handleClickCancelBtn = () => {
+    handleCancelExchangeOffer(data.id);
+    handleCancelModalClose();
   };
 
   const cancelModalTitle = `교환 제시 취소`;
@@ -42,8 +51,7 @@ export const MyExchangeCard: React.FC<MyExchangeCardProps> = ({ data }) => {
           title={cancelModalTitle}
           desc={cancelModalDesc}
           btnText={cancelModalBtnText}
-          // TODO: 교환 제시 취소 버튼 클릭 시 교환 제시 취소 로직 추가
-          btnClick={handleCancelModalClose}
+          btnClick={handleClickCancelBtn}
         />
       )}
     </>

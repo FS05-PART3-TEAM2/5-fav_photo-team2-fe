@@ -144,8 +144,6 @@ export interface MarketplacePhotoCardDto {
  */
 export interface PostExchangeOfferBodyParams {
   saleCardId: string;
-  customerId: string;
-  quantity: number;
   content: string;
 }
 
