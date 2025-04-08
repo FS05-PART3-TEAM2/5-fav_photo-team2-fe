@@ -1,7 +1,7 @@
 export type Grade = "COMMON" | "RARE" | "SUPER_RARE" | "LEGENDARY";
 export type Genre = "TRAVEL" | "LANDSCAPE" | "PORTRAIT" | "OBJECT";
 export type Sort = "recent" | "old" | "cheap" | "expensive";
-export type SaleCardStatus = "ON_SALE" | "CANCELED" | "SOLD_OUT"; // TODO: 여기 수정응답에서 쓰이는데 수정사항 있는지 확인 필요 + 쿼리키 saleList 에서도 그냥 이거 사용. 만약 수정하게되면 쿼리키쪽에 문제없는지 확인 필요
+export type SaleCardStatus = "ON_SALE" | "CANCELED" | "SOLD_OUT";
 export type TradeStatus = "ON_SALE" | "SOLD_OUT" | "PENDING";
 export type ExchangeOfferStatus = "PENDING" | "ACCEPTED" | "FAILED";
 export type CardType = "details" | "list";
@@ -84,12 +84,11 @@ export interface UpdateSaleCardBodyParams {
   };
 }
 
-// TODO: 리스폰스 타입 수정 필요
 /**
- * 판매 포토카드 수정 API 응답 타입
+ * 판매 포토카드 수정/내리기 API 응답 타입
  */
-export interface UpdateSaleCardResponseDto {
-  id: string;
+export interface SaleCardSupplierActionResponseDto {
+  saleCardId: string;
   userPhotocardId: string;
   status: SaleCardStatus;
   name: string;
@@ -102,6 +101,11 @@ export interface UpdateSaleCardResponseDto {
   creator: {
     id: string;
     nickname: string;
+  };
+  exchangeOffer: {
+    description: string;
+    grade: Grade;
+    genre: Genre;
   };
   createdAt: string;
   updatedAt: string;
@@ -157,4 +161,19 @@ export interface ExchangeCardActionResponseDto {
   status: ExchangeOfferStatus;
   createdAt: string;
   updatedAt: string;
+}
+
+/**
+ * 판매 포토카드 구매하기 API 요청 타입
+ */
+export interface PurchaseSaleCardBodyParams {
+  saleCardId: string;
+  quantity: number;
+}
+
+/**
+ * 판매 포토카드 구매하기 API 응답 타입
+ */
+export interface PurchaseSaleCardResponseDto {
+  message: string;
 }
