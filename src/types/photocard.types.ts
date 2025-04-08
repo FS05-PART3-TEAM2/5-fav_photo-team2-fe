@@ -12,14 +12,14 @@ export type AmountText = "잔여" | "수량" | "보유량";
  */
 export interface MyPhotoCardDto {
   id: string;
-  grade: Grade;
-  genre: Genre;
   name: string;
+  genre: Genre;
+  grade: Grade;
   price: number;
-  availableAmount: number;
-  totalAmount: number;
-  creator: string;
   imageUrl: string;
+  amount: number;
+  creatorNickname: string;
+  createdAt: string;
 }
 
 /**

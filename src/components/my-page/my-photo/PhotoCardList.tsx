@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { MyPhotoCard as MyPhotoCardType } from "@/services/my-page/getMyPhotoCards";
-import MyPhotoCardComponent from "../MyPhotoCard";
 import { MyPhotoCardDto } from "@/types/photocard.types";
+import MyPhotoCardComponent from "../MyPhotoCard";
 
 interface PhotoCardsProps {
-  photoCards: MyPhotoCardType[];
+  photoCards: MyPhotoCardDto[];
   onCardClick?: (cardId: string) => void;
   onLoadMore: () => void;
   hasNextPage?: boolean;
@@ -22,24 +21,6 @@ const PhotoCardList: React.FC<PhotoCardsProps> = ({
 }) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
-
-  /*
-  MyPhotoCard 객체를 MyPhotoCardDto 객체로 변환하는 함수
-  MyPhotoCard 컴포넌트가 필요한 데이터 형식에 맞추기 위해 필요합니다.
-  */
-  const convertToMyPhotoCardDto = (photoCard: MyPhotoCardType): MyPhotoCardDto => {
-    return {
-      id: photoCard.id,
-      grade: photoCard.grade,
-      genre: photoCard.genre,
-      name: photoCard.name,
-      price: photoCard.price,
-      availableAmount: photoCard.amount,
-      totalAmount: photoCard.amount,
-      creator: photoCard.creatorNickname,
-      imageUrl: photoCard.imageUrl,
-    };
-  };
 
   useEffect(() => {
     /*
@@ -82,7 +63,7 @@ const PhotoCardList: React.FC<PhotoCardsProps> = ({
           .map(photoCard => (
             <MyPhotoCardComponent
               key={photoCard.id}
-              myPhotoCard={convertToMyPhotoCardDto(photoCard)}
+              myPhotoCard={photoCard}
               onClick={(id: string) => onCardClick && onCardClick(id)}
             />
           ))}

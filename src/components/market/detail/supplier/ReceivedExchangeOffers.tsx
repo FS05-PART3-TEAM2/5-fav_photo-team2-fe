@@ -1,6 +1,7 @@
 import { ExchangeCardDto } from "@/types/photocard.types";
 import { SectionTitle } from "../SectionTitle";
 import { ReceivedExchangeCard } from "./ReceivedExchangeCard";
+import { CircularProgress } from "@/components/common/loading/CircularProgress";
 
 interface ReceivedExchangeOffersProps {
   data: ExchangeCardDto[] | null;
@@ -17,10 +18,7 @@ export const ReceivedExchangeOffers: React.FC<ReceivedExchangeOffersProps> = ({
     <div className="w-[100%] flex flex-col gap-[40px] lg:gap-[60px]">
       <SectionTitle title="교환 제시 목록" />
       {isLoading ? (
-        // FIXME: 로딩스피너 못생겨서 수정하고 싶긴한데 일단 찾아볼예정
-        <div className="w-[100%] h-[200px] flex items-center justify-center">
-          <div className="w-12 h-12 border-4 border-gray-200 border-t-main rounded-full animate-spin"></div>
-        </div>
+        <CircularProgress />
       ) : isEmpty ? (
         <div className="w-[100%] h-[200px] flex items-center justify-center">
           <p className="text-gray-100 text-[18px] md:text-[24px] font-normal">
