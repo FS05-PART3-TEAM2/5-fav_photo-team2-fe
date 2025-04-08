@@ -2,7 +2,7 @@ import { GradeFilter, GenreFilter } from "@/types/filter.types";
 import { Genre, Grade, MyPhotoCardDto } from "@/types/photocard.types";
 import { FILTER_CONFIG } from "../../filter/constants";
 import { useEffect, useState } from "react";
-import FilterSection from "@/components/my-page/my-photo/FilterSection";
+import FilterSection from "@/components/my-page/my-photo/PhotoFilterSection";
 import MyPhotoCard from "@/components/my-page/MyPhotoCard";
 interface MyPhotoListContentProps {
   title: string;
