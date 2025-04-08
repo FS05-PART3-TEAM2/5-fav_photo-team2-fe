@@ -1,5 +1,6 @@
 // import { removeQueryKeys } from "@/utils/invalidateQueryKeys";
 // import { QueryClient } from "@tanstack/react-query";
+import logoutAction from "@/lib/actions/logout.action";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -28,8 +29,9 @@ const useUserStore = create<UserStore>()(
         set({ userInfo, isAuthenticated: true });
       },
 
-      logout: () => {
+      logout: async () => {
         set({ userInfo: null, isAuthenticated: false });
+        await logoutAction();
       },
       // logout: queryClient => {
       //   set({ userInfo: null, isAuthenticated: false });
