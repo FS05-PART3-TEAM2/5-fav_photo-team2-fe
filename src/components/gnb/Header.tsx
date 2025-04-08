@@ -6,10 +6,12 @@ import Image from "next/image";
 import { useState } from "react";
 import Profile from "./Profile";
 import useUserStore from "@/store/useUserStore";
-// import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import Notification from "./Notification";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
+import { useSnackbarStore } from "@/store/useSnackbarStore";
+import { removeQueryKeys } from "@/utils/invalidateQueryKeys";
 
 /**
  * 최애의포토 : 마켓 플레이스 공통,
@@ -17,12 +19,14 @@ import { ko } from "date-fns/locale";
  */
 
 const Header = () => {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const { userInfo, logout } = useUserStore();
   const isLogin = !!userInfo;
 
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+
+  const { openSnackbar } = useSnackbarStore(); // Snackbar 상태 업데이트 함수 가져오기
 
   const unRead = true;
 
@@ -33,13 +37,10 @@ const Header = () => {
     setIsNotificationOpen(!isNotificationOpen);
   };
   const handleLogout = () => {
-    // logout(queryClient);
     logout();
+    removeQueryKeys(queryClient);
+    openSnackbar("SUCCESS", "로그아웃 완료되었습니다."); // Snackbar를 통해 에러 메시지 표시
   };
-
-  if (userInfo) {
-    userInfo.point = userInfo.point || 1000; // 포인트가 없을 경우 0으로 설정
-  }
 
   const timeAgo = (time: string) => {
     return formatDistanceToNow(time, {
@@ -97,7 +98,7 @@ const Header = () => {
             isOpen={isProfileOpen}
             onClose={handleProfileOpen}
             nickname={userInfo.nickname}
-            point={userInfo.point}
+            point={userInfo.points}
             logout={handleLogout}
           >
             <Profile.TextLink text="마이갤러리" href="/mypage" />
@@ -109,7 +110,7 @@ const Header = () => {
       <div className="hidden md:flex md:gap-[20px] lg:gap-[30px] items-center">
         {isLogin && (
           <>
-            <div className="text-[14px] font-bold">{userInfo.point.toLocaleString()}&nbsp;P</div>
+            <div className="text-[14px] font-bold">{userInfo.points.toLocaleString()}&nbsp;P</div>
             <div className="flex md:gap-[10px] lg:gap-[16px] items-center">
               <button className="cursor-pointer relative" onClick={handleNotificationOpen}>
                 <Image
@@ -177,7 +178,7 @@ const Header = () => {
                 isOpen={isProfileOpen}
                 onClose={handleProfileOpen}
                 nickname={userInfo.nickname}
-                point={userInfo.point}
+                point={userInfo.points}
               >
                 <Profile.TextLink text="마이갤러리" href="/my-photos" />
                 <Profile.TextLink text="나의 판매 포토카드" href="/my-sales" />
