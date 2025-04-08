@@ -37,7 +37,7 @@ export const MyPhotoListContent: React.FC<MyPhotoListContentProps> = ({ title, o
         </div>
 
         {/* 필터 + 카드 리스트 영역 */}
-        <div className="w-[100%] flex flex-col h-[calc(100vh-340px)]">
+        <div className="w-[100%] flex flex-col h-[calc(100vh-340px)] overflow-y-auto">
           <CardFilter
             onCardClick={handleCardClick}
             className="grid grid-cols-2 mt-[4px] md:mt-[20px] gap-[5px] md:gap-5 lg:gap-10"

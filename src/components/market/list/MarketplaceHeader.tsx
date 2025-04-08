@@ -6,8 +6,10 @@ import Filter from "@/components/common/filter/Filter";
 import Order from "@/components/common/filter/Order";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
 import { MarketplacePhotoCardDto } from "@/types/photocard.types";
+import { MyPhotoCardDto } from "@/types/photocard.types";
 import FilterModal from "@/components/common/filter/FilterModal";
 import { buildMarketCountUrl } from "@/components/common/filter/FilterUtils";
+import { SellerPage } from "./seller/SellerPage";
 
 interface MarketplaceHeaderProps {
   photoCards: MarketplacePhotoCardDto[];
@@ -25,6 +27,9 @@ export default function MarketplaceHeader({
     useState<keyof typeof FILTER_CONFIG.filter.isSoldOut.options>("default");
   const [orderBy, setOrderBy] = useState<"latest" | "oldest" | "expensive" | "cheap">("latest");
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  // 나의 포토카드 판매 모달 설정
+  const [isSellerPageOpen, setIsSellerPageOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<MyPhotoCardDto | null>(null);
 
   // 필터 변경 핸들러 (FilterModal에서 사용)
   const handleFilterChange = (
@@ -91,13 +96,12 @@ export default function MarketplaceHeader({
         <div className="hidden md:flex justify-between w-full">
           <div className="font-BR-B whitespace-nowrap text-[48px] lg:text-[62px]">마켓플레이스</div>
           <div className="flex items-center w-[345px] md:w-[342px] lg:w-[440px]">
-            {/* SEJEONG: 판매자 페이지 완성되면 버튼에 페이지 이동 추가하기 */}
-            <ThinBtn onClick={() => console.log("버튼 클릭됨!")}>포토카드 판매하기</ThinBtn>
+            <ThinBtn onClick={() => setIsSellerPageOpen(true)}>포토카드 판매하기</ThinBtn>
           </div>
         </div>
       </div>
       <div className="fixed bottom-0 left-0 w-full p-4 shadow-md sm:flex sm:justify-center md:hidden z-[999]">
-        <ThinBtn onClick={() => console.log("버튼 클릭됨!")}>포토카드 판매하기</ThinBtn>
+        <ThinBtn onClick={() => setIsSellerPageOpen(true)}>포토카드 판매하기</ThinBtn>
       </div>
 
       <div className="flex flex-wrap md:flex-nowrap items-center justify-between my-[20px] gap-[15px] md:gap-[30px] lg:gap-[60px]">
@@ -122,6 +126,13 @@ export default function MarketplaceHeader({
         </div>
         <Order orderBy={orderBy} setOrderBy={setOrderBy} />
       </div>
+      <SellerPage
+        isOpen={isSellerPageOpen}
+        onClose={() => setIsSellerPageOpen(false)}
+        selectedCard={selectedCard}
+        setSelectedCard={setSelectedCard}
+      />
+
       {isFilterModalOpen && (
         <FilterModal
           isOpen={isFilterModalOpen}
