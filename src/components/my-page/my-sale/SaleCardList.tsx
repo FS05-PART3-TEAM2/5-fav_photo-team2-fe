@@ -36,10 +36,10 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
       genre: saleCard.genre,
       name: saleCard.name,
       price: saleCard.price,
-      availableAmount: saleCard.remaining,
-      totalAmount: saleCard.total,
-      creator: saleCard.creator.nickname,
+      amount: saleCard.remaining,
+      creatorNickname: saleCard.creator.nickname,
       imageUrl: saleCard.image,
+      createdAt: saleCard.createdAt,
       status: saleCard.status,
     };
   };

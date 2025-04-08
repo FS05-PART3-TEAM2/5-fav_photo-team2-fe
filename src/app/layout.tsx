@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { baskinBold } from "../../public/assets/fonts/font";
+
 import { SnackbarAlert } from "@/components/common/snackbar/SnackbarAlert";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { cookies } from "next/headers";

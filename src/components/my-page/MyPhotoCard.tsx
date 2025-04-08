@@ -80,14 +80,13 @@ const MyPhotoCard: React.FC<MyPhotoCardProps> = ({ myPhotoCard, onClick }) => {
           <CardHeader
             grade={myPhotoCard.grade}
             genre={myPhotoCard.genre}
-            creator={myPhotoCard.creator}
+            creator={myPhotoCard.creatorNickname}
             cardType="list"
           />
         </div>
         <CardDetail
           price={myPhotoCard.price}
-          availableAmount={myPhotoCard.availableAmount}
-          totalAmount={myPhotoCard.totalAmount}
+          totalAmount={myPhotoCard.amount}
           amountText="수량"
           cardType="list"
         />
