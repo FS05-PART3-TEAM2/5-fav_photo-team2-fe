@@ -17,7 +17,6 @@ interface SaleCardEditFormProps {
   onClose: () => void;
 }
 
-// TODO: 수정하기 api 연결
 export const SaleCardEditForm: React.FC<SaleCardEditFormProps> = ({ data, onClose }) => {
   const {
     params,

@@ -3,16 +3,19 @@ import { useState } from "react";
 import XSBtn from "@/components/common/button/XSBtn";
 import { ExchangeCard } from "../ExchangeCard";
 import { CommonModal } from "@/components/common/modal/CommonModal";
+import { useExchangeCardActionHook } from "@/hooks/market/detail/useExchangeCardActioinHook";
 
 interface ReceivedExchangeCardProps {
   data: ExchangeCardDto;
 }
 
-// TODO: 모달에서 승인/거절 눌렀을 때 api 호출 이벤트핸들러 추가하기
 export const ReceivedExchangeCard: React.FC<ReceivedExchangeCardProps> = ({ data }) => {
   const [isAcceptModalOpen, setIsAcceptModalOpen] = useState(false);
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
+  // api 요청 핸들러 가져오기
+  const { handleAcceptExchangeOffer, handleRejectExchangeOffer } = useExchangeCardActionHook();
 
+  // 확인 모달 상태 컨트롤
   const handleAcceptModalOpen = () => {
     setIsAcceptModalOpen(true);
   };
@@ -24,6 +27,16 @@ export const ReceivedExchangeCard: React.FC<ReceivedExchangeCardProps> = ({ data
   };
   const handleRejectModalClose = () => {
     setIsRejectModalOpen(false);
+  };
+
+  // 버튼 클릭 : api 요청, 모달 닫기
+  const handleClickRejectBtn = () => {
+    handleRejectExchangeOffer(data.id);
+    handleRejectModalClose();
+  };
+  const handleClickAcceptBtn = () => {
+    handleAcceptExchangeOffer(data.id);
+    handleAcceptModalClose();
   };
 
   const rejectModalTitle = `교환 제시 거절`;
@@ -72,7 +85,7 @@ export const ReceivedExchangeCard: React.FC<ReceivedExchangeCardProps> = ({ data
           title={rejectModalTitle}
           desc={rejectModalDesc}
           btnText={rejectModalBtnText}
-          btnClick={handleRejectModalClose}
+          btnClick={handleClickRejectBtn}
         />
       )}
       {/* 교환 제시 승인 모달 */}
@@ -83,7 +96,7 @@ export const ReceivedExchangeCard: React.FC<ReceivedExchangeCardProps> = ({ data
           title={acceptModalTitle}
           desc={acceptModalDesc}
           btnText={acceptModalBtnText}
-          btnClick={handleAcceptModalClose}
+          btnClick={handleClickAcceptBtn}
         />
       )}
     </>

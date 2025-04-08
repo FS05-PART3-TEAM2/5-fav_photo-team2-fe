@@ -22,11 +22,11 @@ export const SnackbarAlert = () => {
   return (
     <div className="fixed inset-x-0 top-[70px] z-[10000] flex justify-center animate-fadeInOut">
       <div
-        className={`w-fit min-h-[100px] p-5
+        className={`w-[300px] md:w-[350px] lg:w-[400px] min-h-[100px] p-5
         flex items-center justify-center text-center rounded-[8px]
-        shadow-[0px_4px_10px_0px_rgba(0,0,0,0.1)] bg-gray-500 text-white border border-gray-300`}
+        shadow-[0px_4px_10px_0px_rgba(0,0,0,0.1)] bg-gray-500 text-white border border-gray-300 whitespace-pre-line`}
       >
-        <div className="flex flex-col items-center justify-center gap-[10px] text-center">
+        <div className="flex flex-col items-center justify-center gap-[10px] text-center w-full">
           {SnackbarTitle && (
             <div className="flex items-center justify-center font-BR-B text-[24px] md:text-[28px] lg:text-[36px] gap-[4px]">
               {SnackbarTitle}
@@ -37,7 +37,7 @@ export const SnackbarAlert = () => {
               )}
             </div>
           )}
-          <p className="w-full max-w-[300px] lg:max-w-[400px] text-[14px] md:text-[16px] lg:text-[20px] font-bold break-keep">
+          <p className="w-full text-[14px] md:text-[16px] lg:text-[20px] font-bold break-keep">
             {SnackbarMessage}
           </p>
         </div>
