@@ -1,5 +1,6 @@
 import Header from "@/components/gnb/Header";
 import { ReactNode } from "react";
+import RandomPointButton from "../../random-point/RandomPointButton";
 
 // 로그인/회원가입 페이지 제외 모든 필요한 페이지에서 사용
 export const CommonLayout = ({ children }: { children: ReactNode }) => {
@@ -16,6 +17,7 @@ export const CommonLayout = ({ children }: { children: ReactNode }) => {
         <Header />
         {/* <Header /> */}
         <div className={styles.content}>{children}</div>
+        <RandomPointButton />
       </div>
     </div>
   );
