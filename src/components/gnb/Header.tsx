@@ -4,7 +4,6 @@ import Title from "./Title";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import Profile from "./Profile";
 import useUserStore from "@/store/useUserStore";
 import { useQueryClient } from "@tanstack/react-query";
 import Notification from "./Notification";
@@ -12,11 +11,9 @@ import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
 import { removeQueryKeys } from "@/utils/invalidateQueryKeys";
-
-/**
- * 최애의포토 : 마켓 플레이스 공통,
- * 제목 : 마켓플레이스 페이지(구매자), 판매 포토카드 상세
- */
+import ProfileCard from "./profile/ProfileCard";
+import ProfileDetail from "./profile/ProfileDetail";
+import ProfileDrawer from "./profile/ProfileDrawer";
 
 const Header = () => {
   const queryClient = useQueryClient();
@@ -30,12 +27,8 @@ const Header = () => {
 
   const unRead = true;
 
-  const handleProfileOpen = () => {
-    setIsProfileOpen(!isProfileOpen);
-  };
-  const handleNotificationOpen = () => {
-    setIsNotificationOpen(!isNotificationOpen);
-  };
+  const handleProfileOpen = () => setIsProfileOpen(prev => !prev);
+  const handleNotificationOpen = () => setIsNotificationOpen(prev => !prev);
   const handleLogout = () => {
     logout();
     removeQueryKeys(queryClient);
@@ -92,19 +85,21 @@ const Header = () => {
           </Notification>
         </div>
       )}
-      {isProfileOpen && isLogin && (
-        <div className="md:hidden absolute">
-          <Profile
-            isOpen={isProfileOpen}
-            onClose={handleProfileOpen}
-            nickname={userInfo.nickname}
-            point={userInfo.points}
-            logout={handleLogout}
-          >
-            <Profile.TextLink text="마이갤러리" href="/mypage" />
-            <Profile.TextLink text="나의 판매 포토카드" href="/mypage" />
-          </Profile>
-        </div>
+      {isProfileOpen && (
+        <ProfileDrawer onClose={handleProfileOpen}>
+          {isLogin ? (
+            <ProfileDetail
+              nickname={userInfo.nickname}
+              point={userInfo.points}
+              onLogout={handleLogout}
+            >
+              <ProfileDetail.TextLink text="마이갤러리" href="/my-photos" />
+              <ProfileDetail.TextLink text="나의 판매 포토카드" href="/my-sales" />
+            </ProfileDetail>
+          ) : (
+            <ProfileDetail.TextLink text="로그인" href="/auth/login" />
+          )}
+        </ProfileDrawer>
       )}
 
       <div className="hidden md:flex md:gap-[20px] lg:gap-[30px] items-center">
@@ -174,15 +169,14 @@ const Header = () => {
               >
                 {userInfo.nickname}
               </button>
-              <Profile
-                isOpen={isProfileOpen}
-                onClose={handleProfileOpen}
-                nickname={userInfo.nickname}
-                point={userInfo.points}
-              >
-                <Profile.TextLink text="마이갤러리" href="/my-photos" />
-                <Profile.TextLink text="나의 판매 포토카드" href="/my-sales" />
-              </Profile>
+              {isProfileOpen && (
+                <ProfileCard>
+                  <ProfileDetail nickname={userInfo.nickname} point={userInfo.points}>
+                    <ProfileDetail.TextLink text="마이갤러리" href="/my-photos" />
+                    <ProfileDetail.TextLink text="나의 판매 포토카드" href="/my-sales" />
+                  </ProfileDetail>
+                </ProfileCard>
+              )}
             </div>
             <div className="w-0.5 bg-gray-400 h-[14px] self-center"></div>
             <button
