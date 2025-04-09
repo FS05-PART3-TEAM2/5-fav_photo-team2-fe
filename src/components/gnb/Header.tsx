@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useState } from "react";
 import useUserStore from "@/store/useUserStore";
 import { useQueryClient } from "@tanstack/react-query";
-import Notification from "./Notification";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
@@ -14,6 +13,24 @@ import { removeQueryKeys } from "@/utils/invalidateQueryKeys";
 import ProfileCard from "./profile/ProfileCard";
 import ProfileDetail from "./profile/ProfileDetail";
 import ProfileDrawer from "./profile/ProfileDrawer";
+import NotificationCard from "./notification/NotificationCard";
+import NotificationDetail from "./notification/NotificationDetail";
+import NotificationDrawer from "./notification/NotificationDrawer";
+
+const notificationList = [
+  {
+    id: 1,
+    content: "판매자가 포토카드를 등록했습니다.",
+    time: "2025-04-07T05:11:53.909Z",
+    isRead: false,
+  },
+  {
+    id: 2,
+    content: "새로운 알림이 도착했습니다.",
+    time: "2025-04-04T05:11:53.909Z",
+    isRead: true,
+  },
+];
 
 const Header = () => {
   const queryClient = useQueryClient();
@@ -45,7 +62,7 @@ const Header = () => {
   return (
     <div className="flex justify-between max-w-[1520px] w-full items-center h-[60px] md:h-[70px] lg:h-[80px] px-[15px] md:px-[20px] z-10">
       <button className="md:hidden lg:hidden cursor-pointer" onClick={handleProfileOpen}>
-        <Image src={"/assets/icons/menu.png"} alt="menu" width={24} height={24} />
+        <Image src={"/assets/icons/menu.png"} alt="menu" width={16} height={16} />
       </button>
       <Link href={"/"}>
         <Title>
@@ -63,26 +80,17 @@ const Header = () => {
       </button>
       {isNotificationOpen && (
         <div className="md:hidden absolute">
-          <Notification isOpen={isNotificationOpen}>
-            <Notification.Item
-              content="판매자가 포토카드를 등록했습니다."
-              time={timeAgo("2025-04-07T05:11:53.909Z")}
-            />
-            <Notification.Item
-              content="새로운 알림이 도착했습니다."
-              time={timeAgo("2025-04-04T05:11:53.909Z")}
-              isRead={true}
-            />
-            <Notification.Item
-              content="판매자가 포토카드를 등록했습니다."
-              time={timeAgo("2025-04-07T05:11:53.909Z")}
-            />
-            <Notification.Item
-              content="새로운 알림이 도착했습니다."
-              time={timeAgo("2025-04-04T05:11:53.909Z")}
-              isRead={true}
-            />
-          </Notification>
+          <NotificationDrawer onClose={handleNotificationOpen}>
+            {notificationList?.map(item => (
+              <NotificationDetail
+                key={item.id}
+                content={item.content}
+                time={timeAgo(item.time)}
+                isRead={item.isRead}
+                onClick={() => console.log("알림 클릭")}
+              />
+            ))}
+          </NotificationDrawer>
         </div>
       )}
       {isProfileOpen && (
@@ -119,45 +127,21 @@ const Header = () => {
                 )}
               </button>
               <div className="relative">
-                <Notification isOpen={isNotificationOpen}>
-                  <Notification.Item
-                    content="판매자가 포토카드를 등록했습니다."
-                    time={timeAgo("2025-04-07T05:11:53.909Z")}
-                  />
-                  <Notification.Item
-                    content="새로운 알림이 도착했습니다."
-                    time={timeAgo("2025-04-04T05:11:53.909Z")}
-                    isRead={true}
-                  />
-                  <Notification.Item
-                    content="판매자가 포토카드를 등록했습니다."
-                    time={timeAgo("2025-04-07T05:11:53.909Z")}
-                  />
-                  <Notification.Item
-                    content="새로운 알림이 도착했습니다."
-                    time={timeAgo("2025-04-04T05:11:53.909Z")}
-                    isRead={true}
-                  />
-                  <Notification.Item
-                    content="판매자가 포토카드를 등록했습니다."
-                    time={timeAgo("2025-04-07T05:11:53.909Z")}
-                  />
-                  <Notification.Item
-                    content="새로운 알림이 도착했습니다."
-                    time={timeAgo("2025-04-04T05:11:53.909Z")}
-                    isRead={true}
-                  />
-                  <Notification.Item
-                    content="판매자가 포토카드를 등록했습니다."
-                    time={timeAgo("2025-04-07T05:11:53.909Z")}
-                  />
-                  <Notification.Item
-                    content="새로운 알림이 도착했습니다."
-                    time={timeAgo("2025-04-04T05:11:53.909Z")}
-                    isRead={true}
-                  />
-                </Notification>
+                {isNotificationOpen && (
+                  <NotificationCard>
+                    {notificationList?.map(item => (
+                      <NotificationDetail
+                        key={item.id}
+                        content={item.content}
+                        time={timeAgo(item.time)}
+                        isRead={item.isRead}
+                        onClick={() => console.log("알림 클릭")}
+                      />
+                    ))}
+                  </NotificationCard>
+                )}
               </div>
+
               <button className="cursor-pointer">
                 <Image src={"/assets/icons/gift.png"} alt="gift" width={16} height={16} />
               </button>
