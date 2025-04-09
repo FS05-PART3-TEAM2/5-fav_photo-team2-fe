@@ -18,11 +18,17 @@ import NotificationDetail from "./notification/NotificationDetail";
 import NotificationDrawer from "./notification/NotificationDrawer";
 import { useNotificationList } from "@/hooks/notification/useNotificationList";
 import { useInView } from "react-intersection-observer";
+import { usePathname, useRouter } from "next/navigation";
+import { PATH_TITLE } from "./path-titile";
 
 const Header = () => {
+  const router = useRouter();
+  const pathname = usePathname();
   const queryClient = useQueryClient();
   const { userInfo, logout } = useUserStore();
   const isLogin = !!userInfo;
+
+  const title = PATH_TITLE.find(([re]) => re.test(pathname))?.[1];
 
   const {
     data, // ← 여기!
@@ -57,6 +63,9 @@ const Header = () => {
     removeQueryKeys(queryClient);
     openSnackbar("SUCCESS", "로그아웃 완료되었습니다."); // Snackbar를 통해 에러 메시지 표시
   };
+  const handleBack = () => {
+    router.back();
+  };
 
   const timeAgo = (time: string) => {
     return formatDistanceToNow(time, {
@@ -66,17 +75,30 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between max-w-[1520px] w-full items-center h-[60px] md:h-[70px] lg:h-[80px] px-[15px] md:px-[20px] z-10">
-      <button className="md:hidden lg:hidden cursor-pointer" onClick={handleProfileOpen}>
-        <Image src={"/assets/icons/menu.png"} alt="menu" width={16} height={16} />
+    <div className="flex justify-between max-w-[1520px] w-full items-center h-[60px] md:h-[70px] px-[15px] md:px-[20px] lg:h-[80px] z-10">
+      <button
+        className="md:hidden lg:hidden cursor-pointer"
+        onClick={title ? handleBack : handleProfileOpen}
+      >
+        {title ? (
+          <Image src={"/assets/icons/back.png"} alt="menu" width={16} height={16} />
+        ) : (
+          <Image src={"/assets/icons/menu.png"} alt="menu" width={16} height={16} />
+        )}
       </button>
       <Link href={"/"}>
         <Title>
-          최애<span className="text-main">의</span>포토
+          {title ? (
+            <>{title}</>
+          ) : (
+            <>
+              최애<span className="text-main">의</span>포토
+            </>
+          )}
         </Title>
       </Link>
       <div className="w-[16px]">
-        {isLogin && (
+        {isLogin && !title && (
           <button
             className="md:hidden lg:hidden cursor-pointer relative"
             onClick={handleNotificationOpen}
