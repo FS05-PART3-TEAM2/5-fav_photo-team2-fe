@@ -75,15 +75,19 @@ const Header = () => {
           최애<span className="text-main">의</span>포토
         </Title>
       </Link>
-      <button
-        className="md:hidden lg:hidden cursor-pointer relative"
-        onClick={handleNotificationOpen}
-      >
-        <Image src={"/assets/icons/notification.png"} alt="search" width={16} height={16} />
-        {unRead && (
-          <div className="absolute top-[-2px] right-[-2px] w-[10px] h-[10px] bg-red rounded-full"></div>
+      <div className="w-[16px]">
+        {isLogin && (
+          <button
+            className="md:hidden lg:hidden cursor-pointer relative"
+            onClick={handleNotificationOpen}
+          >
+            <Image src={"/assets/icons/notification.png"} alt="search" width={16} height={16} />
+            {unRead && (
+              <div className="absolute top-[-2px] right-[-2px] w-[10px] h-[10px] bg-red rounded-full"></div>
+            )}
+          </button>
         )}
-      </button>
+      </div>
       {isNotificationOpen && (
         <div className="md:hidden absolute">
           <NotificationDrawer onClose={handleNotificationOpen}>
