@@ -1,4 +1,3 @@
-import Header from "@/components/gnb/Header";
 import { ReactNode } from "react";
 import RandomPointButton from "../../random-point/RandomPointButton";
 
@@ -13,9 +12,6 @@ export const CommonLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.main}>
-        {/* XXX: 한샘님 헤더 완성되면 여기에 넣어주시면 됩니다! */}
-        <Header />
-        {/* <Header /> */}
         <div className={styles.content}>{children}</div>
         <RandomPointButton />
       </div>
