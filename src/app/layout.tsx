@@ -16,7 +16,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="ko" className={`${baskinBold.variable}`}>
       <body>
         <AuthInitializer>
-          {/* 스낵바 팝업 전역 상태로 관리 */}
           <ReactQueryProvider>
             <ReactQueryDevtools initialIsOpen={false} />
             {children}
