@@ -75,13 +75,13 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between max-w-[1520px] w-full items-center h-[60px] md:h-[70px] px-[15px] md:px-[20px] lg:h-[80px] z-10">
+    <div className="flex justify-between mx-auto max-w-[1520px] w-full items-center h-[60px] md:h-[70px] px-[15px] md:px-[20px] lg:h-[80px] z-10">
       <button
         className="md:hidden lg:hidden cursor-pointer"
         onClick={title ? handleBack : handleProfileOpen}
       >
         {title ? (
-          <Image src={"/assets/icons/back.png"} alt="menu" width={16} height={16} />
+          <Image src={"/assets/icons/back.png"} alt="menu" width={20} height={20} />
         ) : (
           <Image src={"/assets/icons/menu.png"} alt="menu" width={16} height={16} />
         )}
@@ -151,7 +151,7 @@ const Header = () => {
         {isLogin && (
           <>
             <div className="text-[14px] font-bold">{userInfo.points.toLocaleString()}&nbsp;P</div>
-            <div className="flex md:gap-[10px] lg:gap-[16px] items-center">
+            <div className="flex md:gap-[10px] lg:gap-[16px] items-center relative">
               <button className="cursor-pointer relative" onClick={handleNotificationOpen}>
                 <Image
                   src={"/assets/icons/notification.png"}
@@ -163,30 +163,24 @@ const Header = () => {
                   <div className="absolute top-[-2px] right-[-2px] w-[10px] h-[10px] bg-red rounded-full"></div>
                 )}
               </button>
-              <div className="relative">
-                {isNotificationOpen && (
-                  <NotificationCard>
-                    {notifications?.map(item => (
-                      <NotificationDetail
-                        key={item.id}
-                        content={item.message}
-                        time={timeAgo(item.createdAt)}
-                        isRead={item.readAt ? true : false}
-                        onClick={() => !item.readAt && markAsRead(item.id)}
-                      />
-                    ))}
-                    {/* sentinel & 로딩 상태 */}
-                    {isFetchingNextPage && (
-                      <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
-                    )}
-                    <div ref={bottomRef} />
-                  </NotificationCard>
-                )}
-              </div>
-
-              <button className="cursor-pointer">
-                <Image src={"/assets/icons/gift.png"} alt="gift" width={16} height={16} />
-              </button>
+              {isNotificationOpen && (
+                <NotificationCard>
+                  {notifications?.map(item => (
+                    <NotificationDetail
+                      key={item.id}
+                      content={item.message}
+                      time={timeAgo(item.createdAt)}
+                      isRead={item.readAt ? true : false}
+                      onClick={() => !item.readAt && markAsRead(item.id)}
+                    />
+                  ))}
+                  {/* sentinel & 로딩 상태 */}
+                  {isFetchingNextPage && (
+                    <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
+                  )}
+                  <div ref={bottomRef} />
+                </NotificationCard>
+              )}
             </div>
             <div className="relative">
               <button
