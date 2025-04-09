@@ -8,7 +8,11 @@ interface NotificationDrawerProps {
 const NotificationDrawer: React.FC<NotificationDrawerProps> = ({ onClose, children }) => {
   return (
     <ResponsivePage title="알림" onClose={onClose}>
-      {children}
+      {children || (
+        <div className="flex justify-center items-center h-full text-gray-300">
+          알림이 없습니다.
+        </div>
+      )}
     </ResponsivePage>
   );
 };

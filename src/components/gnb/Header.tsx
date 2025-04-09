@@ -3,7 +3,7 @@
 import Title from "./Title";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useUserStore from "@/store/useUserStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
@@ -16,33 +16,39 @@ import ProfileDrawer from "./profile/ProfileDrawer";
 import NotificationCard from "./notification/NotificationCard";
 import NotificationDetail from "./notification/NotificationDetail";
 import NotificationDrawer from "./notification/NotificationDrawer";
-
-const notificationList = [
-  {
-    id: 1,
-    content: "판매자가 포토카드를 등록했습니다.",
-    time: "2025-04-07T05:11:53.909Z",
-    isRead: false,
-  },
-  {
-    id: 2,
-    content: "새로운 알림이 도착했습니다.",
-    time: "2025-04-04T05:11:53.909Z",
-    isRead: true,
-  },
-];
+import { useNotificationList } from "@/hooks/notification/useNotificationList";
+import { useInView } from "react-intersection-observer";
 
 const Header = () => {
   const queryClient = useQueryClient();
   const { userInfo, logout } = useUserStore();
   const isLogin = !!userInfo;
 
+  const {
+    data, // ← 여기!
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    markAsRead,
+  } = useNotificationList();
+
+  const notifications = data?.notifications ?? null; // ← 이렇게 추출
+
+  /* -------- sentinel(바닥) 관찰자 설정 -------- */
+  const { ref: bottomRef, inView } = useInView({ threshold: 0 });
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage(); // 스크롤이 바닥에 닿으면 다음 페이지 요청
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   const { openSnackbar } = useSnackbarStore(); // Snackbar 상태 업데이트 함수 가져오기
 
-  const unRead = true;
+  const unRead = notifications?.some(item => !item.readAt); // 읽지 않은 알림이 있는지 확인
 
   const handleProfileOpen = () => setIsProfileOpen(prev => !prev);
   const handleNotificationOpen = () => setIsNotificationOpen(prev => !prev);
@@ -81,15 +87,20 @@ const Header = () => {
       {isNotificationOpen && (
         <div className="md:hidden absolute">
           <NotificationDrawer onClose={handleNotificationOpen}>
-            {notificationList?.map(item => (
+            {notifications?.map(item => (
               <NotificationDetail
                 key={item.id}
-                content={item.content}
-                time={timeAgo(item.time)}
-                isRead={item.isRead}
-                onClick={() => console.log("알림 클릭")}
+                content={item.message}
+                time={timeAgo(item.createdAt)}
+                isRead={item.readAt ? true : false}
+                onClick={() => !item.readAt && markAsRead(item.id)}
               />
             ))}
+            {/* sentinel & 로딩 상태 */}
+            {isFetchingNextPage && (
+              <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
+            )}
+            <div ref={bottomRef} />
           </NotificationDrawer>
         </div>
       )}
@@ -129,15 +140,20 @@ const Header = () => {
               <div className="relative">
                 {isNotificationOpen && (
                   <NotificationCard>
-                    {notificationList?.map(item => (
+                    {notifications?.map(item => (
                       <NotificationDetail
                         key={item.id}
-                        content={item.content}
-                        time={timeAgo(item.time)}
-                        isRead={item.isRead}
-                        onClick={() => console.log("알림 클릭")}
+                        content={item.message}
+                        time={timeAgo(item.createdAt)}
+                        isRead={item.readAt ? true : false}
+                        onClick={() => !item.readAt && markAsRead(item.id)}
                       />
                     ))}
+                    {/* sentinel & 로딩 상태 */}
+                    {isFetchingNextPage && (
+                      <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
+                    )}
+                    <div ref={bottomRef} />
                   </NotificationCard>
                 )}
               </div>
