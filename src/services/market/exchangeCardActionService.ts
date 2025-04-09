@@ -4,6 +4,7 @@ import { handleApiError } from "../modules/handleApiError";
 import {
   ExchangeCardActionResponseDto,
   PostExchangeOfferBodyParams,
+  PostExchangeOfferResponseDto,
 } from "@/types/photocard.types";
 
 /**
@@ -13,9 +14,9 @@ import {
  */
 export const postExchangeOfferApi = async (
   params: PostExchangeOfferBodyParams
-): Promise<ExchangeCardActionResponseDto> => {
+): Promise<PostExchangeOfferResponseDto> => {
   try {
-    const response = await axiosClient.post<ExchangeCardActionResponseDto>(
+    const response = await axiosClient.post<PostExchangeOfferResponseDto>(
       "/market/exchange",
       params
     );

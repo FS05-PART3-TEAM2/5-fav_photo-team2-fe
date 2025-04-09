@@ -7,6 +7,8 @@ import { photoCardKeys } from "@/utils/queryKeys";
 import { getSaleCardExchangeListApi } from "@/services/market/getSaleCardExchangeList";
 import { getSaleCardDetailApi } from "@/services/market/getSaleCardDetail";
 
+export const revalidate = 0; // 0으로 설정하면 매 요청마다 새로운 데이터를 가져옴
+
 export default async function PhotoCardDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const queryClient = new QueryClient();

@@ -138,17 +138,31 @@ export interface MarketplacePhotoCardDto {
   updatedAt: string;
 }
 
-// TODO: 지영님 api 명세 업데이트 완료되면 수정 필요
 /**
  * 판매 포토카드 교환 제시 등록 API 요청 타입
  */
 export interface PostExchangeOfferBodyParams {
   saleCardId: string;
+  offeredUserCardId: string;
   content: string;
 }
 
 /**
- * 판매 포토카드 교환 제시 등록/승인/거절 API 응답 타입
+ * 판매 포토카드 교환 제시 등록 API 응답 타입
+ */
+export interface PostExchangeOfferResponseDto {
+  message: string;
+  data: {
+    saleCardId: string;
+    offererId: string;
+    userPhotoCardId: string;
+    status: ExchangeOfferStatus;
+    content: string;
+  };
+}
+
+/**
+ * 판매 포토카드 교환 제시 승인/거절 API 응답 타입
  */
 export interface ExchangeCardActionResponseDto {
   id: string;

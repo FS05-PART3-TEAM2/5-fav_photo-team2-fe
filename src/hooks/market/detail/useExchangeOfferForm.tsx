@@ -34,7 +34,7 @@ export const useExchangeOfferForm = () => {
 
   const isBtnDisabled = !isValid();
 
-  // TODO: api 완성되면 잘 돌아가는지, 성공 후 캐시 업데이트 되는지 확인 필요
+  // TODO: 성공 후 캐시 업데이트 되는지 확인 필요
   /**
    * 판매 포토카드 교환 제시 등록 핸들러
    * @param saleCardId
