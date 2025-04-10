@@ -16,15 +16,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="ko" className={`${baskinBold.variable}`}>
       <body>
-        <AuthInitializer>
-          <ReactQueryProvider>
+        <ReactQueryProvider>
+          <AuthInitializer>
             <ReactQueryDevtools initialIsOpen={false} />
             <Header />
             {children}
             {/* 스낵바 팝업 전역 상태로 관리 */}
             <SnackbarAlert />
-          </ReactQueryProvider>
-        </AuthInitializer>
+          </AuthInitializer>
+        </ReactQueryProvider>
       </body>
     </html>
   );

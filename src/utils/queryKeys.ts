@@ -32,3 +32,7 @@ export const photoCardKeys = {
     limit?: number;
   }) => [...photoCardKeys.all, "mySaleList", params] as const,
 };
+
+export const userPointKeys = {
+  me: () => ["myPoints"] as const,
+};

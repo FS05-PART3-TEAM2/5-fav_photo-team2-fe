@@ -141,7 +141,7 @@ const Header = () => {
           {isLogin ? (
             <ProfileDetail
               nickname={userInfo.nickname}
-              point={userInfo.points}
+              point={userInfo.points!}
               onLogout={handleLogout}
             >
               <ProfileDetail.TextLink text="마이갤러리" href="/my-photos" />
@@ -156,7 +156,7 @@ const Header = () => {
       <div className="hidden md:flex md:gap-[20px] lg:gap-[30px] items-center">
         {isLogin && (
           <>
-            <div className="text-[14px] font-bold">{userInfo.points.toLocaleString()}&nbsp;P</div>
+            <div className="text-[14px] font-bold">{userInfo.points!.toLocaleString()}&nbsp;P</div>
             <div className="flex md:gap-[10px] lg:gap-[16px] items-center relative">
               <button className="cursor-pointer relative" onClick={handleNotificationOpen}>
                 <Image
@@ -197,7 +197,7 @@ const Header = () => {
               </button>
               {isProfileOpen && (
                 <ProfileCard>
-                  <ProfileDetail nickname={userInfo.nickname} point={userInfo.points}>
+                  <ProfileDetail nickname={userInfo.nickname} point={userInfo.points!}>
                     <ProfileDetail.TextLink text="마이갤러리" href="/my-photos" />
                     <ProfileDetail.TextLink text="나의 판매 포토카드" href="/my-sales" />
                   </ProfileDetail>
