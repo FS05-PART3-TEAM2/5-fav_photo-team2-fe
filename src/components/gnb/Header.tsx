@@ -3,43 +3,70 @@
 import Title from "./Title";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import Profile from "./Profile";
+import { useEffect, useState } from "react";
 import useUserStore from "@/store/useUserStore";
-// import { useQueryClient } from "@tanstack/react-query";
-import Notification from "./Notification";
+import { useQueryClient } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import { ko } from "date-fns/locale";
-
-/**
- * 최애의포토 : 마켓 플레이스 공통,
- * 제목 : 마켓플레이스 페이지(구매자), 판매 포토카드 상세
- */
+import { useSnackbarStore } from "@/store/useSnackbarStore";
+import { removeQueryKeys } from "@/utils/invalidateQueryKeys";
+import ProfileCard from "./profile/ProfileCard";
+import ProfileDetail from "./profile/ProfileDetail";
+import ProfileDrawer from "./profile/ProfileDrawer";
+import NotificationCard from "./notification/NotificationCard";
+import NotificationDetail from "./notification/NotificationDetail";
+import NotificationDrawer from "./notification/NotificationDrawer";
+import { useNotificationList } from "@/hooks/notification/useNotificationList";
+import { useInView } from "react-intersection-observer";
+import { usePathname, useRouter } from "next/navigation";
+import { PATH_TITLE } from "./path-titile";
 
 const Header = () => {
-  // const queryClient = useQueryClient();
+  const router = useRouter();
+  const pathname = usePathname();
+  const queryClient = useQueryClient();
   const { userInfo, logout } = useUserStore();
   const isLogin = !!userInfo;
+
+  const title = PATH_TITLE.find(([re]) => re.test(pathname))?.[1];
+  const hasTitle = title !== undefined;
+
+  const {
+    data, // ← 여기!
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    markAsRead,
+  } = useNotificationList();
+
+  const notifications = data?.notifications ?? null; // ← 이렇게 추출
+
+  /* -------- sentinel(바닥) 관찰자 설정 -------- */
+  const { ref: bottomRef, inView } = useInView({ threshold: 0 });
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage(); // 스크롤이 바닥에 닿으면 다음 페이지 요청
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
-  const unRead = true;
+  const { openSnackbar } = useSnackbarStore(); // Snackbar 상태 업데이트 함수 가져오기
 
-  const handleProfileOpen = () => {
-    setIsProfileOpen(!isProfileOpen);
-  };
-  const handleNotificationOpen = () => {
-    setIsNotificationOpen(!isNotificationOpen);
-  };
+  const unRead = notifications?.some(item => !item.readAt); // 읽지 않은 알림이 있는지 확인
+
+  const handleProfileOpen = () => setIsProfileOpen(prev => !prev);
+  const handleNotificationOpen = () => setIsNotificationOpen(prev => !prev);
   const handleLogout = () => {
-    // logout(queryClient);
     logout();
+    removeQueryKeys(queryClient);
+    openSnackbar("SUCCESS", "로그아웃 완료되었습니다."); // Snackbar를 통해 에러 메시지 표시
   };
-
-  if (userInfo) {
-    userInfo.point = userInfo.point || 1000; // 포인트가 없을 경우 0으로 설정
-  }
+  const handleBack = () => {
+    router.back();
+  };
 
   const timeAgo = (time: string) => {
     return formatDistanceToNow(time, {
@@ -49,68 +76,88 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between max-w-[1520px] w-full items-center h-[60px] md:h-[70px] lg:h-[80px] px-[15px] md:px-[20px] z-10">
-      <button className="md:hidden lg:hidden cursor-pointer" onClick={handleProfileOpen}>
-        <Image src={"/assets/icons/menu.png"} alt="menu" width={24} height={24} />
+    <div className="flex justify-between mx-auto max-w-[1520px] w-full items-center h-[60px] md:h-[70px] px-[15px] md:px-[20px] lg:h-[80px] z-10">
+      <button
+        className="md:hidden lg:hidden cursor-pointer"
+        onClick={hasTitle ? handleBack : handleProfileOpen}
+      >
+        {hasTitle ? (
+          <Image src={"/assets/icons/back.png"} alt="menu" width={20} height={20} />
+        ) : (
+          <Image src={"/assets/icons/menu.png"} alt="menu" width={16} height={16} />
+        )}
       </button>
       <Link href={"/"}>
         <Title>
-          최애<span className="text-main">의</span>포토
+          {hasTitle ? (
+            <>
+              <div className="md:hidden">{title}</div>
+              <div className="hidden md:block">
+                최애<span className="text-main">의</span>포토
+              </div>
+            </>
+          ) : (
+            <>
+              최애<span className="text-main">의</span>포토
+            </>
+          )}
         </Title>
       </Link>
-      <button
-        className="md:hidden lg:hidden cursor-pointer relative"
-        onClick={handleNotificationOpen}
-      >
-        <Image src={"/assets/icons/notification.png"} alt="search" width={16} height={16} />
-        {unRead && (
-          <div className="absolute top-[-2px] right-[-2px] w-[10px] h-[10px] bg-red rounded-full"></div>
+      <div className="w-[16px]">
+        {isLogin && !hasTitle && (
+          <button
+            className="md:hidden lg:hidden cursor-pointer relative"
+            onClick={handleNotificationOpen}
+          >
+            <Image src={"/assets/icons/notification.png"} alt="search" width={16} height={16} />
+            {unRead && (
+              <div className="absolute top-[-2px] right-[-2px] w-[10px] h-[10px] bg-red rounded-full"></div>
+            )}
+          </button>
         )}
-      </button>
+      </div>
       {isNotificationOpen && (
         <div className="md:hidden absolute">
-          <Notification isOpen={isNotificationOpen}>
-            <Notification.Item
-              content="판매자가 포토카드를 등록했습니다."
-              time={timeAgo("2025-04-07T05:11:53.909Z")}
-            />
-            <Notification.Item
-              content="새로운 알림이 도착했습니다."
-              time={timeAgo("2025-04-04T05:11:53.909Z")}
-              isRead={true}
-            />
-            <Notification.Item
-              content="판매자가 포토카드를 등록했습니다."
-              time={timeAgo("2025-04-07T05:11:53.909Z")}
-            />
-            <Notification.Item
-              content="새로운 알림이 도착했습니다."
-              time={timeAgo("2025-04-04T05:11:53.909Z")}
-              isRead={true}
-            />
-          </Notification>
+          <NotificationDrawer onClose={handleNotificationOpen}>
+            {notifications?.map(item => (
+              <NotificationDetail
+                key={item.id}
+                content={item.message}
+                time={timeAgo(item.createdAt)}
+                isRead={item.readAt ? true : false}
+                onClick={() => !item.readAt && markAsRead(item.id)}
+              />
+            ))}
+            {/* sentinel & 로딩 상태 */}
+            {isFetchingNextPage && (
+              <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
+            )}
+            <div ref={bottomRef} />
+          </NotificationDrawer>
         </div>
       )}
-      {isProfileOpen && isLogin && (
-        <div className="md:hidden absolute">
-          <Profile
-            isOpen={isProfileOpen}
-            onClose={handleProfileOpen}
-            nickname={userInfo.nickname}
-            point={userInfo.point}
-            logout={handleLogout}
-          >
-            <Profile.TextLink text="마이갤러리" href="/mypage" />
-            <Profile.TextLink text="나의 판매 포토카드" href="/mypage" />
-          </Profile>
-        </div>
+      {isProfileOpen && (
+        <ProfileDrawer onClose={handleProfileOpen}>
+          {isLogin ? (
+            <ProfileDetail
+              nickname={userInfo.nickname}
+              point={userInfo.points}
+              onLogout={handleLogout}
+            >
+              <ProfileDetail.TextLink text="마이갤러리" href="/my-photos" />
+              <ProfileDetail.TextLink text="나의 판매 포토카드" href="/my-sales" />
+            </ProfileDetail>
+          ) : (
+            <ProfileDetail.TextLink text="로그인" href="/auth/login" />
+          )}
+        </ProfileDrawer>
       )}
 
       <div className="hidden md:flex md:gap-[20px] lg:gap-[30px] items-center">
         {isLogin && (
           <>
-            <div className="text-[14px] font-bold">{userInfo.point.toLocaleString()}&nbsp;P</div>
-            <div className="flex md:gap-[10px] lg:gap-[16px] items-center">
+            <div className="text-[14px] font-bold">{userInfo.points.toLocaleString()}&nbsp;P</div>
+            <div className="flex md:gap-[10px] lg:gap-[16px] items-center relative">
               <button className="cursor-pointer relative" onClick={handleNotificationOpen}>
                 <Image
                   src={"/assets/icons/notification.png"}
@@ -122,49 +169,24 @@ const Header = () => {
                   <div className="absolute top-[-2px] right-[-2px] w-[10px] h-[10px] bg-red rounded-full"></div>
                 )}
               </button>
-              <div className="relative">
-                <Notification isOpen={isNotificationOpen}>
-                  <Notification.Item
-                    content="판매자가 포토카드를 등록했습니다."
-                    time={timeAgo("2025-04-07T05:11:53.909Z")}
-                  />
-                  <Notification.Item
-                    content="새로운 알림이 도착했습니다."
-                    time={timeAgo("2025-04-04T05:11:53.909Z")}
-                    isRead={true}
-                  />
-                  <Notification.Item
-                    content="판매자가 포토카드를 등록했습니다."
-                    time={timeAgo("2025-04-07T05:11:53.909Z")}
-                  />
-                  <Notification.Item
-                    content="새로운 알림이 도착했습니다."
-                    time={timeAgo("2025-04-04T05:11:53.909Z")}
-                    isRead={true}
-                  />
-                  <Notification.Item
-                    content="판매자가 포토카드를 등록했습니다."
-                    time={timeAgo("2025-04-07T05:11:53.909Z")}
-                  />
-                  <Notification.Item
-                    content="새로운 알림이 도착했습니다."
-                    time={timeAgo("2025-04-04T05:11:53.909Z")}
-                    isRead={true}
-                  />
-                  <Notification.Item
-                    content="판매자가 포토카드를 등록했습니다."
-                    time={timeAgo("2025-04-07T05:11:53.909Z")}
-                  />
-                  <Notification.Item
-                    content="새로운 알림이 도착했습니다."
-                    time={timeAgo("2025-04-04T05:11:53.909Z")}
-                    isRead={true}
-                  />
-                </Notification>
-              </div>
-              <button className="cursor-pointer">
-                <Image src={"/assets/icons/gift.png"} alt="gift" width={16} height={16} />
-              </button>
+              {isNotificationOpen && (
+                <NotificationCard>
+                  {notifications?.map(item => (
+                    <NotificationDetail
+                      key={item.id}
+                      content={item.message}
+                      time={timeAgo(item.createdAt)}
+                      isRead={item.readAt ? true : false}
+                      onClick={() => !item.readAt && markAsRead(item.id)}
+                    />
+                  ))}
+                  {/* sentinel & 로딩 상태 */}
+                  {isFetchingNextPage && (
+                    <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
+                  )}
+                  <div ref={bottomRef} />
+                </NotificationCard>
+              )}
             </div>
             <div className="relative">
               <button
@@ -173,15 +195,14 @@ const Header = () => {
               >
                 {userInfo.nickname}
               </button>
-              <Profile
-                isOpen={isProfileOpen}
-                onClose={handleProfileOpen}
-                nickname={userInfo.nickname}
-                point={userInfo.point}
-              >
-                <Profile.TextLink text="마이갤러리" href="/my-photos" />
-                <Profile.TextLink text="나의 판매 포토카드" href="/my-sales" />
-              </Profile>
+              {isProfileOpen && (
+                <ProfileCard>
+                  <ProfileDetail nickname={userInfo.nickname} point={userInfo.points}>
+                    <ProfileDetail.TextLink text="마이갤러리" href="/my-photos" />
+                    <ProfileDetail.TextLink text="나의 판매 포토카드" href="/my-sales" />
+                  </ProfileDetail>
+                </ProfileCard>
+              )}
             </div>
             <div className="w-0.5 bg-gray-400 h-[14px] self-center"></div>
             <button

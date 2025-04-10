@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { SectionTitle } from "../SectionTitle";
 import ThinBtn from "@/components/common/button/ThinBtn";
-import { CardType, Grade, Genre, MyPhotoCardDto } from "@/types/photocard.types";
+import {
+  CardType,
+  Grade,
+  Genre,
+  MyPhotoCardDto,
+  PostExchangeOfferBodyParams,
+} from "@/types/photocard.types";
 import CardHeader from "@/components/common/card/CardHeader";
 import ResponsiveMyPhotoList from "@/components/common/responsiveLayout/responsiveMyPhotoList/ResponsiveMyPhotoList";
 import { ExchangeOfferInputForm } from "./ExchangeOfferInputForm";
 import ResponsiveForm from "@/components/common/responsiveLayout/responsiveForm/ResponsiveForm";
+import { useExchangeOfferForm } from "@/hooks/market/detail/useExchangeOfferForm";
 
 interface ExchangeDetailProps {
   exchangeDetail: {
@@ -19,6 +26,18 @@ export const ExchangeDetail: React.FC<ExchangeDetailProps> = ({ exchangeDetail }
   const [isMyPhotoListModalOpen, setIsMyPhotoListModalOpen] = useState(false);
   const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<MyPhotoCardDto | null>(null);
+  const {
+    exchangeOfferContent,
+    isBtnDisabled,
+    handleContentChange,
+    handleContentReset,
+    handlePostExchangeOffer,
+  } = useExchangeOfferForm();
+
+  const exchangeOfferBody: PostExchangeOfferBodyParams = {
+    saleCardId: selectedCard?.id ?? "",
+    content: exchangeOfferContent,
+  };
 
   // 보유 카드 목록 모달 핸들러
   const handleMyPhotoListModalOpen = () => {
@@ -45,7 +64,8 @@ export const ExchangeDetail: React.FC<ExchangeDetailProps> = ({ exchangeDetail }
   };
   const handleSubmitExchange = () => {
     // 교환 제시 제출하면, 입력 모달, 보유 목록 모달 둘 다 닫기
-    // TODO: 교환 제시 api 붙이기
+    handlePostExchangeOffer(exchangeOfferBody);
+    handleContentReset();
     setIsMyPhotoListModalOpen(false);
     setIsExchangeModalOpen(false);
     setSelectedCard(null);
@@ -95,6 +115,9 @@ export const ExchangeDetail: React.FC<ExchangeDetailProps> = ({ exchangeDetail }
         >
           <ExchangeOfferInputForm
             data={selectedCard}
+            inputValue={exchangeOfferContent}
+            isExchangeBtnDisabled={isBtnDisabled}
+            onChange={handleContentChange}
             onCancel={handleExchangeModalClose}
             onExchange={handleSubmitExchange}
           />

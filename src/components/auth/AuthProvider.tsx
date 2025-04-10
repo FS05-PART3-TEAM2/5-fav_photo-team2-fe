@@ -21,6 +21,6 @@ export const AuthProvider = ({ userInfo, children }: props) => {
     };
 
     checkAuth();
-  }, [setUser, logout]);
+  }, [userInfo, setUser, logout]);
   return <>{children}</>;
 };

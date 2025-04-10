@@ -1,14 +1,12 @@
 import { MyPhotoCardDto } from "@/types/photocard.types";
 import { useMyPhotoCards } from "@/hooks/my-page/useMyPhotoCards";
-import CardFilter from "@/components/my-page/my-photo/PhotoCardFilter";
+import MyPhotoFilter from "./MyPhotoFilter";
 
 interface MyPhotoListContentProps {
   title: string;
   onCardClick: (cardId: string, cardData: MyPhotoCardDto) => void;
 }
 
-// XXX: 하윤님 마이갤러리 api + 컴포넌트로 보유하고 있는 카드 보여줌.
-// TODO: 포토카드 등록 가능해지면 등록 테스트 후, 무한스크롤 + 교환제시 모달로 잘 넘어가는지 확인 필요
 export const MyPhotoListContent: React.FC<MyPhotoListContentProps> = ({ title, onCardClick }) => {
   // React Query 훅 사용 (초기 로딩용)
   const { myPhotos } = useMyPhotoCards();
@@ -36,13 +34,7 @@ export const MyPhotoListContent: React.FC<MyPhotoListContentProps> = ({ title, o
           <div className={titleSx}>{title}</div>
         </div>
 
-        {/* 필터 + 카드 리스트 영역 */}
-        <div className="w-[100%] flex flex-col h-[calc(100vh-340px)] overflow-y-auto">
-          <CardFilter
-            onCardClick={handleCardClick}
-            className="grid grid-cols-2 mt-[4px] md:mt-[20px] gap-[5px] md:gap-5 lg:gap-10"
-          />
-        </div>
+        <MyPhotoFilter onCardClick={handleCardClick} />
       </div>
     </div>
   );

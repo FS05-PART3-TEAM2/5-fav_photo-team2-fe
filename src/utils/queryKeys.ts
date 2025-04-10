@@ -24,9 +24,11 @@ export const photoCardKeys = {
     [...photoCardKeys.all, "myPhotoList", params] as const,
 
   // 나의 판매 포토카드 목록 - 검색 조건(검색어, 등급, 장르, 판매 상태)
-  mySaleList: (params: { keyword: string; grade: Grade; genre: Genre; status: TradeStatus }) =>
-    [...photoCardKeys.all, "mySaleList", params] as const,
-
-  // 마켓플레이스 메인 전체 리스트 (필터 없이 전체)
-  marketList: () => [...photoCardKeys.all, "marketList"] as const,
+  mySaleList: (params: {
+    keyword: string;
+    grade: Grade;
+    genre: Genre;
+    status: TradeStatus;
+    limit?: number;
+  }) => [...photoCardKeys.all, "mySaleList", params] as const,
 };

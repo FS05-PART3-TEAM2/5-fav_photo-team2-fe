@@ -10,15 +10,28 @@ import CardGrid from "@/components/market/list/CardGrid";
 import { SellerPage } from "@/components/market/list/seller/SellerPage";
 import SellForm from "@/components/market/list/seller/SaleForm";
 import { useState, useEffect } from "react";
-import { SaleCardDto } from "@/types/photocard.types";
+import { SaleCardDto, Grade, Genre, SaleCardStatus, Sort } from "@/types/photocard.types";
 import ResponsiveForm from "@/components/common/responsiveLayout/responsiveForm/ResponsiveForm";
 
 export default function MarketplacePageClient() {
+  const defaultFilter = {
+    keyword: "",
+    grade: "default",
+    genre: "default",
+    status: "default",
+    sort: "latest",
+  } as unknown as {
+    keyword: string;
+    grade: Grade;
+    genre: Genre;
+    status: SaleCardStatus;
+    sort: Sort;
+  };
+
   const { data: photoCards = [] } = useQuery({
-    queryKey: photoCardKeys.marketList(),
+    queryKey: photoCardKeys.saleList(defaultFilter),
     queryFn: () => getMarketPhotoCardsApi(),
   });
-
   // 👇 로그인 유저 정보 가져오기
   const { data: user } = useQuery({
     queryKey: ["me"],

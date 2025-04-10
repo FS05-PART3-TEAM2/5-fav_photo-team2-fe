@@ -8,6 +8,7 @@ interface UseMySalesCardsParams {
   grade?: Grade;
   genre?: Genre;
   status?: TradeStatus;
+  limit?: number;
 }
 
 // 나의 판매 포토카드 목록 조회 (무한 스크롤)
@@ -16,6 +17,7 @@ export const useMySalesCards = ({
   grade,
   genre,
   status,
+  limit,
 }: UseMySalesCardsParams = {}) => {
   const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, isLoading, error } =
     useInfiniteQuery({
@@ -24,6 +26,7 @@ export const useMySalesCards = ({
         grade: grade ?? ("ALL" as Grade),
         genre: genre ?? ("ALL" as Genre),
         status: status ?? ("ALL" as TradeStatus),
+        limit,
       }),
       queryFn: ({ pageParam }) =>
         getMySalesCards({
@@ -32,6 +35,7 @@ export const useMySalesCards = ({
           grade,
           genre,
           status,
+          limit,
         }),
       initialPageParam: null as string | null,
       getNextPageParam: lastPage => lastPage.nextCursor,
