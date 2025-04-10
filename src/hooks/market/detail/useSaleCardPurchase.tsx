@@ -35,7 +35,7 @@ export const useSaleCardPurchase = (saleCardId: string, grade: Grade, name: stri
         // 구매 완료 후 캐시 무효화
         queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
         // 유저 포인트 무효화 -> 포인트 차감된걸로 업데이트
-        queryClient.invalidateQueries({ queryKey: userKeys.points() });
+        queryClient.invalidateQueries({ queryKey: userKeys.all });
 
         openSnackbar(
           "SUCCESS",
