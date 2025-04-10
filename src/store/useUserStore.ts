@@ -8,7 +8,7 @@ export interface UserInfo {
   id: string;
   nickname: string;
   email: string;
-  points: number;
+  points: number | 0;
 }
 
 interface UserStore {
@@ -33,10 +33,6 @@ const useUserStore = create<UserStore>()(
         set({ userInfo: null, isAuthenticated: false });
         await logoutAction();
       },
-      // logout: queryClient => {
-      //   set({ userInfo: null, isAuthenticated: false });
-      //   removeQueryKeys(queryClient); // 로그아웃 시 관련 쿼리 캐시 초기화
-      // },
     }),
     {
       name: "user-storage", // storage name
