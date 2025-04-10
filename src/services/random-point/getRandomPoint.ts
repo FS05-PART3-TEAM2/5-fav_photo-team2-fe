@@ -53,7 +53,7 @@ export const getRandomPointStatus = async (): Promise<RandomPointStatusResponse>
  */
 export const drawRandomPoint = async (boxIndex: number): Promise<RandomPointDrawResponse> => {
   try {
-    const response = await axiosClient.post("/random-box", {
+    const response = await axiosClient.post("/random-box/test", {
       boxNumber: boxIndex + 1,
     });
 

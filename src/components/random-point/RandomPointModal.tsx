@@ -204,11 +204,11 @@ const RandomPointModal = ({ isOpen, onClose }: RandomPointModalProps) => {
                     <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-lg">
                       {earnedPoint === 0 ? (
                         <p className="text-red-500 font-BR-B text-lg md:text-xl lg:text-2xl">
-                          💣 실패 ! 💣
+                          💣 실패 💣
                         </p>
                       ) : (
-                        <div className="text-main font-BR-B text-lg md:text-xl lg:text-2xl">
-                          <p>🎉 성공 ! 🎉</p>
+                        <div className="text-main text-center font-BR-B text-lg md:text-xl lg:text-2xl">
+                          <p>🎉 성공 🎉</p>
                           <p className="text-white">+ {earnedPoint} 포인트</p>
                         </div>
                       )}
@@ -224,7 +224,7 @@ const RandomPointModal = ({ isOpen, onClose }: RandomPointModalProps) => {
                 <p className="text-white text-sm lg:text-md mb-4">
                   {earnedPoint === 0
                     ? "다음 기회에 도전해보세요 ! 😭"
-                    : `축하합니다! ${earnedPoint} 포인트가 적립되었습니다 ! 🥳`}
+                    : `축하합니다 ! ${earnedPoint} 포인트가 적립되었습니다 ! 🥳`}
                 </p>
               </div>
             )}
