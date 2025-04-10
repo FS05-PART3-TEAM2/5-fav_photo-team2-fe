@@ -76,15 +76,15 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
       }
     };
   }, [hasNextPage, isFetchingNextPage, onLoadMore]);
-
+  console.log(salesCards);
   return (
     <div className="relative">
       <div className={className}>
-        {salesCards.map(saleCard => (
+        {salesCards.map((saleCard: MySaleCard) => (
           <MyPhotoCard
             key={saleCard.saleCardId}
             myPhotoCard={convertToMyPhotoCardDto(saleCard)}
-            onClick={id => onCardClick && onCardClick(id)}
+            onClick={() => onCardClick && onCardClick(saleCard.saleCardId)}
           />
         ))}
       </div>

@@ -2,18 +2,25 @@
 import { cookies } from "next/headers";
 import axios from "axios";
 import { AuthProvider } from "./AuthProvider";
+import { UserInfo } from "@/store/useUserStore";
 
 export default async function AuthInitializer({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
+  const cookie = (await cookieStore).toString();
   let userInfo = null;
 
   try {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
       headers: {
-        cookie: cookieStore.toString(),
+        cookie,
       },
     });
-    userInfo = res.data;
+
+    userInfo = {
+      id: res.data.id,
+      nickname: res.data.nickname,
+      email: res.data.email,
+    } as UserInfo;
   } catch (e) {
     console.log("auth init error", e);
   }

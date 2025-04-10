@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface ProfileProps {
@@ -11,6 +11,7 @@ interface ProfileProps {
 interface ProfileTextLinkProps {
   text: string;
   href: string;
+  onClick: () => void;
 }
 
 interface ProfileCardComponent extends React.FC<ProfileProps> {
@@ -45,11 +46,23 @@ const ProfileDetail: ProfileCardComponent = ({ nickname, point, onLogout, childr
   );
 };
 
-const TextLink: React.FC<ProfileTextLinkProps> = ({ text, href }) => {
+const TextLink: React.FC<ProfileTextLinkProps> = ({ text, href, onClick }) => {
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    onClick?.(); // 👈 모달 닫기
+    router.push(href); // 👈 이동
+  };
+
   return (
-    <Link href={href} className="px-[20px] text-[14px] font-bold text-white cursor-pointer">
+    <a
+      href={href}
+      onClick={handleClick}
+      className="px-[20px] text-[14px] font-bold text-white cursor-pointer"
+    >
       {text}
-    </Link>
+    </a>
   );
 };
 
