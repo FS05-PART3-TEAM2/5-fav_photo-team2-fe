@@ -5,6 +5,7 @@ import { axiosClient } from "@/services/axiosClient/axiosClient";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
 import { SaleFormUI } from "./SaleCardFormContent/SaleFormUI";
 import type { SaleCardDto, Grade, Genre } from "@/types/photocard.types";
+import { AxiosError } from "axios";
 
 interface SellFormProps {
   data: SaleCardDto;
@@ -23,9 +24,6 @@ const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
 
   const { openSnackbar } = useSnackbarStore();
 
-  // 클라이언트에서 쿠키를 직접 읽어오기
-  //  const cookie = document.cookie; // document.cookie를 사용하여 쿠키 가져오기
-
   const handleSubmit = async () => {
     try {
       if (!data) return;
@@ -38,11 +36,28 @@ const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
       });
       // console.log("😏내가 입력한 데이터 확인용", requestData);
       await axiosClient.post("/market", requestData);
-      openSnackbar("SUCCESS", "판매 등록이 완료되었습니다!");
+      openSnackbar(
+        "SUCCESS",
+        `[${grade} | ${data.name}] ${quantity}장 판매 등록에 성공했습니다!`,
+        "판매 등록"
+      );
       onSubmit();
     } catch (error) {
-      openSnackbar("ERROR", "판매 등록에 실패했습니다. 다시 시도해주세요.");
-      console.error("판매 등록 실패:", error);
+      const err = error as AxiosError<{ message?: string; error?: string }>;
+
+      if (err.response?.data) {
+        const errorMessage = err.response.data.message ?? err.response.data.error;
+
+        if (errorMessage === "Already on sale") {
+          openSnackbar("ERROR", `[${data.name}]은(는) 이미 판매 중입니다.`, "판매 등록");
+        } else {
+          openSnackbar(
+            "ERROR",
+            `[${grade} | ${data.name}] ${quantity}장 판매 등록에 실패했습니다.`,
+            "판매 등록"
+          );
+        }
+      }
     }
   };
 

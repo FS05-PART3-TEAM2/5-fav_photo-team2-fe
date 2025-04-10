@@ -13,8 +13,11 @@ import { useState, useEffect } from "react";
 import { SaleCardDto, Grade, Genre, SaleCardStatus, Sort } from "@/types/photocard.types";
 import ResponsiveForm from "@/components/common/responsiveLayout/responsiveForm/ResponsiveForm";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
+import { useRouter } from "next/navigation";
 
 export default function MarketplacePageClient() {
+  const router = useRouter();
+
   const defaultFilter = {
     keyword: "",
     grade: "default",
@@ -49,7 +52,9 @@ export default function MarketplacePageClient() {
 
   const handleOpenMyPhotoList = () => {
     if (!user) {
-      openSnackbar("ERROR", "로그인이 필요합니다.");
+      openSnackbar("ERROR", "로그인 후 이용해주세요.");
+      router.push("/auth/login");
+      setIsSellerPageOpen(false);
       return;
     }
     setIsSellerPageOpen(true);
