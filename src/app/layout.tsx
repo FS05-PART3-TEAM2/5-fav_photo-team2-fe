@@ -20,7 +20,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <AuthInitializer>
             <ReactQueryDevtools initialIsOpen={false} />
             <Header />
-            {children}
+            <div className="pt-[60px] md:pt-[70px]">{children}</div>
             {/* 스낵바 팝업 전역 상태로 관리 */}
             <SnackbarAlert />
           </AuthInitializer>
