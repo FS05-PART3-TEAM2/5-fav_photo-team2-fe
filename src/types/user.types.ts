@@ -1,3 +1,3 @@
 export interface PointDto {
-  totalPoint: number;
+  points: number;
 }

@@ -46,6 +46,7 @@ const MyPhotos = () => {
             nickname={userNickname}
             totalCards={totalCards}
             photoCard={cardCountByGrade}
+            pageType="my-photos"
           />
         )}
 

@@ -9,17 +9,21 @@ interface MyPhotoCardGradesProps {
     superRare: number;
     legendary: number;
   };
+  pageType: "my-photos" | "my-sales";
 }
 
 const MyPhotoCardGrades: React.FC<MyPhotoCardGradesProps> = ({
   nickname,
   totalCards,
   photoCard,
+  pageType,
 }) => {
   return (
     <div className="mb-8">
       <div className="flex items-center gap-3 mb-5">
-        <h2 className="text-white text-[24px] font-bold">{nickname}님이 보유한 포토카드</h2>
+        <h2 className="text-white text-[24px] font-bold">
+          {nickname}님이 {pageType === "my-photos" ? "보유한" : "판매 중인"} 포토카드
+        </h2>
         <span className="text-gray-300 text-[24px] ">({totalCards}장)</span>
       </div>
 
