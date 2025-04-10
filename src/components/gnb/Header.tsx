@@ -29,6 +29,7 @@ const Header = () => {
   const isLogin = !!userInfo;
 
   const title = PATH_TITLE.find(([re]) => re.test(pathname))?.[1];
+  const hasTitle = title !== undefined;
 
   const {
     data, // ← 여기!
@@ -78,9 +79,9 @@ const Header = () => {
     <div className="flex justify-between mx-auto max-w-[1520px] w-full items-center h-[60px] md:h-[70px] px-[15px] md:px-[20px] lg:h-[80px] z-10">
       <button
         className="md:hidden lg:hidden cursor-pointer"
-        onClick={title ? handleBack : handleProfileOpen}
+        onClick={hasTitle ? handleBack : handleProfileOpen}
       >
-        {title ? (
+        {hasTitle ? (
           <Image src={"/assets/icons/back.png"} alt="menu" width={20} height={20} />
         ) : (
           <Image src={"/assets/icons/menu.png"} alt="menu" width={16} height={16} />
@@ -88,8 +89,13 @@ const Header = () => {
       </button>
       <Link href={"/"}>
         <Title>
-          {title ? (
-            <>{title}</>
+          {hasTitle ? (
+            <>
+              <div className="md:hidden">{title}</div>
+              <div className="hidden md:block">
+                최애<span className="text-main">의</span>포토
+              </div>
+            </>
           ) : (
             <>
               최애<span className="text-main">의</span>포토
@@ -98,7 +104,7 @@ const Header = () => {
         </Title>
       </Link>
       <div className="w-[16px]">
-        {isLogin && !title && (
+        {isLogin && !hasTitle && (
           <button
             className="md:hidden lg:hidden cursor-pointer relative"
             onClick={handleNotificationOpen}
