@@ -30,6 +30,11 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
       ? "text-gray-300 font-light text-[10px] md:text-[18px]"
       : "text-gray-300 font-normal text-[20px] lg:text-[24px]";
 
+  const price = props.price?.toLocaleString();
+  const hasPrice = props.price !== undefined && props.price !== null;
+  const hasAvailableAmount = props.availableAmount !== undefined && props.availableAmount !== null;
+  const hasTotalAmount = props.totalAmount !== undefined && props.totalAmount !== null;
+
   return (
     <div>
       {props.description && (
@@ -42,11 +47,11 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
         </div>
       )}
       {/* 잔여인 경우 */}
-      {props.price && props.availableAmount && props.totalAmount && props.amountText === "잔여" && (
+      {hasPrice && hasAvailableAmount && hasTotalAmount && props.amountText === "잔여" && (
         <div className={`${commonStyle} flex flex-col gap-[10px]`}>
           <div className="flex justify-between items-center">
             <div className={labelStyle}>가격</div>
-            <div className={responsiveWhiteStyle}>{props.price}&nbsp;P</div>
+            <div className={responsiveWhiteStyle}>{price}&nbsp;P</div>
           </div>
           <div className="flex justify-between items-center">
             <div className={labelStyle}>잔여</div>
@@ -61,29 +66,26 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
         </div>
       )}
       {/* 보유량인 경우 */}
-      {props.price &&
-        props.availableAmount &&
-        props.totalAmount &&
-        props.amountText === "보유량" && (
-          <div className={`${commonStyle} flex flex-col gap-[10px]`}>
-            <div className="flex justify-between items-center">
-              <div className={labelStyle}>가격</div>
-              <div className={responsiveWhiteStyle}>{props.price}&nbsp;P</div>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className={labelStyle}>{props.amountText}</div>
-              <div className="flex items-center">
-                <p className={responsiveWhiteStyle}>{props.availableAmount}</p>
-              </div>
-            </div>
-          </div>
-        )}
-      {/* 수량인 경우 */}
-      {props.price && props.totalAmount && props.amountText === "수량" && (
+      {hasPrice && hasAvailableAmount && hasTotalAmount && props.amountText === "보유량" && (
         <div className={`${commonStyle} flex flex-col gap-[10px]`}>
           <div className="flex justify-between items-center">
             <div className={labelStyle}>가격</div>
-            <div className={responsiveWhiteStyle}>{props.price}&nbsp;P</div>
+            <div className={responsiveWhiteStyle}>{price}&nbsp;P</div>
+          </div>
+          <div className="flex justify-between items-center">
+            <div className={labelStyle}>{props.amountText}</div>
+            <div className="flex items-center">
+              <p className={responsiveWhiteStyle}>{props.availableAmount}</p>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* 수량인 경우 */}
+      {hasPrice && hasAvailableAmount && props.amountText === "수량" && (
+        <div className={`${commonStyle} flex flex-col gap-[10px]`}>
+          <div className="flex justify-between items-center">
+            <div className={labelStyle}>가격</div>
+            <div className={responsiveWhiteStyle}>{price}&nbsp;P</div>
           </div>
           <div className="flex justify-between items-center">
             <div className={labelStyle}>{props.amountText}</div>

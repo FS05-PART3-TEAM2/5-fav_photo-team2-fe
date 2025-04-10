@@ -125,22 +125,27 @@ const Header = () => {
             <Image src={"/assets/icons/menu.png"} alt="menu" width={16} height={16} />
           )}
         </button>
-        <Link href={"/"}>
-          <Title>
-            {hasTitle ? (
-              <>
-                <div className="md:hidden">{title}</div>
-                <div className="hidden md:block">
+        {hasTitle ? (
+          <>
+            <div className="md:hidden">
+              <Title>{title}</Title>
+            </div>
+            <div className="hidden md:block">
+              <Link href={"/"}>
+                <Title>
                   최애<span className="text-main">의</span>포토
-                </div>
-              </>
-            ) : (
-              <>
-                최애<span className="text-main">의</span>포토
-              </>
-            )}
-          </Title>
-        </Link>
+                </Title>
+              </Link>
+            </div>
+          </>
+        ) : (
+          <Link href={"/"}>
+            <Title>
+              최애<span className="text-main">의</span>포토
+            </Title>
+          </Link>
+        )}
+
         <div className="w-[16px]">
           {isLogin && !hasTitle && (
             <button
