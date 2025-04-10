@@ -8,7 +8,7 @@ export interface UserInfo {
   id: string;
   nickname: string;
   email: string;
-  points?: number;
+  points: number | 0;
 }
 
 interface UserStore {
