@@ -72,30 +72,33 @@ export const SaleFormUI = ({
           {/* 기본정보 */}
           <div className="flex flex-col gap-[20px] md:gap-[40px]">
             <SectionTitle title={data.name} />
+            {/*여기가 카드데이터 */}
             <div className={cardDetailContainerSx}>
               <div className="w-full min-h-[260px] max-h-[330px] aspect-square relative">
                 <Image
                   src={data.image}
                   alt={data.name}
-                  width={345}
-                  height={259}
-                  className="object-cover w-[100%] md:w-[342px] lg:w-[440px] h-full"
+                  fill
+                  sizes="100%"
+                  className="object-cover"
                 />
               </div>
               <div className={cardDetailWrapperSx}>
                 <CardHeader {...cardHeaderProps} />
                 <div className="pt-[30px] border-t-[1px] border-gray-400 flex flex-col gap-[20px]">
                   <div className={cardDetailInputWrapperSx}>
-                    <p className="text-18-20-normal">총 판매 수량</p>
-                    <div className="flex items-center gap-[20px]">
-                      <AmountInput
-                        value={params.quantity}
-                        onChange={onQuantityChange}
-                        max={data.total}
-                      />
+                    <p className="text-18-20-normal whitespace-nowrap">총 판매 수량</p>
+                    <div className="flex items-center gap-[20px] w-[202px] lg:w-[245px]">
+                      <div className="w-[144px] lg:w-[176px] h-[45px] lg:h-[50px]">
+                        <AmountInput
+                          value={params.quantity}
+                          onChange={onQuantityChange}
+                          max={data.total}
+                        />
+                      </div>
                       <div className="flex flex-col">
                         <p className="text-18-20-bold">/{data.total}</p>
-                        <p className="text-[12px] lg:text-[14px] text-gray-200 font-light">
+                        <p className="text-[12px] lg:text-[14px] text-gray-200 font-light whitespace-nowrap">
                           최대 {data.total}장
                         </p>
                       </div>
@@ -104,7 +107,7 @@ export const SaleFormUI = ({
 
                   <div className={cardDetailInputWrapperSx}>
                     <p className="text-18-20-normal">장당 가격</p>
-                    <div className="w-[202px] lg:w-[245px]">
+                    <div className="w-[202px] lg:w-[245px] h-[45px] lg:h-[50px]">
                       <PriceInput value={params.price} onChange={onPriceChange} />
                     </div>
                   </div>
@@ -161,8 +164,8 @@ export const SaleFormUI = ({
   );
 };
 
-const cardDetailContainerSx = "w-full flex flex-col md:flex-row gap-[40px]";
-const cardDetailWrapperSx = "w-full md:w-[342px] lg:w-[440px] flex flex-col";
-const cardDetailInputWrapperSx = "w-full flex items-center justify-between gap-[20px]";
-const exchangeDetailWrapperSx = "w-full flex flex-col gap-[40px]";
-const btnWrapperSx = "w-full flex gap-[20px]";
+const cardDetailContainerSx = "w-[100%] flex flex-col md:flex-row gap-[40px]";
+const cardDetailWrapperSx = "w-[100%] md:w-[342px] lg:w-[440px] h-fit flex flex-shrink-0 flex-col";
+const cardDetailInputWrapperSx = "w-[100%] flex items-center justify-between gap-[20px]";
+const exchangeDetailWrapperSx = "w-[100%] flex flex-col gap-[40px]";
+const btnWrapperSx = "w-[100%] flex gap-[20px]";

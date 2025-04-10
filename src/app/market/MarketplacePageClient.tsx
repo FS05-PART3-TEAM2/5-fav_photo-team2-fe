@@ -12,6 +12,7 @@ import SellForm from "@/components/market/list/seller/SaleForm";
 import { useState, useEffect } from "react";
 import { SaleCardDto, Grade, Genre, SaleCardStatus, Sort } from "@/types/photocard.types";
 import ResponsiveForm from "@/components/common/responsiveLayout/responsiveForm/ResponsiveForm";
+import { useSnackbarStore } from "@/store/useSnackbarStore";
 
 export default function MarketplacePageClient() {
   const defaultFilter = {
@@ -44,9 +45,11 @@ export default function MarketplacePageClient() {
   const [isSellFormOpen, setIsSellFormOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<SaleCardDto | null>(null);
 
+  const { openSnackbar } = useSnackbarStore();
+
   const handleOpenMyPhotoList = () => {
     if (!user) {
-      alert("로그인이 필요한 기능입니다.");
+      openSnackbar("ERROR", "로그인이 필요합니다.");
       return;
     }
     setIsSellerPageOpen(true);
