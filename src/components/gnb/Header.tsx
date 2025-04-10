@@ -115,7 +115,7 @@ const Header = () => {
           <NotificationDrawer onClose={handleNotificationOpen}>
             {notifications?.map(item => (
               <NotificationDetail
-                key={item.id}
+                key={item.id + item.readAt}
                 content={item.message}
                 time={timeAgo(item.createdAt)}
                 isRead={item.readAt ? true : false}
@@ -164,22 +164,24 @@ const Header = () => {
                 )}
               </button>
               {isNotificationOpen && (
-                <NotificationCard>
-                  {notifications?.map(item => (
-                    <NotificationDetail
-                      key={item.id}
-                      content={item.message}
-                      time={timeAgo(item.createdAt)}
-                      isRead={item.readAt ? true : false}
-                      onClick={() => !item.readAt && markAsRead(item.id)}
-                    />
-                  ))}
-                  {/* sentinel & 로딩 상태 */}
-                  {isFetchingNextPage && (
-                    <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
-                  )}
-                  <div ref={bottomRef} />
-                </NotificationCard>
+                <div className="w-0 h-0">
+                  <NotificationCard>
+                    {notifications?.map(item => (
+                      <NotificationDetail
+                        key={item.id + item.readAt}
+                        content={item.message}
+                        time={timeAgo(item.createdAt)}
+                        isRead={item.readAt ? true : false}
+                        onClick={() => !item.readAt && markAsRead(item.id)}
+                      />
+                    ))}
+                    {/* sentinel & 로딩 상태 */}
+                    {isFetchingNextPage && (
+                      <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
+                    )}
+                    <div ref={bottomRef} />
+                  </NotificationCard>
+                </div>
               )}
             </div>
             <div className="relative">
