@@ -38,10 +38,18 @@ const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
       });
       // console.log("😏내가 입력한 데이터 확인용", requestData);
       await axiosClient.post("/market", requestData);
-      openSnackbar("SUCCESS", "판매 등록이 완료되었습니다!");
+      openSnackbar(
+        "SUCCESS",
+        `[${grade} | ${data.name}] ${quantity}장 판매 등록에 성공했습니다!`,
+        "판매 등록"
+      );
       onSubmit();
     } catch (error) {
-      openSnackbar("ERROR", "판매 등록에 실패했습니다. 다시 시도해주세요.");
+      openSnackbar(
+        "ERROR",
+        `[${grade} | ${data.name}] ${quantity}장 판매 등록에 실패했습니다.`,
+        "판매 등록"
+      );
       console.error("판매 등록 실패:", error);
     }
   };
