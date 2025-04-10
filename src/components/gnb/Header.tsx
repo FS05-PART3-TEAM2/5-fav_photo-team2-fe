@@ -25,8 +25,8 @@ const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const queryClient = useQueryClient();
-  const { userInfo, logout } = useUserStore();
-  const isLogin = !!userInfo;
+  const { userInfo, isAuthenticated, logout } = useUserStore();
+  const isLogin = isAuthenticated && userInfo; // XXX: 로그아웃했을 때 유저데이터 잠시깜빡였다가 뒤늦게 없어지고 로그아웃 상태 뷰로 바뀌는 부분 해결하기 위해, isAuthenticated 조건 추가함.
 
   const title = PATH_TITLE.find(([re]) => re.test(pathname))?.[1];
   const hasTitle = title !== undefined;
@@ -39,7 +39,7 @@ const Header = () => {
     hasNextPage,
     isFetchingNextPage,
     markAsRead,
-  } = useNotificationList();
+  } = useNotificationList(userInfo?.id ?? ""); // 알림 api도 로그인한 상태에서만 요청되도록 수정함
 
   const notifications = data?.notifications ?? null; // ← 이렇게 추출
 
