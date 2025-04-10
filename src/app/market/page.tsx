@@ -1,37 +1,34 @@
-"use client";
-import { useEffect, useState } from "react";
-import { axiosClient } from "@/services/axiosClient/axiosClient";
-import { MarketplacePhotoCardDto } from "@/types/photocard.types";
-import MarketplaceHeader from "@/components/market/list/MarketplaceHeader";
-import PhotoCardList from "@/components/market/list/CardGrid";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { photoCardKeys } from "@/utils/queryKeys";
+import { getMarketPhotoCardsApi } from "@/services/market/getMarketPhotoCards";
+import MarketplacePageClient from "./MarketplacePageClient";
+import { Grade, Genre, SaleCardStatus, Sort } from "@/types/photocard.types";
 
-export default function MarketplacePage() {
-  const [photoCards, setPhotoCards] = useState<MarketplacePhotoCardDto[]>([]);
-  const [filteredCards, setFilteredCards] = useState<MarketplacePhotoCardDto[]>([]);
+export default async function MarketplacePage() {
+  const queryClient = new QueryClient();
 
-  useEffect(() => {
-    const fetchPhotoCards = async () => {
-      try {
-        const response = await axiosClient.get("/market");
+  const defaultFilter = {
+    keyword: "",
+    grade: "default",
+    genre: "default",
+    status: "default",
+    sort: "latest",
+  } as unknown as {
+    keyword: string;
+    grade: Grade;
+    genre: Genre;
+    status: SaleCardStatus;
+    sort: Sort;
+  };
 
-        console.log("📌 불러온 데이터 확인용:", response.data);
-        if (Array.isArray(response.data.list)) {
-          setPhotoCards(response.data.list);
-          setFilteredCards(response.data.list);
-        } else {
-          console.error("❌ 예상된 데이터 형식이 아님:", response.data);
-        }
-      } catch (error) {
-        console.error("🚨 API 요청 실패:", error);
-      }
-    };
-    fetchPhotoCards();
-  }, []);
+  await queryClient.prefetchQuery({
+    queryKey: photoCardKeys.saleList(defaultFilter),
+    queryFn: () => getMarketPhotoCardsApi(),
+  });
 
   return (
-    <div>
-      <MarketplaceHeader photoCards={photoCards} setFilteredCards={setFilteredCards} />
-      <PhotoCardList photoCards={filteredCards} />
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <MarketplacePageClient />
+    </HydrationBoundary>
   );
 }
