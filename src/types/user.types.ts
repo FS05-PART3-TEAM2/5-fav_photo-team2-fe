@@ -1,5 +1,5 @@
 export interface PointDto {
-  totalPoint: number;
+  points: number;
 }
 
 export interface UserMe {

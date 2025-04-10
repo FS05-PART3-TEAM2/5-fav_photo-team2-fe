@@ -3,7 +3,7 @@
 import Title from "./Title";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useUserStore from "@/store/useUserStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
@@ -31,6 +31,8 @@ const Header = () => {
   const title = PATH_TITLE.find(([re]) => re.test(pathname))?.[1];
   const hasTitle = title !== undefined;
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
   const {
     data, // ← 여기!
     fetchNextPage,
@@ -44,14 +46,19 @@ const Header = () => {
   /* -------- sentinel(바닥) 관찰자 설정 -------- */
   const { ref: bottomRef, inView } = useInView({ threshold: 0 });
 
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
-      fetchNextPage(); // 스크롤이 바닥에 닿으면 다음 페이지 요청
-    }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+
+  const handleAllModalClose = () => {
+    setIsProfileOpen(false);
+    setIsNotificationOpen(false);
+  };
+  const handleClickOutside = (event: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      setIsProfileOpen(false);
+      setIsNotificationOpen(false);
+    }
+  };
 
   const { openSnackbar } = useSnackbarStore(); // Snackbar 상태 업데이트 함수 가져오기
 
@@ -74,6 +81,24 @@ const Header = () => {
       locale: ko,
     });
   };
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage(); // 스크롤이 바닥에 닿으면 다음 페이지 요청
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  useEffect(() => {
+    if (isProfileOpen || isNotificationOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isProfileOpen, isNotificationOpen]);
 
   return (
     <div className="flex justify-between mx-auto max-w-[1520px] w-full items-center h-[60px] md:h-[70px] px-[15px] md:px-[20px] lg:h-[80px] z-10">
@@ -144,11 +169,23 @@ const Header = () => {
               point={userInfo.points}
               onLogout={handleLogout}
             >
-              <ProfileDetail.TextLink text="마이갤러리" href="/my-photos" />
-              <ProfileDetail.TextLink text="나의 판매 포토카드" href="/my-sales" />
+              <ProfileDetail.TextLink
+                text="마이갤러리"
+                href="/my-photos"
+                onClick={() => handleAllModalClose()}
+              />
+              <ProfileDetail.TextLink
+                text="나의 판매 포토카드"
+                href="/my-sales"
+                onClick={() => handleAllModalClose()}
+              />
             </ProfileDetail>
           ) : (
-            <ProfileDetail.TextLink text="로그인" href="/auth/login" />
+            <ProfileDetail.TextLink
+              text="로그인"
+              href="/auth/login"
+              onClick={() => handleAllModalClose()}
+            />
           )}
         </ProfileDrawer>
       )}
@@ -157,7 +194,7 @@ const Header = () => {
         {isLogin && (
           <>
             <div className="text-[14px] font-bold">{userInfo.points.toLocaleString()}&nbsp;P</div>
-            <div className="flex md:gap-[10px] lg:gap-[16px] items-center relative">
+            <div className="flex items-center relative ">
               <button className="cursor-pointer relative" onClick={handleNotificationOpen}>
                 <Image
                   src={"/assets/icons/notification.png"}
@@ -170,22 +207,24 @@ const Header = () => {
                 )}
               </button>
               {isNotificationOpen && (
-                <NotificationCard>
-                  {notifications?.map(item => (
-                    <NotificationDetail
-                      key={item.id}
-                      content={item.message}
-                      time={timeAgo(item.createdAt)}
-                      isRead={item.readAt ? true : false}
-                      onClick={() => !item.readAt && markAsRead(item.id)}
-                    />
-                  ))}
-                  {/* sentinel & 로딩 상태 */}
-                  {isFetchingNextPage && (
-                    <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
-                  )}
-                  <div ref={bottomRef} />
-                </NotificationCard>
+                <div ref={modalRef} className="w-0 h-0">
+                  <NotificationCard>
+                    {notifications?.map(item => (
+                      <NotificationDetail
+                        key={item.id}
+                        content={item.message}
+                        time={timeAgo(item.createdAt)}
+                        isRead={item.readAt ? true : false}
+                        onClick={() => !item.readAt && markAsRead(item.id)}
+                      />
+                    ))}
+                    {/* sentinel & 로딩 상태 */}
+                    {isFetchingNextPage && (
+                      <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
+                    )}
+                    <div ref={bottomRef} />
+                  </NotificationCard>
+                </div>
               )}
             </div>
             <div className="relative">
@@ -196,12 +235,22 @@ const Header = () => {
                 {userInfo.nickname}
               </button>
               {isProfileOpen && (
-                <ProfileCard>
-                  <ProfileDetail nickname={userInfo.nickname} point={userInfo.points}>
-                    <ProfileDetail.TextLink text="마이갤러리" href="/my-photos" />
-                    <ProfileDetail.TextLink text="나의 판매 포토카드" href="/my-sales" />
-                  </ProfileDetail>
-                </ProfileCard>
+                <div ref={modalRef}>
+                  <ProfileCard>
+                    <ProfileDetail nickname={userInfo.nickname} point={userInfo.points}>
+                      <ProfileDetail.TextLink
+                        text="마이갤러리"
+                        href="/my-photos"
+                        onClick={() => handleAllModalClose()}
+                      />
+                      <ProfileDetail.TextLink
+                        text="나의 판매 포토카드"
+                        href="/my-sales"
+                        onClick={() => handleAllModalClose()}
+                      />
+                    </ProfileDetail>
+                  </ProfileCard>
+                </div>
               )}
             </div>
             <div className="w-0.5 bg-gray-400 h-[14px] self-center"></div>

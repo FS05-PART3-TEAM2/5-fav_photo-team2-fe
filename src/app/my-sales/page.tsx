@@ -21,20 +21,15 @@ const MySales = () => {
     setUserNickname(userInfo?.nickname || "");
   }, []);
 
-  const handleCreateCardClick = () => {
-    // 포토카드 판매 등록 페이지로 이동 또는 모달 표시 등의 로직
-    console.log("포토카드 판매 등록 클릭");
-  };
-
-  const handleCardClick = (cardId: string) => {
+  const handleCardClick = (saleCardId: string) => {
     // 판매 중인 포토카드 상세 페이지로 이동
-    router.push(`/market/${cardId}`);
+    router.push(`/market/${saleCardId}`);
   };
 
   return (
     <CommonLayout>
       <div className="relative min-h-screen pb-[80px] md:pb-0">
-        <HeaderSection type="my-sales" onCreateClick={handleCreateCardClick} />
+        <HeaderSection type="my-sales" />
 
         {isLoading ? (
           <div className="flex justify-center items-center py-10">
@@ -45,6 +40,7 @@ const MySales = () => {
             nickname={userNickname}
             totalCards={totalCards}
             photoCard={cardCountByGrade}
+            pageType="my-sales"
           />
         )}
 
