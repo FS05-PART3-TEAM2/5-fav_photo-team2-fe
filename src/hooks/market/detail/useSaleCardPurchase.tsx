@@ -33,9 +33,7 @@ export const useSaleCardPurchase = (saleCardId: string, grade: Grade, name: stri
       const response = await purchaseSaleCardApi(params);
       if (response.message === successMsg) {
         // 구매 완료 후 캐시 무효화
-        // TODO: 세일카드디테일 백엔드 데이터에서 availableAmount 제대로 오고있는거 맞는지 확인 필요.
-        // 맞다고 하면, 프론트쪽에서 서버fetch하고 업데이트안되는거라 수정해야되고, 그쪽에서 잘못오고있던거면 수정된거 반영해서 invalidate 잘되는지 다시 확인해보기
-        // TODO: 유저 포인트 업데이트 어떻게 할건지 확인 필요
+        // TODO: 유저 포인트 업데이트 어떻게 할건지 확인 필요. 포인트 api 사용하는걸로 바뀌면 맞추서 invalidate 하는걸로 수정하기
         queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
 
         openSnackbar(
