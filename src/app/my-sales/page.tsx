@@ -28,7 +28,7 @@ const MySales = () => {
 
   return (
     <CommonLayout>
-      <div className="relative min-h-screen pb-[80px] md:pb-0">
+      <div className="relative min-h-screen pb-[80px] md:pb-0 px-[15px] md:px-[20px]">
         <HeaderSection type="my-sales" />
 
         {isLoading ? (

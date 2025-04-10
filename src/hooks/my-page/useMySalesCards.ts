@@ -42,8 +42,17 @@ export const useMySalesCards = ({
       staleTime: 1000 * 60 * 5, // 5분
     });
 
-  // 무한 스크롤의 여러 페이지 리스트를 하나의 배열로 병합
-  const mySalesCards = data?.pages.flatMap(page => page.list) || [];
+  // 무한 스크롤의 여러 페이지 리스트를 하나의 배열로 병합하고 중복 ID 제거 (same key 오류 해결)
+  const allSalesCards = data?.pages.flatMap(page => page.list) || [];
+  const uniqueIdsMap = new Map();
+  const mySalesCards = allSalesCards.filter(card => {
+    const isDuplicate = uniqueIdsMap.has(card.saleCardId);
+    if (!isDuplicate) {
+      uniqueIdsMap.set(card.saleCardId, true);
+      return true;
+    }
+    return false;
+  });
 
   // 등급별 카드 개수 정보 (첫 페이지의 정보 사용)
   const gradeMapping = {
