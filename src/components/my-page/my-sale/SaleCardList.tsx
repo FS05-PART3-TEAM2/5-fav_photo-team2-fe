@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { MySaleCard } from "@/services/my-page/getMySalesCards";
 import MyPhotoCard from "../MyPhotoCard";
 import { MyPhotoCardDto, TradeStatus } from "@/types/photocard.types";
+import { useSnackbarStore } from "@/store/useSnackbarStore";
 
 interface MySalesCardsProps {
   salesCards: MySaleCard[];
@@ -22,6 +23,7 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
 }) => {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
+  const { openSnackbar } = useSnackbarStore();
 
   /*
   MySaleCard 객체를 MyPhotoCardDto 객체로 변환하는 함수
@@ -42,6 +44,14 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
       createdAt: saleCard.createdAt,
       status: saleCard.status,
     };
+  };
+
+  const handleCardClick = (saleCard: MySaleCard) => {
+    if (saleCard.status === "SOLD_OUT") {
+      openSnackbar("ERROR", "이미 품절된 상태입니다.");
+    } else if (onCardClick) {
+      onCardClick(saleCard.saleCardId);
+    }
   };
 
   useEffect(() => {
@@ -76,7 +86,7 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
       }
     };
   }, [hasNextPage, isFetchingNextPage, onLoadMore]);
-  console.log(salesCards);
+
   return (
     <div className="relative">
       <div className={className}>
@@ -84,7 +94,7 @@ const SaleCardList: React.FC<MySalesCardsProps> = ({
           <MyPhotoCard
             key={saleCard.saleCardId}
             myPhotoCard={convertToMyPhotoCardDto(saleCard)}
-            onClick={() => onCardClick && onCardClick(saleCard.saleCardId)}
+            onClick={() => handleCardClick(saleCard)}
           />
         ))}
       </div>
