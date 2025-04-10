@@ -161,6 +161,42 @@ export interface ExchangeCardActionResponseDto {
   updatedAt: string;
 }
 
+// 판매 등록 포토카드 타입
+export interface SaleCardDto {
+  id: string;
+  userPhotoCardId: string;
+  status: SaleCardStatus;
+  name: string;
+  genre: Genre;
+  grade: Grade;
+  price: number;
+  image: string;
+  remaining: number;
+  total: number;
+  createdAt: string;
+  updatedAt: string;
+  owner: {
+    id: string;
+    nickname: string;
+  };
+  exchangeOffer: {
+    description: string;
+    grade: Grade;
+    genre: Genre;
+  };
+}
+
+// 판매 등록 요청에 사용할 타입
+export interface SaleRegisterRequest {
+  userPhotoCardId: string;
+  price: number;
+  quantity: number;
+  exchangeOffer: {
+    grade: Grade;
+    genre: Genre;
+    description: string;
+  };
+}
 /**
  * 판매 포토카드 구매하기 API 요청 타입
  */

@@ -11,12 +11,19 @@ import { buildMarketCountUrl } from "@/components/common/filter/FilterUtils";
 
 interface MarketplaceHeaderProps {
   photoCards: MarketplacePhotoCardDto[];
-  setFilteredCards: (cards: MarketplacePhotoCardDto[]) => void;
+  onClickSellButton: () => void;
+  onFilterChange: (filters: {
+    searchTerm: string;
+    grade: keyof typeof FILTER_CONFIG.filter.grade.options;
+    genre: keyof typeof FILTER_CONFIG.filter.genre.options;
+    isSoldOut: keyof typeof FILTER_CONFIG.filter.isSoldOut.options;
+    orderBy: "latest" | "oldest" | "expensive" | "cheap";
+  }) => void;
 }
 
 export default function MarketplaceHeader({
-  photoCards,
-  setFilteredCards,
+  onClickSellButton,
+  onFilterChange,
 }: MarketplaceHeaderProps) {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [grade, setGrade] = useState<keyof typeof FILTER_CONFIG.filter.grade.options>("default");
@@ -40,50 +47,10 @@ export default function MarketplaceHeader({
     }
   };
 
-  // 필터링 및 정렬 함수
+  // 필터 상태 변경 시 상위로 전달
   useEffect(() => {
-    let filteredCards = [...photoCards];
-
-    // 검색어 필터링
-    if (searchTerm) {
-      filteredCards = filteredCards.filter(card =>
-        card.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    // grade 필터링
-    if (grade !== "default") {
-      filteredCards = filteredCards.filter(card => card.grade === grade);
-    }
-
-    // genre 필터링
-    if (genre !== "default") {
-      filteredCards = filteredCards.filter(card => card.genre === genre);
-    }
-
-    // isSoldOut 필터링
-    if (isSoldOut !== "default") {
-      filteredCards = filteredCards.filter(card =>
-        isSoldOut === "SOLD_OUT" ? card.status === "SOLD_OUT" : card.status !== "SOLD_OUT"
-      );
-    }
-    // 정렬
-    if (orderBy === "latest") {
-      filteredCards = filteredCards.sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-    } else if (orderBy === "oldest") {
-      filteredCards = filteredCards.sort(
-        (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      );
-    } else if (orderBy === "expensive") {
-      filteredCards = filteredCards.sort((a, b) => b.price - a.price);
-    } else if (orderBy === "cheap") {
-      filteredCards = filteredCards.sort((a, b) => a.price - b.price);
-    }
-
-    setFilteredCards(filteredCards);
-  }, [searchTerm, grade, genre, isSoldOut, orderBy, photoCards, setFilteredCards]);
+    onFilterChange({ searchTerm, grade, genre, isSoldOut, orderBy });
+  }, [searchTerm, grade, genre, isSoldOut, orderBy]);
 
   return (
     <>
@@ -91,13 +58,12 @@ export default function MarketplaceHeader({
         <div className="hidden md:flex justify-between w-full">
           <div className="font-BR-B whitespace-nowrap text-[48px] lg:text-[62px]">마켓플레이스</div>
           <div className="flex items-center w-[345px] md:w-[342px] lg:w-[440px]">
-            {/* SEJEONG: 판매자 페이지 완성되면 버튼에 페이지 이동 추가하기 */}
-            <ThinBtn onClick={() => console.log("버튼 클릭됨!")}>포토카드 판매하기</ThinBtn>
+            <ThinBtn onClick={onClickSellButton}>포토카드 판매하기</ThinBtn>
           </div>
         </div>
       </div>
-      <div className="fixed bottom-0 left-0 w-full p-4 shadow-md sm:flex sm:justify-center md:hidden z-30">
-        <ThinBtn onClick={() => console.log("버튼 클릭됨!")}>포토카드 판매하기</ThinBtn>
+      <div className="fixed bottom-0 left-0 w-full p-4 shadow-md sm:flex sm:justify-center md:hidden z-[999]">
+        <ThinBtn onClick={onClickSellButton}>포토카드 판매하기</ThinBtn>
       </div>
 
       <div className="flex flex-wrap md:flex-nowrap items-center justify-between my-[20px] gap-[15px] md:gap-[30px] lg:gap-[60px]">
@@ -122,6 +88,7 @@ export default function MarketplaceHeader({
         </div>
         <Order orderBy={orderBy} setOrderBy={setOrderBy} />
       </div>
+
       {isFilterModalOpen && (
         <FilterModal
           isOpen={isFilterModalOpen}
