@@ -57,7 +57,6 @@ export default function MarketplacePageClient() {
   };
 
   const handleCardSelect = (converted: SaleCardDto) => {
-    console.log("✔ 카드 선택됨:", converted);
     setSelectedCard(converted);
     setIsSellerPageOpen(false);
     setIsSellFormOpen(true);
@@ -69,9 +68,9 @@ export default function MarketplacePageClient() {
   };
 
   useEffect(() => {
-    console.log("📦 isSellFormOpen:", isSellFormOpen);
-    console.log("📦 selectedCard:", selectedCard);
-  }, [isSellFormOpen, selectedCard]);
+    setFilteredCards(photoCards);
+  }, [photoCards]);
+
   return (
     <>
       <MarketplaceHeader
@@ -116,7 +115,6 @@ export default function MarketplacePageClient() {
 
       {isSellFormOpen && selectedCard && (
         <>
-          {console.log("🟩 SellForm 열림 조건 충족", selectedCard)}
           <ResponsiveForm title="판매 등록" isOpen={isSellFormOpen} onClose={handleSellFormClose}>
             <SellForm
               data={selectedCard}

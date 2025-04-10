@@ -13,7 +13,7 @@ interface SellFormProps {
 }
 
 const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
-  console.log("✅ SellForm 내부 data 확인:", data);
+  // console.log("✅ SellForm 내부 data 확인:", data);
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [grade, setGrade] = useState<Grade>("default" as Grade);
@@ -36,8 +36,7 @@ const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
         genre: genre as Genre,
         description,
       });
-      console.log("😏내가 입력한 데이터 확인용", requestData);
-      console.log(JSON.stringify(requestData, null, 2));
+      // console.log("😏내가 입력한 데이터 확인용", requestData);
       await axiosClient.post("/market", requestData);
       openSnackbar("SUCCESS", "판매 등록이 완료되었습니다!");
       onSubmit();

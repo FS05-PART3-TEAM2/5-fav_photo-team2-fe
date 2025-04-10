@@ -51,8 +51,6 @@ export const SaleFormUI = ({
   onCancel,
   onSubmit,
 }: Props) => {
-  console.log("✅ card데이터확인 in SaleFormUI:", data);
-
   const cardHeaderProps = {
     grade: data.grade,
     genre: data.genre,
