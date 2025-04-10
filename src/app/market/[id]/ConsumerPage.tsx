@@ -18,7 +18,7 @@ export const ConsumerPage: React.FC<ConsumerPageProps> = ({
     <div className="w-[100%] flex flex-col gap-[120px]">
       <ConsumerCardDetail data={saleCardData} />
       <div className="w-[100%] flex flex-col gap-[90px]">
-        <ExchangeDetail exchangeDetail={saleCardData.exchangeDetail} />
+        <ExchangeDetail saleCardId={saleCardData.id} exchangeDetail={saleCardData.exchangeDetail} />
         <MyExchangeOffers data={exchangeListData.myOffers} isLoading={isExchangeListPending} />
       </div>
     </div>

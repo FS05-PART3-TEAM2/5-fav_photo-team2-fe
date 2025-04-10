@@ -1,5 +1,6 @@
 import { axiosClient } from "@/services/axiosClient/axiosClient";
 import { NotificationDto, NotificationListDto } from "@/types/notification.types";
+import { userKeys } from "@/utils/queryKeys";
 import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 /**
@@ -45,7 +46,7 @@ const markNotificationAsRead = async (notificationId: string) => {
  *
  * @returns
  */
-export const useNotificationList = () => {
+export const useNotificationList = (userId: string) => {
   const queryClient = useQueryClient();
 
   const notificationQuery = useInfiniteQuery<
@@ -53,13 +54,14 @@ export const useNotificationList = () => {
     Error,
     { notifications: NotificationDto[]; pageParams: unknown[] }
   >({
-    queryKey: ["notificationList"],
+    queryKey: userKeys.notificationList(userId),
     queryFn: ({ pageParam }) => fetchNotificationList({ cursor: pageParam as string }),
     initialPageParam: undefined,
     getNextPageParam: lastPage => lastPage.nextCursor ?? undefined,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
+    enabled: !!userId && userId !== "",
     retry: false,
     select: data => {
       const flattened = data.pages.flatMap(page => page.notifications);

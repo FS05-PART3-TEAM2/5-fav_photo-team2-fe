@@ -34,7 +34,8 @@ export default function SignupForm() {
 
     if (state.status) {
       // 회원가입 성공
-      alert(state.message);
+      // alert(state.message);
+      openSnackbar("SUCCESS", `회원가입이 완료되었습니다. \n로그인 후 이용해주세요.`);
       router.push("/auth/login"); // 회원가입 성공 후 로그인 페이지로 이동
       // useRouter()가 클라이언트 내에서 상태를 유지한 채로 이동
       // 완전히 새로고침 없이 페이지 이동이 되기 때문에 상태가 유지
