@@ -31,16 +31,16 @@ const MyPhotoCardGrades: React.FC<MyPhotoCardGradesProps> = ({
       <div className="flex mb-5 pb-10 border-b border-gray-400 text-[12px] md:text-[14px] lg:text-[16px]">
         <div className="flex gap-5">
           <button className="px-5 py-2 min-w-fit text-main border border-main">
-            COMMON <span className="text-main">{photoCard.common}장</span>
+            COMMON <span className="text-main">{photoCard.common}개</span>
           </button>
           <button className="px-5 py-2 min-w-fit text-blue border border-blue">
-            RARE <span className="text-blue">{photoCard.rare}장</span>
+            RARE <span className="text-blue">{photoCard.rare}개</span>
           </button>
           <button className="px-5 py-2 min-w-fit text-purple border border-purple">
-            SUPER RARE <span className="text-purple">{photoCard.superRare}장</span>
+            SUPER RARE <span className="text-purple">{photoCard.superRare}개</span>
           </button>
           <button className="px-5 py-2 min-w-fit text-red border border-red">
-            LEGENDARY <span className="text-red">{photoCard.legendary}장</span>
+            LEGENDARY <span className="text-red">{photoCard.legendary}개</span>
           </button>
         </div>
       </div>
