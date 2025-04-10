@@ -33,6 +33,8 @@ export const photoCardKeys = {
   }) => [...photoCardKeys.all, "mySaleList", params] as const,
 };
 
-export const userPointKeys = {
-  me: () => ["myPoints"] as const,
+// XXX: 유저 데이터 관련 쿼리키(현재 포인트만 있음 -> 알림도 추가해서 리액트쿼리로 받고, 일정시간마다 stale되도록해서 자동으로 뭐 한 5분마다 업데이트되게끔 해도 될거같네요-!)
+export const userKeys = {
+  all: ["user"] as const,
+  points: () => [...userKeys.all, "points"] as const,
 };

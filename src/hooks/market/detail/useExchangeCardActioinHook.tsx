@@ -20,8 +20,6 @@ export const useExchangeCardActionHook = () => {
       const response = await acceptExchangeOfferApi(saleCardId);
       if (response) {
         // 교환 완료 후 캐시 무효화
-        // TODO: 바로 교환목록, 디테일 업데이트되는지 확인 필요
-        // 교환목록에서 승인한건 사라지고, 디테일 보유량이 줄어야됨.
         queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
 
         openSnackbar("SUCCESS", `교환이 성사되었습니다!`, "교환");
