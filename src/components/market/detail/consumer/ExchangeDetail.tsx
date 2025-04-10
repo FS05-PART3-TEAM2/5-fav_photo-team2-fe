@@ -15,6 +15,7 @@ import ResponsiveForm from "@/components/common/responsiveLayout/responsiveForm/
 import { useExchangeOfferForm } from "@/hooks/market/detail/useExchangeOfferForm";
 
 interface ExchangeDetailProps {
+  saleCardId: string;
   exchangeDetail: {
     grade: Grade;
     genre: Genre;
@@ -22,7 +23,7 @@ interface ExchangeDetailProps {
   };
 }
 
-export const ExchangeDetail: React.FC<ExchangeDetailProps> = ({ exchangeDetail }) => {
+export const ExchangeDetail: React.FC<ExchangeDetailProps> = ({ saleCardId, exchangeDetail }) => {
   const [isMyPhotoListModalOpen, setIsMyPhotoListModalOpen] = useState(false);
   const [isExchangeModalOpen, setIsExchangeModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<MyPhotoCardDto | null>(null);
@@ -35,8 +36,9 @@ export const ExchangeDetail: React.FC<ExchangeDetailProps> = ({ exchangeDetail }
   } = useExchangeOfferForm();
 
   const exchangeOfferBody: PostExchangeOfferBodyParams = {
-    saleCardId: selectedCard?.id ?? "",
-    content: exchangeOfferContent,
+    saleCardId, // 판매 포토카드 id
+    offeredUserCardId: selectedCard?.id ?? "", // 교환 제시할 포토카드 id
+    content: exchangeOfferContent, // 교환 제시 내용
   };
 
   // 보유 카드 목록 모달 핸들러

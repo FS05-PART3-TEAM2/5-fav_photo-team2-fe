@@ -11,7 +11,7 @@ type props = {
 
 export const AuthProvider = ({ userInfo, children }: props) => {
   const { setUser, logout } = useUserStore();
-  const { userPoints } = useFetchUserPoints();
+  const { userPoints, isUserPointsLoading } = useFetchUserPoints(userInfo?.id ?? "");
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -24,5 +24,11 @@ export const AuthProvider = ({ userInfo, children }: props) => {
 
     checkAuth();
   }, [userInfo, setUser, logout, userPoints]);
+
+  // 포인트 로딩되는동안 0으로 뜨는거 방지
+  if (isUserPointsLoading) {
+    return null;
+  }
+
   return <>{children}</>;
 };
