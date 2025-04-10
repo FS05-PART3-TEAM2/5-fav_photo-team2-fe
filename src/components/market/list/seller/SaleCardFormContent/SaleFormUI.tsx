@@ -18,8 +18,8 @@ interface Props {
     quantity: number;
     price: number;
     exchangeOffer: {
-      grade: Grade;
-      genre: Genre;
+      grade: Grade | "default";
+      genre: Genre | "default";
       description: string;
     };
   };
@@ -29,8 +29,8 @@ interface Props {
   onDropdownClose: () => void;
   onQuantityChange: (value: number) => void;
   onPriceChange: (value: number) => void;
-  onGradeChange: (value: string) => void;
-  onGenreChange: (value: string) => void;
+  onGradeChange: (value: Grade) => void;
+  onGenreChange: (value: Genre) => void;
   onDescriptionChange: (value: string) => void;
   onCancel: () => void;
   onSubmit: () => void;
@@ -123,7 +123,11 @@ export const SaleFormUI = ({
               <div className="flex flex-col md:flex-row gap-[30px] items-center">
                 <CommonDropdownInput
                   inputLabel="grade"
-                  value={params.exchangeOffer.grade}
+                  value={
+                    params.exchangeOffer.grade === "default"
+                      ? undefined
+                      : params.exchangeOffer.grade
+                  }
                   isOpen={openDropdown === "grade"}
                   onOpen={() => onDropdownOpen("grade")}
                   onClose={onDropdownClose}
@@ -131,7 +135,11 @@ export const SaleFormUI = ({
                 />
                 <CommonDropdownInput
                   inputLabel="genre"
-                  value={params.exchangeOffer.genre}
+                  value={
+                    params.exchangeOffer.genre === "default"
+                      ? undefined
+                      : params.exchangeOffer.genre
+                  }
                   isOpen={openDropdown === "genre"}
                   onOpen={() => onDropdownOpen("genre")}
                   onClose={onDropdownClose}

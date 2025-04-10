@@ -16,8 +16,8 @@ const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
   // console.log("✅ SellForm 내부 data 확인:", data);
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [grade, setGrade] = useState<Grade>("default" as Grade);
-  const [genre, setGenre] = useState<Genre>("default" as Genre);
+  const [grade, setGrade] = useState<Grade | "default">("default");
+  const [genre, setGenre] = useState<Genre | "default">("default");
   const [description, setDescription] = useState("");
   const [openDropdown, setOpenDropdown] = useState<"grade" | "genre" | null>(null);
 
