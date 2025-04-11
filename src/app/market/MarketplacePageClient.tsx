@@ -1,8 +1,7 @@
 // app/market/MarketplacePageClient.tsx
 "use client";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getMyInfoApi } from "@/services/market/getMyInfoApi";
+import { useQueryClient } from "@tanstack/react-query";
 import { photoCardKeys } from "@/utils/queryKeys";
 import MarketplaceHeader from "@/components/market/list/MarketplaceHeader";
 import CardGrid from "@/components/market/list/CardGrid";
@@ -11,9 +10,10 @@ import SellForm from "@/components/market/list/seller/SaleForm";
 import { useState, useEffect, useRef } from "react";
 import { Grade, Genre, SaleCardStatus, Sort, SaleCardDto } from "@/types/photocard.types";
 import ResponsiveForm from "@/components/common/responsiveLayout/responsiveForm/ResponsiveForm";
-import { useSnackbarStore } from "@/store/useSnackbarStore";
 import { useRouter } from "next/navigation";
 import { useMarketplacePhotoCards } from "@/hooks/market/list/useMarketplacePhotoCards";
+import useUserStore from "@/store/useUserStore";
+import { CommonModal } from "@/components/common/modal/CommonModal";
 
 type FilterValue<T> = T | "default";
 
@@ -22,7 +22,6 @@ export default function MarketplacePageClient() {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const queryClient = useQueryClient();
-  const { openSnackbar } = useSnackbarStore();
 
   //무한 스크롤로 전달하는 필터링 상태들
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,20 +40,16 @@ export default function MarketplacePageClient() {
   });
 
   // 로그인 유저 정보 가져오기
-  const { data: user } = useQuery({
-    queryKey: ["me"],
-    queryFn: () => getMyInfoApi(),
-    retry: false, // 로그인 안 되어있을 때 무한 재시도 방지
-  });
+  const { userInfo, isAuthenticated } = useUserStore();
 
   const [isSellerPageOpen, setIsSellerPageOpen] = useState(false);
   const [isSellFormOpen, setIsSellFormOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<SaleCardDto | null>(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const handleOpenMyPhotoList = () => {
-    if (!user) {
-      openSnackbar("ERROR", "로그인 후 이용해주세요.");
-      router.push("/auth/login");
+    if (!isAuthenticated || !userInfo) {
+      setIsLoginModalOpen(true);
       setIsSellerPageOpen(false);
       return;
     }
@@ -110,7 +105,7 @@ export default function MarketplacePageClient() {
           setSearchTerm(searchTerm);
           setGrade(grade);
           setGenre(genre);
-          setStatus(isSoldOut); // 이제 타입이 맞습니다
+          setStatus(isSoldOut);
 
           // orderBy 변환만 필요
           const sortMap: Record<typeof orderBy, Sort> = {
@@ -123,8 +118,33 @@ export default function MarketplacePageClient() {
           setSort(sortMap[orderBy]);
         }}
       />
-      <CardGrid photoCards={photoCards} />
-
+      <CardGrid
+        photoCards={photoCards}
+        onCardClick={card => {
+          if (isAuthenticated || userInfo) {
+            router.push(`/market/${card.saleCardId}`);
+          } else {
+            setIsLoginModalOpen(true);
+          }
+        }}
+      />
+      <CommonModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        title="로그인이 필요합니다."
+        desc={
+          <>
+            로그인 하시겠습니까?
+            <br />
+            다양한 서비스를 편리하게 이용하실 수 있습니다.
+          </>
+        }
+        btnText="확인"
+        btnClick={() => {
+          setIsLoginModalOpen(false);
+          router.push("/auth/login");
+        }}
+      />
       {/* 무한스크롤 로딩 감지 지점 */}
       <div ref={loadMoreRef} className="w-[100%] py-4 flex justify-center">
         {isFetchingNextPage && <p className="text-main">데이터를 불러오는 중...</p>}
