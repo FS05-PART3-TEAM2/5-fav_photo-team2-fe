@@ -1,13 +1,16 @@
 "use client";
 
 import { FORM_CONFIG } from "@/components/common/input/constants";
+import { TextareaHTMLAttributes } from "react";
 import { UseControllerProps, useController, FieldValues, FieldPath } from "react-hook-form";
 
 type TextareaName = keyof typeof FORM_CONFIG.Textarea;
-
-interface TextareaProps<T extends FieldValues> extends Omit<UseControllerProps<T>, "name"> {
+type TextareaAttribute = TextareaHTMLAttributes<HTMLTextAreaElement>;
+interface TextareaProps<T extends FieldValues>
+  extends Omit<UseControllerProps<T>, "name">,
+    Omit<TextareaAttribute, "name" | "defaultValue"> {
   name: TextareaName;
-  content?: string; // 수정일 경우 기존 내용
+  defaultValue?: UseControllerProps<T>["defaultValue"]; // defaultValue는 useController에서 사용되는 속성
 }
 
 export default function Textarea<T extends FieldValues>({ name, ...props }: TextareaProps<T>) {
