@@ -47,12 +47,6 @@ export default function MarketplacePageClient() {
     retry: false, // 로그인 안 되어있을 때 무한 재시도 방지
   });
 
-  //console.log("🧪 [4] MarketplacePageClient data.pages:", data?.pages);
-
-  // const photoCards: MarketplacePhotoCardDto[] = data?.pages.flatMap(page => page.list) ?? [];
-
-  //console.log("🧪 [5] MarketplacePageClient photoCards:", photoCards);
-
   const [isSellerPageOpen, setIsSellerPageOpen] = useState(false);
   const [isSellFormOpen, setIsSellFormOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<SaleCardDto | null>(null);
@@ -90,13 +84,7 @@ export default function MarketplacePageClient() {
 
     observerRef.current = new IntersectionObserver(
       ([entry]) => {
-        //console.log("📦 isIntersecting:", entry.isIntersecting);
-        //console.log("📦 boundingClientRect:", entry.boundingClientRect);
-        //console.log("📦 intersectionRect:", entry.intersectionRect);
         if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
-          //console.log("👀 [Observer] Trigger fetchNextPage");
-          //console.log("✅ Intersected! fetchNextPage 호출");
-          //console.log("🎀hasNextPage:", hasNextPage);
           fetchNextPage();
         }
       },
@@ -113,11 +101,6 @@ export default function MarketplacePageClient() {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  // useEffect(() => {
-  //   setFilteredCards(photoCards); // 조건 없이 무조건 최신 데이터로 갱신
-  // }, [photoCards]);
-
-  //console.log("데이터확인용", photoCards);
   return (
     <>
       <MarketplaceHeader

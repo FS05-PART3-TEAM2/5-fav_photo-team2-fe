@@ -48,25 +48,13 @@ export const useMarketplacePhotoCards = ({
         getMarketPhotoCardsApi({ cursor: pageParam, ...apiParams }),
       initialPageParam: null as Cursor,
       getNextPageParam: lastPage => {
-        console.log("📦 lastPage:", lastPage);
         return lastPage?.hasMore ? lastPage.nextCursor : undefined;
       },
       staleTime: 1000 * 60 * 5,
     });
 
-  // console.log("🧪 [2] useMarketplacePhotoCards data:", data);
   const photoCards = data?.pages.flatMap(page => page.list) || [];
-  // console.log("🧪 [3] useMarketplacePhotoCards photoCards:", photoCards);
 
-  // console.log("📡 [useMarketplacePhotoCards] data:", data);
-  // console.log("📡 [useMarketplacePhotoCards] photoCards:", photoCards);
-  // console.log("📡 [useMarketplacePhotoCards] hasNextPage:", hasNextPage);
-  // console.log("📡 [useMarketplacePhotoCards] isFetchingNextPage:", isFetchingNextPage);
-  // console.log("📡 [useMarketplacePhotoCards] isLoading:", isLoading);
-  // console.log("📡 [useMarketplacePhotoCards] error:", error);
-  console.log("🥽실제 쿼리키 구성 확인용", photoCardKeys.saleList(apiParams));
-  console.log("🥽apiParams", apiParams);
-  console.log("🥽queryKey", photoCardKeys.saleList(apiParams));
   return {
     data,
     photoCards,

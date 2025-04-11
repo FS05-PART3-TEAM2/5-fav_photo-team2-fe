@@ -45,7 +45,6 @@ export async function getMarketPhotoCardsApi({
       sort,
     },
   });
-  console.log("🧪 [1] getMarketPhotoCardsApi 응답 response.data:", response.data);
   return {
     list: response.data.list,
     nextCursor: response.data.nextCursor,
