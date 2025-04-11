@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
 import { useRouter } from "next/navigation";
 import { Grade } from "@/types/photocard.types";
-import { photoCardKeys } from "@/utils/queryKeys";
+import { photoCardKeys, userKeys } from "@/utils/queryKeys";
 import { purchaseSaleCardApi } from "@/services/market/saleCardActionService";
 import { AxiosError } from "axios";
 
@@ -33,8 +33,9 @@ export const useSaleCardPurchase = (saleCardId: string, grade: Grade, name: stri
       const response = await purchaseSaleCardApi(params);
       if (response.message === successMsg) {
         // 구매 완료 후 캐시 무효화
-        // TODO: 유저 포인트 업데이트 어떻게 할건지 확인 필요
         queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
+        // 유저 포인트 무효화 -> 포인트 차감된걸로 업데이트
+        queryClient.invalidateQueries({ queryKey: userKeys.all });
 
         openSnackbar(
           "SUCCESS",

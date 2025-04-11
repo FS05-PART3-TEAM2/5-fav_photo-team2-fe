@@ -55,7 +55,7 @@ const MyPhotoDetailPage = () => {
     if (photoCard) {
       // 현재 포토카드를 판매 가능한 형태로 변환
       const saleCardData = convertToSaleCardDto({
-        id: photoCard.id,
+        id: id,
         name: photoCard.name,
         genre: photoCard.genre,
         grade: photoCard.grade,
@@ -65,6 +65,9 @@ const MyPhotoDetailPage = () => {
         creatorNickname: photoCard.creator,
         createdAt: photoCard.createdAt,
       });
+
+      // 확실하게 userPhotoCardId도 직접 설정
+      // saleCardData.userPhotoCardId = id;
 
       setSelectedCard(saleCardData);
       setIsSellFormOpen(true);
@@ -181,7 +184,11 @@ const MyPhotoDetailPage = () => {
       />
 
       {isSellFormOpen && selectedCard && (
-        <ResponsiveForm isOpen={isSellFormOpen} onClose={handleCancelSell}>
+        <ResponsiveForm
+          isOpen={isSellFormOpen}
+          onClose={handleCancelSell}
+          title="포토카드 판매하기"
+        >
           <SellForm data={selectedCard} onCancel={handleCancelSell} onSubmit={handleSubmitSell} />
         </ResponsiveForm>
       )}

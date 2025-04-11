@@ -34,7 +34,6 @@ export const useExchangeOfferForm = () => {
 
   const isBtnDisabled = !isValid();
 
-  // TODO: api 완성되면 잘 돌아가는지, 성공 후 캐시 업데이트 되는지 확인 필요
   /**
    * 판매 포토카드 교환 제시 등록 핸들러
    * @param saleCardId
@@ -43,9 +42,9 @@ export const useExchangeOfferForm = () => {
     try {
       const response = await postExchangeOfferApi(params);
       if (response) {
-        // 교환 제시 등록 시 교환 목록 쿼리키 무효화
+        // 교환 제시 등록 시 교환 목록, 마이갤러리 무효화(그냥 전체 무효화로 처리)
         queryClient.invalidateQueries({
-          queryKey: photoCardKeys.exchangeCardList(params.saleCardId),
+          queryKey: photoCardKeys.all,
         });
         openSnackbar("SUCCESS", "포토카드 교환 제시에 성공했습니다!", "교환 제시");
         handleContentReset();

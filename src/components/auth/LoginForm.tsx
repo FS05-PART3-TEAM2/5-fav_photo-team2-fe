@@ -32,9 +32,11 @@ export default function LoginForm() {
   useEffect(() => {
     if (!state) return; // 초기 state가 null인 경우 처리
 
+    // TODO: 로그인했을 때 opensnackbar가 안뜨는걸보니 여기 로직을 안타는거같은데 확인 필요.
     if (state.status) {
       // 로그인 성공시
       setUser(state.user); // zustand store에 사용자 정보 저장
+      openSnackbar("SUCCESS", "로그인 완료되었습니다.");
       router.push("/"); // 로그인 성공 후 홈으로 이동,
       // useRouter()가 클라이언트 내에서 상태를 유지한 채로 이동
       // 완전히 새로고침 없이 페이지 이동이 되기 때문에 상태가 유지
@@ -45,7 +47,7 @@ export default function LoginForm() {
   }, [state, router, setUser, openSnackbar]);
 
   return (
-    <form action={formAction} className="form-auth">
+    <form action={formAction} className="w-form">
       <InputText name="email" control={control} />
       <Password name="password" control={control} />
       <ThinBtn type="submit" disabled={!isValid || isPending} className="mt-[10px]">

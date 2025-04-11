@@ -131,7 +131,6 @@ export const useEditSaleCardForm = (initialData: SaleCardDetailDto, onClose: () 
   // 버튼 활성화 여부
   const isDisabled = !hasChanges() || !isValid();
 
-  // TODO: api 완성 후 잘 돌아가는지, 성공 로직 잘 되는지 확인 필요
   // 수정 요청 핸들러
   const handleUpdateSaleCard = useCallback(async () => {
     try {

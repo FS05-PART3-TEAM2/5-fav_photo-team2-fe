@@ -84,7 +84,7 @@
   }
 
   /* form - auth form style */
-  .form-auth {
+  .w-form {
     @apply w-full max-w-110 md:w-110 xl:w-130 flex flex-col gap-[30px] mb-10;
   }
 }

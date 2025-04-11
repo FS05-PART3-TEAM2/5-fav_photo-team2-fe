@@ -12,7 +12,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({ onClose, children }) => {
       onClick={onClose}
     >
       <div
-        className="top-0 left-0 h-full w-[260px] bg-gray-500 shadow-lg transition-transform duration-300 flex flex-col justify-between py-[40px]"
+        className="top-0 left-0 h-full w-[260px] bg-gray-500 shadow-lg transition-transform duration-300 flex flex-col justify-between py-[40px] z-20"
         onClick={e => e.stopPropagation()}
       >
         {children}

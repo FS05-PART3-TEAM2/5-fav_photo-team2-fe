@@ -14,7 +14,7 @@ import { useSnackbarStore } from "@/store/useSnackbarStore";
 export default function SignupForm() {
   const {
     control,
-    formState: { isValid, isSubmitting },
+    formState: { isValid },
   } = useForm<SignupFormSchema>({
     resolver: zodResolver(signupSchema),
     mode: "onChange",
@@ -34,7 +34,8 @@ export default function SignupForm() {
 
     if (state.status) {
       // 회원가입 성공
-      alert(state.message);
+      // alert(state.message);
+      openSnackbar("SUCCESS", `회원가입이 완료되었습니다. \n로그인 후 이용해주세요.`);
       router.push("/auth/login"); // 회원가입 성공 후 로그인 페이지로 이동
       // useRouter()가 클라이언트 내에서 상태를 유지한 채로 이동
       // 완전히 새로고침 없이 페이지 이동이 되기 때문에 상태가 유지
@@ -45,12 +46,12 @@ export default function SignupForm() {
   }, [state, router, openSnackbar]);
 
   return (
-    <form action={formAction} className="form-auth">
+    <form action={formAction} className="w-form">
       <InputText name="email" control={control} />
       <InputText name="nickname" control={control} />
       <Password name="password" control={control} />
       <Password name="passwordConfirm" control={control} />
-      <ThinBtn type="submit" disabled={!isValid || isSubmitting} className="mt-[10px]">
+      <ThinBtn type="submit" disabled={!isValid || isPending} className="mt-[10px]">
         {isPending ? "가입 중..." : "가입하기"}
       </ThinBtn>
     </form>
