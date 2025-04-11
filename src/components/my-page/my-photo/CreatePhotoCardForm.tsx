@@ -13,7 +13,8 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
 import { axiosClient } from "@/services/axiosClient/axiosClient";
-// import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
+import { photoCardKeys, userKeys } from "@/utils/queryKeys";
 
 export default function CreatePhotoCardForm() {
   const {
@@ -40,6 +41,7 @@ export default function CreatePhotoCardForm() {
   const grade = watch("grade");
   const router = useRouter();
   const { openSnackbar } = useSnackbarStore();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (grade && grade in Grade) {
@@ -65,14 +67,6 @@ export default function CreatePhotoCardForm() {
     }
 
     try {
-      // const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/photocards`, formData, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //     Cookie: `token=${cookie}`,
-      //   },
-      // });
-
-      // TODO: 프록시 사용한 url로 요청 보내면 쿠키 담기고 401은 안오는데 500 internal server error 옴. 이유는 모르겠음
       const response = await axiosClient.post(`/photocards`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -81,6 +75,8 @@ export default function CreatePhotoCardForm() {
       });
 
       const { userPhotoCardId } = response.data;
+      queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
+      queryClient.invalidateQueries({ queryKey: userKeys.all });
       openSnackbar(
         "SUCCESS",
         `[${data.grade} | ${data.name}] 포토카드 생성에 성공했습니다.`,
