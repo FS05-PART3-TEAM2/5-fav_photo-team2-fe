@@ -47,7 +47,7 @@ export default function LoginForm() {
   }, [state, router, setUser, openSnackbar]);
 
   return (
-    <form action={formAction} className="form-auth">
+    <form action={formAction} className="w-form">
       <InputText name="email" control={control} />
       <Password name="password" control={control} />
       <ThinBtn type="submit" disabled={!isValid || isPending} className="mt-[10px]">

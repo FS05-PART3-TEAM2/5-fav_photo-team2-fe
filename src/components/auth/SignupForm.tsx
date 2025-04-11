@@ -14,7 +14,7 @@ import { useSnackbarStore } from "@/store/useSnackbarStore";
 export default function SignupForm() {
   const {
     control,
-    formState: { isValid, isSubmitting },
+    formState: { isValid },
   } = useForm<SignupFormSchema>({
     resolver: zodResolver(signupSchema),
     mode: "onChange",
@@ -46,12 +46,12 @@ export default function SignupForm() {
   }, [state, router, openSnackbar]);
 
   return (
-    <form action={formAction} className="form-auth">
+    <form action={formAction} className="w-form">
       <InputText name="email" control={control} />
       <InputText name="nickname" control={control} />
       <Password name="password" control={control} />
       <Password name="passwordConfirm" control={control} />
-      <ThinBtn type="submit" disabled={!isValid || isSubmitting} className="mt-[10px]">
+      <ThinBtn type="submit" disabled={!isValid || isPending} className="mt-[10px]">
         {isPending ? "가입 중..." : "가입하기"}
       </ThinBtn>
     </form>
