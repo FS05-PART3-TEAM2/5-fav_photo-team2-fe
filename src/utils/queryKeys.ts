@@ -6,13 +6,27 @@ export const photoCardKeys = {
   all: ["photoCard"] as const,
 
   // 마켓플레이스 메인 - 검색 조건(검색어, 등급, 장르, 상태, 정렬)
-  saleList: (params: {
+  saleList: ({
+    keyword,
+    grade,
+    genre,
+    status,
+    sort,
+  }: {
     keyword: string;
-    grade: Grade;
-    genre: Genre;
-    status: SaleCardStatus;
+    grade?: Grade;
+    genre?: Genre;
+    status?: SaleCardStatus;
     sort: Sort;
-  }) => [...photoCardKeys.all, "saleList", params] as const,
+  }) => [
+    "market",
+    "saleList",
+    keyword,
+    grade ?? "default",
+    genre ?? "default",
+    status ?? "default",
+    sort,
+  ],
 
   detail: (saleId: string) => [...photoCardKeys.all, "detail", saleId] as const,
 

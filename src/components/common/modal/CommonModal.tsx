@@ -6,7 +6,7 @@ interface CommonModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  desc: string;
+  desc: string | React.ReactNode;
   btnText: string;
   btnClick: () => void;
 }
