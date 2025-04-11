@@ -26,13 +26,13 @@ export default function CreatePhotoCardForm() {
     resolver: zodResolver(createPhotoCardSchema),
     mode: "onChange",
     defaultValues: {
-      photoCardName: "",
+      name: "",
       grade: "",
       genre: "",
       price: "",
       stock: Grade.COMMON,
       image: undefined,
-      photoCardContent: "",
+      description: "",
     },
   });
 
@@ -54,12 +54,12 @@ export default function CreatePhotoCardForm() {
 
     // FormData 구성
     const formData = new FormData();
-    formData.append("photoCardName", data.photoCardName);
+    formData.append("name", data.name);
     formData.append("grade", data.grade);
     formData.append("genre", data.genre);
     formData.append("stock", data.stock.toString());
     formData.append("price", data.price);
-    formData.append("photoCardContent", data.photoCardContent);
+    formData.append("description", data.description);
     if (data.image) {
       formData.append("image", data.image); // File 객체 추가
     }
@@ -83,14 +83,14 @@ export default function CreatePhotoCardForm() {
       const { userPhotoCardId } = response.data;
       openSnackbar(
         "SUCCESS",
-        `[${data.grade} | ${data.photoCardName}] 포토카드 생성에 성공했습니다.`,
+        `[${data.grade} | ${data.name}] 포토카드 생성에 성공했습니다.`,
         "포토카드 생성"
       );
       router.push(`/my-photos/${userPhotoCardId}`);
     } catch (error) {
       openSnackbar(
         "ERROR",
-        `[${data.grade} | ${data.photoCardName}] 포토카드 생성에 실패했습니다.`,
+        `[${data.grade} | ${data.name}] 포토카드 생성에 실패했습니다.`,
         "포토카드 생성"
       );
       throw error;
@@ -101,13 +101,13 @@ export default function CreatePhotoCardForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-form">
-      <Input name="photoCardName" control={control} />
+      <Input name="name" control={control} />
       <Dropdown name="grade" control={control} />
       <Dropdown name="genre" control={control} />
       <Input name="price" control={control} />
       <Input name="stock" control={control} hidden readOnly />
       <Upload name="image" control={control} />
-      <Textarea name="photoCardContent" control={control} />
+      <Textarea name="description" control={control} />
 
       <ThinBtn type="submit" disabled={!isValid || isPending} className="mt-[10px]">
         {isPending ? "생성 중..." : "생성하기"}

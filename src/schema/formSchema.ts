@@ -25,12 +25,12 @@ export type SignupFormSchema = z.infer<typeof signupSchema>;
 
 // 포토카드 생성 폼 스키마
 export const createPhotoCardSchema = InputSchema.pick({
-  photoCardName: true,
+  name: true,
   grade: true,
   genre: true,
   price: true,
   stock: true,
   image: true,
-  photoCardContent: true,
+  description: true,
 });
 export type CreatePhotoCardFormSchema = z.infer<typeof createPhotoCardSchema>; // 포토카드 생성 폼 스키마 타입
