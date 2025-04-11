@@ -1,9 +1,14 @@
 import CreatePhotoCardForm from "@/components/my-page/my-photo/CreatePhotoCardForm";
 
-export default function Page() {
+import { cookies } from "next/headers";
+
+export default async function Page() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.toString() ?? "";
+
   return (
     <>
-      <CreatePhotoCardForm />
+      <CreatePhotoCardForm cookie={token} />
     </>
   );
 }
