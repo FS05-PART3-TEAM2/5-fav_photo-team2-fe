@@ -22,3 +22,15 @@ export const signupSchema = loginSchema
     path: ["passwordConfirm"], // passwordConfirm 필드에서 오류 발생
   });
 export type SignupFormSchema = z.infer<typeof signupSchema>;
+
+// 포토카드 생성 폼 스키마
+export const createPhotoCardSchema = InputSchema.pick({
+  photoCardName: true,
+  grade: true,
+  genre: true,
+  price: true,
+  stock: true,
+  image: true,
+  photoCardContent: true,
+});
+export type CreatePhotoCardFormSchema = z.infer<typeof createPhotoCardSchema>; // 포토카드 생성 폼 스키마 타입
