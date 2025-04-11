@@ -22,7 +22,7 @@ type ApiParams = {
   sort: Sort;
 };
 
-// "default" → undefined로 바꿔주는 유틸 함수
+// "all" → undefined 로 바꿔주는 함수
 const getActualFilterValue = <T>(value: FilterValue<T>): T | undefined =>
   value === "default" ? undefined : value;
 
@@ -48,6 +48,7 @@ export const useMarketplacePhotoCards = ({
         getMarketPhotoCardsApi({ cursor: pageParam, ...apiParams }),
       initialPageParam: null as Cursor,
       getNextPageParam: lastPage => {
+        console.log("📦 lastPage:", lastPage);
         return lastPage?.hasMore ? lastPage.nextCursor : undefined;
       },
       staleTime: 1000 * 60 * 5,
@@ -63,7 +64,9 @@ export const useMarketplacePhotoCards = ({
   // console.log("📡 [useMarketplacePhotoCards] isFetchingNextPage:", isFetchingNextPage);
   // console.log("📡 [useMarketplacePhotoCards] isLoading:", isLoading);
   // console.log("📡 [useMarketplacePhotoCards] error:", error);
-
+  console.log("🥽실제 쿼리키 구성 확인용", photoCardKeys.saleList(apiParams));
+  console.log("🥽apiParams", apiParams);
+  console.log("🥽queryKey", photoCardKeys.saleList(apiParams));
   return {
     data,
     photoCards,

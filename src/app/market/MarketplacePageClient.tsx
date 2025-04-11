@@ -8,45 +8,55 @@ import MarketplaceHeader from "@/components/market/list/MarketplaceHeader";
 import CardGrid from "@/components/market/list/CardGrid";
 import { SellerPage } from "@/components/market/list/seller/SellerPage";
 import SellForm from "@/components/market/list/seller/SaleForm";
-import { useState, useEffect, useRef, useMemo } from "react";
-import { SaleCardDto, MarketplacePhotoCardDto } from "@/types/photocard.types";
+import { useState, useEffect, useRef } from "react";
+import { Grade, Genre, SaleCardStatus, Sort, SaleCardDto } from "@/types/photocard.types";
 import ResponsiveForm from "@/components/common/responsiveLayout/responsiveForm/ResponsiveForm";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
 import { useRouter } from "next/navigation";
 import { useMarketplacePhotoCards } from "@/hooks/market/list/useMarketplacePhotoCards";
+
+type FilterValue<T> = T | "default";
 
 export default function MarketplacePageClient() {
   const router = useRouter();
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const queryClient = useQueryClient();
-
   const { openSnackbar } = useSnackbarStore();
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useMarketplacePhotoCards();
+  //무한 스크롤로 전달하는 필터링 상태들
+  const [searchTerm, setSearchTerm] = useState("");
+  const [grade, setGrade] = useState<FilterValue<Grade>>("default");
+  const [genre, setGenre] = useState<FilterValue<Genre>>("default");
+  const [status, setStatus] = useState<FilterValue<SaleCardStatus>>("default");
+  const [sort, setSort] = useState<Sort>("recent");
 
-  const photoCards: MarketplacePhotoCardDto[] = useMemo(
-    () => data?.pages.flatMap(page => page.list) ?? [],
-    [data]
-  );
+  // ✅ 무한스크롤 데이터 가져오기
+  const { photoCards, fetchNextPage, hasNextPage, isFetchingNextPage } = useMarketplacePhotoCards({
+    keyword: searchTerm,
+    grade,
+    genre,
+    status,
+    sort,
+  });
+
+  // 로그인 유저 정보 가져오기
+  const { data: user } = useQuery({
+    queryKey: ["me"],
+    queryFn: () => getMyInfoApi(),
+    retry: false, // 로그인 안 되어있을 때 무한 재시도 방지
+  });
+
   //console.log("🧪 [4] MarketplacePageClient data.pages:", data?.pages);
 
   // const photoCards: MarketplacePhotoCardDto[] = data?.pages.flatMap(page => page.list) ?? [];
 
   //console.log("🧪 [5] MarketplacePageClient photoCards:", photoCards);
 
-  const [filteredCards, setFilteredCards] = useState<MarketplacePhotoCardDto[]>(photoCards);
   const [isSellerPageOpen, setIsSellerPageOpen] = useState(false);
   const [isSellFormOpen, setIsSellFormOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<SaleCardDto | null>(null);
 
-  // 👇 로그인 유저 정보 가져오기
-  const { data: user } = useQuery({
-    queryKey: ["me"],
-    queryFn: () => getMyInfoApi(),
-    retry: false, // 로그인 안 되어있을 때 무한 재시도 방지
-  });
-  //console.log();
   const handleOpenMyPhotoList = () => {
     if (!user) {
       openSnackbar("ERROR", "로그인 후 이용해주세요.");
@@ -103,9 +113,9 @@ export default function MarketplacePageClient() {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  useEffect(() => {
-    setFilteredCards(photoCards); // 조건 없이 무조건 최신 데이터로 갱신
-  }, [photoCards]);
+  // useEffect(() => {
+  //   setFilteredCards(photoCards); // 조건 없이 무조건 최신 데이터로 갱신
+  // }, [photoCards]);
 
   //console.log("데이터확인용", photoCards);
   return (
@@ -114,33 +124,23 @@ export default function MarketplacePageClient() {
         photoCards={photoCards}
         onClickSellButton={handleOpenMyPhotoList}
         onFilterChange={({ searchTerm, grade, genre, isSoldOut, orderBy }) => {
-          const filtered = photoCards
-            .filter(card => card.name.toLowerCase().includes(searchTerm.toLowerCase()))
-            .filter(card => grade === "default" || card.grade === grade)
-            .filter(card => genre === "default" || card.genre === genre)
-            .filter(card =>
-              isSoldOut === "default"
-                ? true
-                : isSoldOut === "SOLD_OUT"
-                  ? card.status === "SOLD_OUT"
-                  : card.status !== "SOLD_OUT"
-            )
-            .sort((a, b) => {
-              if (orderBy === "latest") {
-                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-              } else if (orderBy === "oldest") {
-                return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-              } else if (orderBy === "expensive") {
-                return b.price - a.price;
-              } else {
-                return a.price - b.price;
-              }
-            });
+          setSearchTerm(searchTerm);
+          setGrade(grade);
+          setGenre(genre);
+          setStatus(isSoldOut); // 이제 타입이 맞습니다
 
-          setFilteredCards(filtered);
+          // orderBy 변환만 필요
+          const sortMap: Record<typeof orderBy, Sort> = {
+            latest: "recent",
+            oldest: "old",
+            expensive: "expensive",
+            cheap: "cheap",
+          };
+
+          setSort(sortMap[orderBy]);
         }}
       />
-      <CardGrid photoCards={filteredCards} />
+      <CardGrid photoCards={photoCards} />
 
       {/* 무한스크롤 로딩 감지 지점 */}
       <div ref={loadMoreRef} className="w-[100%] py-4 flex justify-center">

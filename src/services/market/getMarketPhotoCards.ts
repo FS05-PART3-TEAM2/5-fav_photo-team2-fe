@@ -37,7 +37,7 @@ export async function getMarketPhotoCardsApi({
 }: GetMarketPhotoCardsParams = {}): Promise<MarketPhotoCardsResponse> {
   const response = await axiosClient.get("/market", {
     params: {
-      cursor,
+      cursor: cursor ?? undefined,
       keyword,
       grade,
       genre,
