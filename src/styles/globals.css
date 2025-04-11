@@ -1,19 +1,122 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #0f0f0f;
+  --color-gray-500: #161616;
+  --color-gray-400: #5a5a5a;
+  --color-gray-300: #a4a4a4;
+  --color-gray-200: #dddddd;
+  --color-gray-100: #eeeeee;
+  --color-white: #ffffff;
+
+  --color-red: #ff483d;
+  --color-blue: #29c9f9;
+  --color-purple: #a77eff;
+  --color-pink: #ff2a6a;
+  --color-main: #efff04;
+
+  --font-BR-B: var(--font-BR-B); /* localFont로 설정한 폰트를 사용 */
+  --font-noto-sans-kr: "Noto Sans KR", sans-serif;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@layer components {
+  /* 공용 텍스트 스타일 */
+  /* text-기본-반응형-weight 형식으로 작성했습니다 */
+  .text-18-20-normal {
+    @apply text-[18px] lg:text-[20px] font-normal;
+  }
+  .text-18-20-bold {
+    @apply text-[18px] lg:text-[20px] font-bold;
+  }
+  .text-18-24-bold {
+    @apply text-[18px] lg:text-[24px] font-bold;
+  }
+  .text-20-24-bold {
+    @apply text-[20px] lg:text-[24px] font-bold;
+  }
+  .text-14-22-bold {
+    @apply text-[14px] md:text-[22px] font-bold;
+  }
+
+  /* 공통컴포넌트 - 카드 요소 텍스트 스타일 */
+  .card-header__details {
+    @apply text-[18px] lg:text-2xl font-bold;
+  }
+  .card-header__list {
+    @apply text-[10px] md:text-[16px] font-normal;
+  }
+
+  /* 공통컴포넌트 - 모달 텍스트 스타일 */
+  .modal-title {
+    @apply text-[18px] lg:text-[20px] font-bold text-white
+    mb-[30px] lg:mb-[40px] text-center break-keep;
+  }
+  .modal-desc {
+    @apply text-[14px] lg:text-[16px] font-normal text-gray-300 mb-[40px] lg:mb-[60px] text-center break-keep;
+  }
+
+  /* 페이지 - 마켓 상세페이지 텍스트 스타일 */
+  .market-detail-title {
+    @apply text-[24px] md:text-[32px] lg:text-[40px] font-bold leading-none text-white;
+  }
+  .market-detail-subtitle {
+    @apply text-[22px] lg:text-[28px] font-bold leading-none text-white;
+  }
+
+  /* form - auth form style */
+  .w-form {
+    @apply w-full max-w-110 md:w-110 xl:w-130 flex flex-col gap-[30px] mb-10;
+  }
+}
 
 :root {
-  --primary: #4f46e5;
-  --secondary: #10b981;
-  --accent: #f59e0b;
-  --background: #f9fafb;
-  --light: #f3f4f6;
-  --dark: #1f2937;
+  --background: var(--color-dark);
+  --foreground: var(--color-white);
+  --font-body: var(--font-noto-sans-kr);
 }
 
 body {
-  background-color: white;
-  color: black;
-  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+/* 스낵바 컴포넌트 애니메이션 */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-fadeInOut {
+  animation: fadeInOut 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
