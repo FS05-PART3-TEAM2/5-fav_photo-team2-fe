@@ -5,19 +5,21 @@ import Input from "@/components/common/input/Input";
 import Upload from "@/components/common/input/Upload";
 import Textarea from "@/components/common/input/Textarea";
 import ThinBtn from "@/components/common/button/ThinBtn";
-import CreatePhotoCardAction from "@/lib/actions/create-photo-card.action";
 import { CreatePhotoCardFormSchema, createPhotoCardSchema } from "@/schema/formSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Grade } from "@/types/input.types";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import axios, { AxiosError } from "axios";
 
-export default function CreatePhotoCardForm() {
+export default function CreatePhotoCardForm({ cookie }: { cookie: string | undefined }) {
+  console.log("cookie: ", JSON.stringify(cookie));
   const {
     control,
     watch,
     setValue,
+    handleSubmit,
     formState: { isValid },
   } = useForm<CreatePhotoCardFormSchema>({
     resolver: zodResolver(createPhotoCardSchema),
@@ -32,31 +34,60 @@ export default function CreatePhotoCardForm() {
       photoCardContent: "",
     },
   });
-  const [state, formAction, isPending] = useActionState(CreatePhotoCardAction, null);
+
+  const [isPending, setIsPending] = useState(false);
   const grade = watch("grade");
   const router = useRouter();
 
   useEffect(() => {
     if (grade && grade in Grade) {
       setValue("stock", Grade[grade as keyof typeof Grade], {
-        shouldValidate: true, // 즉시 유효성 검사 실행 (isValid에 영향)
+        shouldValidate: true,
       });
     }
   }, [grade, setValue]);
 
-  useEffect(() => {
-    if (!state) return; // 초기 state가 null인 경우 처리
+  const onSubmit = async (data: CreatePhotoCardFormSchema) => {
+    setIsPending(true);
 
-    alert(state.message); // 상태 메시지 알림
-
-    // 상태가 true인 경우에만 새로 만들 사진 카드 페이지로 이동
-    if (state.status) {
-      router.push(`/my-photos/${state.userPhotoCardId}`);
+    // FormData 구성
+    const formData = new FormData();
+    formData.append("photoCardName", data.photoCardName);
+    formData.append("grade", data.grade);
+    formData.append("genre", data.genre);
+    formData.append("stock", data.stock.toString());
+    formData.append("price", data.price);
+    formData.append("photoCardContent", data.photoCardContent);
+    if (data.image) {
+      formData.append("image", data.image); // File 객체 추가
     }
-  }, [state, router]);
+
+    try {
+      const response = await axios.post(
+        `https://five-fav-photo-team2-be-1zgs.onrender.com/api/photocards`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Cookie: cookie,
+          },
+        }
+      );
+
+      const { message, userPhotoCardId } = response.data;
+      alert(message);
+      router.push(`/my-photos/${userPhotoCardId}`);
+    } catch (error) {
+      const axiosError = error as AxiosError<{ error?: string }>;
+      const message = axiosError.response?.data?.error || "카드 생성 실패";
+      alert(message);
+    } finally {
+      setIsPending(false);
+    }
+  };
 
   return (
-    <form action={formAction} className="w-form">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-form">
       <Input name="photoCardName" control={control} />
       <Dropdown name="grade" control={control} />
       <Dropdown name="genre" control={control} />
