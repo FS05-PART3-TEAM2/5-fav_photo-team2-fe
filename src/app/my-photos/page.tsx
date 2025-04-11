@@ -24,8 +24,7 @@ const MyPhotos = () => {
   }, []);
 
   const handleCreateCardClick = () => {
-    // 포토카드 생성 페이지로 이동 또는 모달 표시 등의 로직
-    console.log("포토카드 생성 클릭");
+    router.push("/my-photos/create");
   };
 
   const handleCardClick = (cardId: string) => {
