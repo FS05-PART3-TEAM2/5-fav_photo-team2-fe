@@ -8,9 +8,9 @@ export const photoCardKeys = {
   // 마켓플레이스 메인 - 검색 조건(검색어, 등급, 장르, 상태, 정렬)
   saleList: (params: {
     keyword: string;
-    grade: Grade;
-    genre: Genre;
-    status: SaleCardStatus;
+    grade?: Grade;
+    genre?: Genre;
+    status?: SaleCardStatus;
     sort: Sort;
   }) => [...photoCardKeys.all, "saleList", params] as const,
 
