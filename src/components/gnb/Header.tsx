@@ -67,10 +67,15 @@ const Header = () => {
 
   const handleProfileOpen = () => setIsProfileOpen(prev => !prev);
   const handleNotificationOpen = () => setIsNotificationOpen(prev => !prev);
-  const handleLogout = () => {
-    logout();
-    removeQueryKeys(queryClient);
-    openSnackbar("SUCCESS", "로그아웃 완료되었습니다."); // Snackbar를 통해 에러 메시지 표시
+  const handleLogout = async () => {
+    try {
+      await logout(); // XXX: 로그아웃 시 userStore가 초기화 되기 전에 로그아웃 알림 떠버려서 랜덤박스 요청 보내지던 이슈 해결
+      removeQueryKeys(queryClient);
+      openSnackbar("SUCCESS", "로그아웃 완료되었습니다.");
+    } catch (error) {
+      openSnackbar("ERROR", "로그아웃 중 오류가 발생했습니다.");
+      throw error;
+    }
   };
   const handleBack = () => {
     router.back();

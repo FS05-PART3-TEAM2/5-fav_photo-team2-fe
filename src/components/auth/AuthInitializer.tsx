@@ -9,6 +9,7 @@ export default async function AuthInitializer({ children }: { children: React.Re
   const cookie = (await cookieStore).toString();
   let userInfo = null;
 
+  // TODO: 쿠키없을 때도 me 보내지는거같은데 확인 필요
   try {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
       headers: {

@@ -32,7 +32,6 @@ export default function LoginForm() {
   useEffect(() => {
     if (!state) return; // 초기 state가 null인 경우 처리
 
-    // TODO: 로그인했을 때 opensnackbar가 안뜨는걸보니 여기 로직을 안타는거같은데 확인 필요.
     if (state.status) {
       // 로그인 성공시
       setUser(state.user); // zustand store에 사용자 정보 저장
@@ -44,7 +43,7 @@ export default function LoginForm() {
       // 로그인 실패시
       openSnackbar("ERROR", state.message); // Snackbar를 통해 에러 메시지 표시
     }
-  }, [state, router, setUser, openSnackbar]);
+  }, [state, setUser, openSnackbar, router]);
 
   return (
     <form action={formAction} className="w-form">
