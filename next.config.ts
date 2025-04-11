@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*", // 클라이언트가 요청하는 주소
-        destination: `https://five-fav-photo-team2-be-1zgs.onrender.com/api/:path*`, // 실제 백엔드 서버 주소
+        // destination: `https://five-fav-photo-team2-be-1zgs.onrender.com/api/:path*`, // main 실제 백엔드 서버 주소
+        destination: `https://five-fav-photo-team2-be.onrender.com/api/:path*`, // dev 실제 백엔드 서버 주소
       },
     ];
   },
