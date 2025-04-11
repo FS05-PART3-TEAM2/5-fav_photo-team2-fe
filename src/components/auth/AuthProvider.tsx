@@ -18,12 +18,12 @@ export const AuthProvider = ({ userInfo, children }: props) => {
       if (userInfo) {
         setUser({ ...userInfo, points: userPoints?.points || 0 });
       } else {
-        logout();
+        await logout();
       }
     };
 
     checkAuth();
-  }, [userInfo, setUser, logout, userPoints]);
+  }, [userInfo, userPoints, setUser, logout]);
 
   // 포인트 로딩되는동안 0으로 뜨는거 방지
   if (isUserPointsLoading) {

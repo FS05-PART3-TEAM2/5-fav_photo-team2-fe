@@ -8,21 +8,22 @@ export default async function AuthInitializer({ children }: { children: React.Re
   const cookieStore = cookies();
   const cookie = (await cookieStore).toString();
   let userInfo = null;
+  if (cookie) {
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+        headers: {
+          cookie,
+        },
+      });
 
-  try {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
-      headers: {
-        cookie,
-      },
-    });
-
-    userInfo = {
-      id: res.data.id,
-      nickname: res.data.nickname,
-      email: res.data.email,
-    } as UserInfo;
-  } catch (e) {
-    console.log("auth init error", e);
+      userInfo = {
+        id: res.data.id,
+        nickname: res.data.nickname,
+        email: res.data.email,
+      } as UserInfo;
+    } catch (e) {
+      console.log("auth init error", e);
+    }
   }
 
   return <AuthProvider userInfo={userInfo}>{children}</AuthProvider>;

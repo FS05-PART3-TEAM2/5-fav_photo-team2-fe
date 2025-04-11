@@ -11,10 +11,11 @@ import { useForm } from "react-hook-form";
 import { Grade } from "@/types/input.types";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import axios, { AxiosError } from "axios";
+import { useSnackbarStore } from "@/store/useSnackbarStore";
+import { axiosClient } from "@/services/axiosClient/axiosClient";
+// import axios from "axios";
 
-export default function CreatePhotoCardForm({ cookie }: { cookie: string | undefined }) {
-  console.log("cookie: ", JSON.stringify(cookie));
+export default function CreatePhotoCardForm() {
   const {
     control,
     watch,
@@ -25,19 +26,20 @@ export default function CreatePhotoCardForm({ cookie }: { cookie: string | undef
     resolver: zodResolver(createPhotoCardSchema),
     mode: "onChange",
     defaultValues: {
-      photoCardName: "",
+      name: "",
       grade: "",
       genre: "",
       price: "",
       stock: Grade.COMMON,
       image: undefined,
-      photoCardContent: "",
+      description: "",
     },
   });
 
   const [isPending, setIsPending] = useState(false);
   const grade = watch("grade");
   const router = useRouter();
+  const { openSnackbar } = useSnackbarStore();
 
   useEffect(() => {
     if (grade && grade in Grade) {
@@ -52,35 +54,46 @@ export default function CreatePhotoCardForm({ cookie }: { cookie: string | undef
 
     // FormData 구성
     const formData = new FormData();
-    formData.append("photoCardName", data.photoCardName);
+    formData.append("name", data.name);
     formData.append("grade", data.grade);
     formData.append("genre", data.genre);
     formData.append("stock", data.stock.toString());
     formData.append("price", data.price);
-    formData.append("photoCardContent", data.photoCardContent);
+    formData.append("description", data.description);
     if (data.image) {
       formData.append("image", data.image); // File 객체 추가
     }
 
     try {
-      const response = await axios.post(
-        `https://five-fav-photo-team2-be-1zgs.onrender.com/api/photocards`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Cookie: cookie,
-          },
-        }
-      );
+      // const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/photocards`, formData, {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //     Cookie: `token=${cookie}`,
+      //   },
+      // });
 
-      const { message, userPhotoCardId } = response.data;
-      alert(message);
+      // TODO: 프록시 사용한 url로 요청 보내면 쿠키 담기고 401은 안오는데 500 internal server error 옴. 이유는 모르겠음
+      const response = await axiosClient.post(`/photocards`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+
+      const { userPhotoCardId } = response.data;
+      openSnackbar(
+        "SUCCESS",
+        `[${data.grade} | ${data.name}] 포토카드 생성에 성공했습니다.`,
+        "포토카드 생성"
+      );
       router.push(`/my-photos/${userPhotoCardId}`);
     } catch (error) {
-      const axiosError = error as AxiosError<{ error?: string }>;
-      const message = axiosError.response?.data?.error || "카드 생성 실패";
-      alert(message);
+      openSnackbar(
+        "ERROR",
+        `[${data.grade} | ${data.name}] 포토카드 생성에 실패했습니다.`,
+        "포토카드 생성"
+      );
+      throw error;
     } finally {
       setIsPending(false);
     }
@@ -88,13 +101,13 @@ export default function CreatePhotoCardForm({ cookie }: { cookie: string | undef
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-form">
-      <Input name="photoCardName" control={control} />
+      <Input name="name" control={control} />
       <Dropdown name="grade" control={control} />
       <Dropdown name="genre" control={control} />
       <Input name="price" control={control} />
       <Input name="stock" control={control} hidden readOnly />
       <Upload name="image" control={control} />
-      <Textarea name="photoCardContent" control={control} />
+      <Textarea name="description" control={control} />
 
       <ThinBtn type="submit" disabled={!isValid || isPending} className="mt-[10px]">
         {isPending ? "생성 중..." : "생성하기"}

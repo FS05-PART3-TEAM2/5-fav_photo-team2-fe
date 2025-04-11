@@ -39,11 +39,11 @@ export const InputSchema = z.object({
   password: z.string().min(1, "비밀번호를 입력해주세요").superRefine(validatePassword), // 비밀번호
   passwordConfirm: z.string().min(1, "비밀번호 확인이 필요합니다"), // 비밀번호 확인
 
-  photoCardName: z
+  name: z
     .string()
     .min(1, "포토카드 이름을 입력해주세요") // 빈 값 방지
     .max(30, "최대 30자 이내로 입력해주세요"), // 포토카드 이름
-  photoCardContent: contentSchema, // 포토카드 설명
+  description: contentSchema, // 포토카드 설명
   image: fileSchema, // 사진 url
   price: z
     .string()
