@@ -15,23 +15,8 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // webpack 설정 단순화
   webpack: (config: WebpackConfig) => {
-    // config.module이 없으면 빈 객체로 초기화
-    config.module = config.module || {};
-    // rules가 없으면 빈 배열로 초기화
-    config.module.rules = config.module.rules || [];
-
-    config.module.rules.push({
-      test: /\.(woff|woff2|eot|ttf|otf)$/,
-      use: {
-        loader: "file-loader",
-        options: {
-          name: "[name].[ext]",
-          outputPath: "static/fonts/",
-          publicPath: "/_next/static/fonts/",
-        },
-      },
-    });
     return config;
   },
 };
