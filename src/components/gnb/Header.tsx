@@ -176,6 +176,9 @@ const Header = () => {
                   onClick={() => !item.readAt && markAsRead(item.id)}
                 />
               ))}
+              {notifications?.length === 0 && notifications !== null && (
+                <p className="py-2 text-center text-xs text-gray-300">알림이 없습니다.</p>
+              )}
               {/* sentinel & 로딩 상태 */}
               {isFetchingNextPage && (
                 <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
@@ -230,8 +233,8 @@ const Header = () => {
                   )}
                 </button>
                 {isNotificationOpen && (
-                  <div ref={modalRef} className="w-0 h-0">
-                    <NotificationCard>
+                  <div ref={modalRef} className={`w-0 h-0`}>
+                    <NotificationCard count={notifications?.length || 0}>
                       {notifications?.map(item => (
                         <NotificationDetail
                           key={item.id}
