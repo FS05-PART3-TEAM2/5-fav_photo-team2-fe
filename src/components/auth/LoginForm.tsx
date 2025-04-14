@@ -34,7 +34,6 @@ export default function LoginForm() {
 
     if (state.status) {
       setUser(state.user);
-      openSnackbar("SUCCESS", "로그인 완료되었습니다.");
     } else {
       openSnackbar("ERROR", state.message || "로그인에 실패했습니다.");
     }
@@ -43,8 +42,9 @@ export default function LoginForm() {
   useEffect(() => {
     if (isAuthenticated) {
       router.push("/market");
+      openSnackbar("SUCCESS", "로그인 완료되었습니다.");
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, router, openSnackbar]);
 
   return (
     <form action={formAction} className="w-form">
