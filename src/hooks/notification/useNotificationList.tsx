@@ -76,7 +76,7 @@ export const useNotificationList = (userId: string) => {
     mutationFn: markNotificationAsRead,
     onSuccess: (_, notificationId) => {
       queryClient.setQueryData<{ notifications: NotificationDto[]; pageParams: unknown[] }>(
-        ["notificationList"],
+        userKeys.notificationList(userId),
         oldData => {
           if (!oldData) return oldData;
           return {
@@ -90,7 +90,7 @@ export const useNotificationList = (userId: string) => {
     },
     /* ③ 성공·실패와 무관하게 서버와 동기화 */
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["notificationList"] });
+      queryClient.invalidateQueries({ queryKey: userKeys.notificationList(userId) });
     },
   });
 
