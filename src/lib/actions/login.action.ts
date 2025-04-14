@@ -64,9 +64,5 @@ export default async function loginAction(_: unknown, formData: FormData) {
   const result = await login({ email, password });
 
   // 상태 객체를 명시적으로 반환
-  return {
-    status: result.status,
-    message: result.message,
-    user: result.user,
-  };
+  return result;
 }
