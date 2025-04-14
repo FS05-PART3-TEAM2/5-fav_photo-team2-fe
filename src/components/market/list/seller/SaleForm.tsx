@@ -47,7 +47,7 @@ const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
       onSubmit();
 
       // 등록 성공 시 쿼리키 무효화해서 판매리스트 refetch하고 마켓플레이스페이지로 이동
-      queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
+      await queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
       router.push("/market");
     } catch (error) {
       const err = error as AxiosError<{ message?: string; error?: string }>;

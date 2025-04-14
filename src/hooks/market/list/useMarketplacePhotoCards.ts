@@ -41,7 +41,7 @@ export const useMarketplacePhotoCards = ({
     sort,
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error, refetch } =
     useInfiniteQuery({
       queryKey: photoCardKeys.saleList(apiParams),
       queryFn: ({ pageParam }: { pageParam: Cursor }) =>
@@ -63,5 +63,6 @@ export const useMarketplacePhotoCards = ({
     isFetchingNextPage,
     isLoading,
     error,
+    refetch,
   };
 };

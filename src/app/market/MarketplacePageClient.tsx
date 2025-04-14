@@ -31,7 +31,7 @@ export default function MarketplacePageClient() {
   const [sort, setSort] = useState<Sort>("recent");
 
   // ✅ 무한스크롤 데이터 가져오기
-  const { photoCards, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+  const { photoCards, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, refetch } =
     useMarketplacePhotoCards({
       keyword: searchTerm,
       grade,
@@ -70,6 +70,7 @@ export default function MarketplacePageClient() {
 
     // ✅ 판매 등록 후 서버 데이터 반영을 위해 캐시 무효화
     queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
+    refetch();
   };
 
   // ✅ 무한스크롤 옵저버 등록
