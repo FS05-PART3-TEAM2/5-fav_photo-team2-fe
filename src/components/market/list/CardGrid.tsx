@@ -3,6 +3,7 @@ import { MarketplacePhotoCardDto } from "@/types/photocard.types";
 import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
 import { CircularProgress } from "@/components/common/loading/CircularProgress";
+import { useSnackbarStore } from "@/store/useSnackbarStore";
 
 interface PhotoCardListProps {
   photoCards: MarketplacePhotoCardDto[];
@@ -15,9 +16,21 @@ export default function PhotoCardList({
   onCardClick,
   isLoading = false,
 }: PhotoCardListProps) {
+  const { openSnackbar } = useSnackbarStore();
+
+  const handleCardClick = (card: MarketplacePhotoCardDto) => {
+    // 카드가 품절된 경우
+    if (card.status === "SOLD_OUT") {
+      openSnackbar("ERROR", "이미 품절된 상태입니다."); // 스낵바 메시지 표시
+    } else {
+      onCardClick(card); // 품절이 아닌 경우에만 상세페이지로 이동
+    }
+  };
+
   if (isLoading) {
     return <CircularProgress />;
   }
+
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3 gap-[5px] md:gap-[20px] lg:gap-[40px]">
       {photoCards.length === 0 ? (
@@ -28,7 +41,7 @@ export default function PhotoCardList({
         photoCards.map(card => (
           <div
             key={card.saleCardId}
-            onClick={() => onCardClick(card)}
+            onClick={() => handleCardClick(card)}
             className=" cursor-pointer border p-[10px] md:p-[20px] lg:p-[40px] rounded-[2px] bg-gray-500"
             style={{ border: "1px solid rgba(255, 255, 255, 0.1)" }}
           >
@@ -84,7 +97,7 @@ export default function PhotoCardList({
               alt="로고 아이콘"
               width={99.25}
               height={18}
-              className="mx-auto"
+              className="mx-auto hidden md:block"
             />
           </div>
         ))

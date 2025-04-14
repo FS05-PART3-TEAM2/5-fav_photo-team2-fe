@@ -163,7 +163,11 @@ export default function MarketplacePageClient() {
 
       {isSellFormOpen && selectedCard && (
         <>
-          <ResponsiveForm title="판매 등록" isOpen={isSellFormOpen} onClose={handleSellFormClose}>
+          <ResponsiveForm
+            title="나의 포토카드 판매하기"
+            isOpen={isSellFormOpen}
+            onClose={handleSellFormClose}
+          >
             <SellForm
               data={selectedCard}
               onSubmit={handleSellFormClose} // 판매 성공 후 모달 닫기용

@@ -62,7 +62,7 @@ export default function MarketplaceHeader({
           </div>
         </div>
       </div>
-      <div className="fixed bottom-0 left-0 w-full p-4 shadow-md sm:flex sm:justify-center md:hidden z-[999]">
+      <div className="fixed bottom-0 left-0 w-full p-4 shadow-md sm:flex sm:justify-center md:hidden z-[40]">
         <ThinBtn onClick={onClickSellButton}>포토카드 판매하기</ThinBtn>
       </div>
 
