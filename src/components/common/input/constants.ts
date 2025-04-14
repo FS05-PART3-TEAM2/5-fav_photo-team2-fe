@@ -1,6 +1,6 @@
 export const FORM_CONFIG = {
   Input: {
-    photoCardName: {
+    name: {
       label: "포토카드 이름",
       placeholder: "포토카드 이름을 입력해 주세요",
     },
@@ -10,7 +10,7 @@ export const FORM_CONFIG = {
     stock: { label: "총 발행량", placeholder: "총 발행량을 입력해 주세요" },
   },
   Textarea: {
-    photoCardContent: {
+    description: {
       label: "포토카드 설명",
       placeholder: "카드 설명을 입력해 주세요",
       height: 220, // textarea height

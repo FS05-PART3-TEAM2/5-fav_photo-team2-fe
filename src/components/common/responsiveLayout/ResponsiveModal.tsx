@@ -9,7 +9,7 @@ interface ModalProps {
 export default function ResponsiveModal({ onClose, children }: ModalProps) {
   return (
     // 오버레이
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-100">
       <div className="fixed inset-0 bg-black/80" onClick={onClose} />
 
       {/* modal */}

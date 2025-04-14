@@ -15,7 +15,7 @@ interface UserStore {
   userInfo: UserInfo | null;
   isAuthenticated: boolean; // 로그인 여부
   setUser: (user: UserInfo) => void;
-  logout: () => void;
+  logout: () => Promise<void>;
   // logout: (queryClient: QueryClient) => void;
 }
 
@@ -30,12 +30,22 @@ const useUserStore = create<UserStore>()(
       },
 
       logout: async () => {
-        set({ userInfo: null, isAuthenticated: false });
-        await logoutAction();
+        try {
+          // 먼저 상태 초기화
+          set({ userInfo: null, isAuthenticated: false });
+
+          // 서버 로그아웃 실행
+          await logoutAction();
+        } catch (error) {
+          console.error("로그아웃 중 오류 발생:", error);
+          // 오류 발생 시에도 상태는 초기화
+          // set({ userInfo: null, isAuthenticated: false });
+        }
       },
     }),
     {
       name: "user-storage", // storage name
+      skipHydration: true, // 서버 사이드 렌더링 시 하이드레이션 스킵
     }
   )
 );

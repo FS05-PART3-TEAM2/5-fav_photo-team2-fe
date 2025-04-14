@@ -6,6 +6,9 @@ import { useSnackbarStore } from "@/store/useSnackbarStore";
 import { SaleFormUI } from "./SaleCardFormContent/SaleFormUI";
 import type { SaleCardDto, Grade, Genre } from "@/types/photocard.types";
 import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
+import { photoCardKeys } from "@/utils/queryKeys";
 
 interface SellFormProps {
   data: SaleCardDto;
@@ -22,6 +25,8 @@ const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
   const [openDropdown, setOpenDropdown] = useState<"grade" | "genre" | null>(null);
 
   const { openSnackbar } = useSnackbarStore();
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const handleSubmit = async () => {
     try {
@@ -40,6 +45,10 @@ const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
         "판매 등록"
       );
       onSubmit();
+
+      // 등록 성공 시 쿼리키 무효화해서 판매리스트 refetch하고 마켓플레이스페이지로 이동
+      queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
+      router.push("/market");
     } catch (error) {
       const err = error as AxiosError<{ message?: string; error?: string }>;
 

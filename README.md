@@ -1,44 +1,190 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 최애의 포토 - 포토카드 거래 플랫폼
 
-## Getting Started
+https://5-favphoto-team2.vercel.app/
 
-First, run the development server:
+나만의 포토카드 거래 플랫폼으로, 사용자가 자신의 포토카드를 등록, 판매, 교환할 수 있는 서비스입니다.
+
+## 📌 프로젝트 소개
+
+최애의 포토는 포토카드 수집가들을 위한 다음 기능을 제공합니다:
+
+- **포토카드 등록**: 소장 사진을 포토카드로 등록하고 관리
+- **포토카드 판매**: 등록한 포토카드를 판매
+- **포토카드 교환**: 다른 사용자와 포토카드 교환 제안 및 수락
+- **마이 갤러리**: 보유 포토카드 관리 및 조회
+- **알림 시스템**: 거래 및 교환 관련 실시간 알림
+- **포인트 시스템**: 랜덤 상자를 통한 포인트 획득 및 거래
+
+## 🛠 기술 스택
+
+- **프론트엔드**: Next.js 15 (App Router), React 19, TypeScript
+- **상태 관리**: Zustand, React Query
+- **스타일링**: Tailwind CSS 4
+- **폼 관리**: React Hook Form, Zod
+- **API 통신**: Axios
+- **개발 도구**: Storybook 8, Vitest, Husky, Lint-staged
+- **배포**: Vercel
+
+## 🏁 시작하기
+
+### 요구사항
+
+- Node.js 18.0.0 이상
+- npm 또는 yarn
+
+### 설치 및 실행
 
 ```bash
+# 저장소 클론
+git clone https://github.com/FS05-PART3-TEAM2/5-fav_photo-team2-fe.git
+cd 5-fav_photo-team2-fe
+
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+개발 서버는 `http://localhost:3000`에서 실행됩니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📂 프로젝트 구조
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                 # Next.js App Router 구조
+│   ├── auth/            # 인증 페이지
+│   ├── market/          # 마켓플레이스 페이지
+│   ├── my-photos/       # 마이 갤러리
+│   ├── my-sales/        # 판매 관리 페이지
+│   └── my-favorites/    # 즐겨찾기 페이지
+├── components/          # 리액트 컴포넌트
+│   ├── common/          # 공통 UI 컴포넌트
+│   ├── auth/            # 인증 관련 컴포넌트
+│   ├── gnb/             # GNB(글로벌 내비게이션 바) 컴포넌트
+│   ├── market/          # 마켓플레이스 컴포넌트
+│   ├── my-page/         # 마이페이지 관련 컴포넌트
+│   ├── random-point/    # 포인트 시스템 컴포넌트
+├── hooks/               # 커스텀 훅
+│   ├── auth/            # 인증 관련 훅
+│   ├── market/          # 마켓 관련 훅
+│   ├── my-page/         # 마이페이지 관련 훅
+│   └── notification/    # 알림 관련 훅
+├── services/            # API 서비스
+│   ├── axiosClient/     # Axios 설정
+│   ├── auth/            # 인증 관련 API
+│   ├── market/          # 마켓 관련 API
+│   └── random-point/    # 포인트 관련 API
+├── store/               # Zustand 상태 관리
+├── types/               # TypeScript 타입 정의
+├── utils/               # 유틸리티 함수
+├── styles/              # 전역 스타일
+└── lib/                 # 서버 액션 및 유틸리티
+```
 
-## Learn More
+## 📋 주요 기능 상세
 
-To learn more about Next.js, take a look at the following resources:
+### 1. 인증 시스템
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 회원가입 및 이메일 인증
+- 로그인/로그아웃
+- 사용자 정보 및 인증 상태 Zustand로 관리
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. 마켓플레이스
 
-## Git Hooks
+- 판매 중인 포토카드 목록 무한 스크롤 조회
+- 등급, 장르, 판매 상태별 필터링
+- 가격, 최신순 등 다양한 정렬 옵션
+- 키워드 검색 기능
 
-이 프로젝트는 [Husky](https://typicode.github.io/husky/)와 [lint-staged](https://github.com/lint-staged/lint-staged)를 사용하여 Git Hooks를 설정했습니다.
+### 3. 포토카드 거래
 
-### 설정된 Git Hooks
+- 포인트를 사용한 포토카드 구매
+- 포토카드 교환 제안 및 수락/거절
+- 판매/교환 상태 실시간 업데이트
 
-- **pre-commit**: 커밋 전에 스테이징된 파일에 대해 린트와 포맷팅을 자동으로 실행합니다.
+### 4. 마이 갤러리
 
-## Deploy on Vercel
+- 보유 포토카드 조회 및 관리
+- 새 포토카드 등록 (이미지 업로드)
+- 포토카드 판매 등록 및 관리
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 5. 알림 시스템
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 거래 성사, 교환 제안, 포인트 획득 등 알림
+- 읽음/안읽음 상태 관리
+- 시간 표시 최적화 (1시간 전, 1일 전 등)
+
+### 6. 포인트 시스템
+
+- 일일 랜덤 상자를 통한 포인트 획득
+- 포인트 사용 내역 조회
+- 포인트 충전 및 관리
+
+## 🔍 기술적 특징
+
+### 서버/클라이언트 컴포넌트 분리
+
+- Next.js App Router 기반 서버 컴포넌트와 클라이언트 컴포넌트 최적화
+- 서버 컴포넌트에서 초기 데이터 로드 및 SEO 최적화
+- 클라이언트 컴포넌트에서 상호작용 및 상태 관리
+
+### 상태 관리 전략
+
+- Zustand를 사용한 클라이언트 상태 관리 (사용자 정보, UI 상태)
+- React Query를 활용한 서버 상태 관리 (API 데이터 캐싱)
+- 영속성 있는 상태 관리를 위한 persist 미들웨어 활용
+
+### 무한 스크롤 최적화
+
+- Intersection Observer API 기반 효율적인 무한 스크롤
+- React Query의 useInfiniteQuery를 활용한 페이지네이션
+- 커서 기반 페이지네이션으로 성능 향상
+
+### 포토카드 거래 및 교환 시스템
+
+- 낙관적 업데이트로 즉각적인 UI 반응
+- 캐시 무효화 전략을 통한 데이터 일관성 유지
+- 거래 상태 관리를 위한 상태 머신 패턴 적용
+
+## 👥 팀 구성 및 역할
+
+| 이름 | 역할            | 담당 기능                             |
+| ---- | --------------- | ------------------------------------- |
+| 지영 | 프론트엔드 개발 | 로그인, 회원가입, 생성 폼             |
+| 한샘 | 프론트엔드 개발 | GNB, 알림 시스템, 프로필              |
+| 세정 | 프론트엔드 개발 | 마켓플레이스 목록, 반응형 필터        |
+| 호은 | 프론트엔드 개발 | 포토카드 상세, 모달, 구매/교환 기능   |
+| 하윤 | 프론트엔드 개발 | 마이 갤러리, 판매 목록, 포인트 시스템 |
+
+## 🧪 테스트 및 개발 도구
+
+- **컴포넌트 테스트**: Vitest 및 Storybook
+- **코드 품질 관리**: ESLint, Prettier
+- **Git 훅**: Husky, Lint-staged
+- **개발 경험 향상**: 명확한 타입 정의 및 모듈화
+
+```bash
+# 테스트 실행
+npm run test
+
+# Storybook 실행
+npm run storybook
+```
+
+## 🚀 배포
+
+이 프로젝트는 Vercel을 통해 CI/CD 파이프라인으로 자동 배포됩니다.
+
+```bash
+# 프로덕션 빌드
+npm run build
+```
+
+## 📜 라이선스
+
+이 프로젝트는 MIT 라이선스 하에 배포됩니다.
+
+---
+
+© 2025 코드잇 스프린트 풀스택 5기 파트3 2팀. All Rights Reserved.
