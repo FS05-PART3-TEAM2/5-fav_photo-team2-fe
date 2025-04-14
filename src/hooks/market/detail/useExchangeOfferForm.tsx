@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { PostExchangeOfferBodyParams } from "@/types/photocard.types";
 import { useSnackbarStore } from "@/store/useSnackbarStore";
 import { postExchangeOfferApi } from "@/services/market/exchangeCardActionService";
-import { photoCardKeys } from "@/utils/queryKeys";
+import { photoCardKeys, userKeys } from "@/utils/queryKeys";
 import { useQueryClient } from "@tanstack/react-query";
 
 // 교환 제시 등록 훅
@@ -45,6 +45,9 @@ export const useExchangeOfferForm = () => {
         // 교환 제시 등록 시 교환 목록, 마이갤러리 무효화(그냥 전체 무효화로 처리)
         queryClient.invalidateQueries({
           queryKey: photoCardKeys.all,
+        });
+        queryClient.invalidateQueries({
+          queryKey: userKeys.all,
         });
         openSnackbar("SUCCESS", "포토카드 교환 제시에 성공했습니다!", "교환 제시");
         handleContentReset();

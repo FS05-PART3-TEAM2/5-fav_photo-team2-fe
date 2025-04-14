@@ -4,7 +4,7 @@ import {
   acceptExchangeOfferApi,
   declineExchangeOfferApi,
 } from "@/services/market/exchangeCardActionService";
-import { photoCardKeys } from "@/utils/queryKeys";
+import { photoCardKeys, userKeys } from "@/utils/queryKeys";
 
 // 판매카드 교환 제시 승인/거절/취소 핸들러 모음 훅
 export const useExchangeCardActionHook = () => {
@@ -21,6 +21,7 @@ export const useExchangeCardActionHook = () => {
       if (response) {
         // 교환 완료 후 캐시 무효화
         queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
+        queryClient.invalidateQueries({ queryKey: userKeys.all });
 
         openSnackbar("SUCCESS", `교환이 성사되었습니다!`, "교환");
       }
@@ -41,6 +42,7 @@ export const useExchangeCardActionHook = () => {
       const response = await declineExchangeOfferApi(saleCardId);
       if (response) {
         queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
+        queryClient.invalidateQueries({ queryKey: userKeys.all });
         openSnackbar("SUCCESS", "교환 제안을 거절했습니다.");
       }
     } catch (error) {
@@ -58,6 +60,7 @@ export const useExchangeCardActionHook = () => {
       const response = await declineExchangeOfferApi(saleCardId);
       if (response) {
         queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
+        queryClient.invalidateQueries({ queryKey: userKeys.all });
         openSnackbar("SUCCESS", "교환 제안을 취소했습니다.");
       }
     } catch (error) {
