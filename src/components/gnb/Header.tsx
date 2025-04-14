@@ -65,8 +65,14 @@ const Header = () => {
 
   const unRead = notifications?.some(item => !item.readAt); // 읽지 않은 알림이 있는지 확인
 
-  const handleProfileOpen = () => setIsProfileOpen(prev => !prev);
-  const handleNotificationOpen = () => setIsNotificationOpen(prev => !prev);
+  const handleProfileOpen = () => {
+    setIsProfileOpen(prev => !prev);
+    setIsNotificationOpen(false);
+  };
+  const handleNotificationOpen = () => {
+    setIsNotificationOpen(prev => !prev);
+    setIsProfileOpen(false);
+  };
   const handleLogout = async () => {
     try {
       await logout(); // XXX: 로그아웃 시 userStore가 초기화 되기 전에 로그아웃 알림 떠버려서 랜덤박스 요청 보내지던 이슈 해결
@@ -176,6 +182,9 @@ const Header = () => {
                   onClick={() => !item.readAt && markAsRead(item.id)}
                 />
               ))}
+              {notifications?.length === 0 && notifications !== null && (
+                <p className="py-2 text-center text-xs text-gray-300">알림이 없습니다.</p>
+              )}
               {/* sentinel & 로딩 상태 */}
               {isFetchingNextPage && (
                 <p className="py-2 text-center text-xs text-gray-400">불러오는 중…</p>
@@ -230,8 +239,8 @@ const Header = () => {
                   )}
                 </button>
                 {isNotificationOpen && (
-                  <div ref={modalRef} className="w-0 h-0">
-                    <NotificationCard>
+                  <div ref={modalRef} className={`w-0 h-0`}>
+                    <NotificationCard count={notifications?.length || 0}>
                       {notifications?.map(item => (
                         <NotificationDetail
                           key={item.id}

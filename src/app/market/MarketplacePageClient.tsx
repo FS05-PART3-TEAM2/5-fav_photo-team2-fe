@@ -31,13 +31,14 @@ export default function MarketplacePageClient() {
   const [sort, setSort] = useState<Sort>("recent");
 
   // ✅ 무한스크롤 데이터 가져오기
-  const { photoCards, fetchNextPage, hasNextPage, isFetchingNextPage } = useMarketplacePhotoCards({
-    keyword: searchTerm,
-    grade,
-    genre,
-    status,
-    sort,
-  });
+  const { photoCards, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, refetch } =
+    useMarketplacePhotoCards({
+      keyword: searchTerm,
+      grade,
+      genre,
+      status,
+      sort,
+    });
 
   // 로그인 유저 정보 가져오기
   const { userInfo, isAuthenticated } = useUserStore();
@@ -69,6 +70,7 @@ export default function MarketplacePageClient() {
 
     // ✅ 판매 등록 후 서버 데이터 반영을 위해 캐시 무효화
     queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
+    refetch();
   };
 
   // ✅ 무한스크롤 옵저버 등록
@@ -120,6 +122,7 @@ export default function MarketplacePageClient() {
       />
       <CardGrid
         photoCards={photoCards}
+        isLoading={isLoading}
         onCardClick={card => {
           if (isAuthenticated || userInfo) {
             router.push(`/market/${card.saleCardId}`);
@@ -160,7 +163,11 @@ export default function MarketplacePageClient() {
 
       {isSellFormOpen && selectedCard && (
         <>
-          <ResponsiveForm title="판매 등록" isOpen={isSellFormOpen} onClose={handleSellFormClose}>
+          <ResponsiveForm
+            title="나의 포토카드 판매하기"
+            isOpen={isSellFormOpen}
+            onClose={handleSellFormClose}
+          >
             <SellForm
               data={selectedCard}
               onSubmit={handleSellFormClose} // 판매 성공 후 모달 닫기용

@@ -81,7 +81,7 @@ const CardDetail = ({ ...props }: CardDetailProps) => {
         </div>
       )}
       {/* 수량인 경우 */}
-      {hasPrice && hasAvailableAmount && props.amountText === "수량" && (
+      {hasPrice && hasTotalAmount && props.amountText === "수량" && (
         <div className={`${commonStyle} flex flex-col gap-[10px]`}>
           <div className="flex justify-between items-center">
             <div className={labelStyle}>가격</div>
