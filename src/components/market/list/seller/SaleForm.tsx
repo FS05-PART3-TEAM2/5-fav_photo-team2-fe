@@ -28,6 +28,14 @@ const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
+  //'판매하기'버튼 활성화 조건
+  const isFormValid =
+    price > 0 &&
+    quantity > 0 &&
+    grade !== "default" &&
+    genre !== "default" &&
+    description.trim().length > 0;
+
   const handleSubmit = async () => {
     try {
       if (!data) return;
@@ -75,7 +83,7 @@ const SellForm = ({ data, onCancel, onSubmit }: SellFormProps) => {
   return (
     <SaleFormUI
       data={data}
-      isDisabled={price <= 0 || quantity <= 0}
+      isDisabled={!isFormValid}
       openDropdown={openDropdown}
       onDropdownOpen={type => setOpenDropdown(type)}
       onDropdownClose={() => setOpenDropdown(null)}
