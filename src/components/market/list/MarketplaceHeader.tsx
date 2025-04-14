@@ -53,7 +53,7 @@ export default function MarketplaceHeader({
   }, [searchTerm, grade, genre, isSoldOut, orderBy]);
 
   return (
-    <>
+    <div className="mt-[20px] md:mt-[40px] lg:mt-[60px]">
       <div className="hidden md:flex pb-[20px] mb-[20px] border-b-[2px] border-white">
         <div className="hidden md:flex justify-between w-full">
           <div className="font-BR-B whitespace-nowrap text-[48px] lg:text-[62px]">마켓플레이스</div>
@@ -66,7 +66,7 @@ export default function MarketplaceHeader({
         <ThinBtn onClick={onClickSellButton}>포토카드 판매하기</ThinBtn>
       </div>
 
-      <div className="flex flex-wrap md:flex-nowrap items-center justify-between my-[20px] gap-[15px] md:gap-[30px] lg:gap-[60px]">
+      <div className="flex flex-wrap md:flex-nowrap items-center justify-between mb-[20px] gap-[15px] md:gap-[30px] lg:gap-[60px]">
         <div className="w-full md:w-auto">
           <Search onSearch={setSearchTerm} />
         </div>
@@ -99,6 +99,6 @@ export default function MarketplaceHeader({
           buildCountUrl={buildMarketCountUrl}
         />
       )}
-    </>
+    </div>
   );
 }

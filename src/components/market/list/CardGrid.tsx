@@ -29,18 +29,15 @@ export default function PhotoCardList({
           <div
             key={card.saleCardId}
             onClick={() => onCardClick(card)}
-            className="cursor-pointer border p-[10px] md:p-[20px] lg:p-[40px] rounded-[2px] bg-gray-500"
+            className=" cursor-pointer border p-[10px] md:p-[20px] lg:p-[40px] rounded-[2px] bg-gray-500"
             style={{ border: "1px solid rgba(255, 255, 255, 0.1)" }}
           >
-            <div className="relative">
+            <div className="relative w-full h-[112px] md:h-[226.5px] lg:h-[270px] overflow-hidden">
               <Image
                 src={card.image}
                 alt={card.name}
-                width={150}
-                height={112}
-                layout="responsive" // 부모 컨테이너 크기에 맞춰 자동 조절
-                objectFit="cover" // 기존 object-cover 효과 적용
-                className={`transition-all duration-300 ${
+                fill
+                className={`object-cover transition-all duration-300 ${
                   card.status === "SOLD_OUT" ? "brightness-30" : ""
                 }`}
               />
@@ -48,7 +45,7 @@ export default function PhotoCardList({
               {card.status === "SOLD_OUT" && (
                 <>
                   {/* 이미지 위에 어두운 오버레이 */}
-                  <div className="absolute inset-0 bg-opacity-60"></div>
+                  <div className="absolute inset-0 bg-opacity-60 z-10"></div>
 
                   {/* SOLD_OUT 이미지 */}
                   <div className="absolute inset-0 flex justify-center items-center">
