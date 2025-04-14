@@ -65,8 +65,14 @@ const Header = () => {
 
   const unRead = notifications?.some(item => !item.readAt); // 읽지 않은 알림이 있는지 확인
 
-  const handleProfileOpen = () => setIsProfileOpen(prev => !prev);
-  const handleNotificationOpen = () => setIsNotificationOpen(prev => !prev);
+  const handleProfileOpen = () => {
+    setIsProfileOpen(prev => !prev);
+    setIsNotificationOpen(false);
+  };
+  const handleNotificationOpen = () => {
+    setIsNotificationOpen(prev => !prev);
+    setIsProfileOpen(false);
+  };
   const handleLogout = async () => {
     try {
       await logout(); // XXX: 로그아웃 시 userStore가 초기화 되기 전에 로그아웃 알림 떠버려서 랜덤박스 요청 보내지던 이슈 해결

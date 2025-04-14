@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useController, FieldValues, FieldPath, UseControllerProps } from "react-hook-form";
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 interface UploadProps<T extends FieldValues> extends Omit<UseControllerProps<T>, "defaultValue"> {
   name: FieldPath<T>;
@@ -11,6 +13,7 @@ interface UploadProps<T extends FieldValues> extends Omit<UseControllerProps<T>,
 export default function Upload<T extends FieldValues>({ name, control }: UploadProps<T>) {
   const { field } = useController({ name, control });
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<string>("");
 
   const handleUpload = () => {
     fileInputRef.current?.click();
@@ -18,9 +21,17 @@ export default function Upload<T extends FieldValues>({ name, control }: UploadP
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      field.onChange(file); // 파일 자체 저장
+    if (!file) return;
+
+    if (file.size > MAX_FILE_SIZE) {
+      setError("5MB 이하의 이미지만 업로드할 수 있습니다.");
+      field.onChange(""); // 값 초기화
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
     }
+
+    setError(""); // 에러 초기화
+    field.onChange(file);
   };
 
   const handleDelete = () => {
@@ -79,6 +90,9 @@ export default function Upload<T extends FieldValues>({ name, control }: UploadP
           hidden
         />
       </div>
+
+      {/* 에러 메시지 표시 */}
+      {error && <p className="mt-2 text-red-500 text-sm">{error}</p>}
     </div>
   );
 }
