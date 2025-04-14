@@ -31,13 +31,14 @@ export default function MarketplacePageClient() {
   const [sort, setSort] = useState<Sort>("recent");
 
   // ✅ 무한스크롤 데이터 가져오기
-  const { photoCards, fetchNextPage, hasNextPage, isFetchingNextPage } = useMarketplacePhotoCards({
-    keyword: searchTerm,
-    grade,
-    genre,
-    status,
-    sort,
-  });
+  const { photoCards, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useMarketplacePhotoCards({
+      keyword: searchTerm,
+      grade,
+      genre,
+      status,
+      sort,
+    });
 
   // 로그인 유저 정보 가져오기
   const { userInfo, isAuthenticated } = useUserStore();
@@ -120,6 +121,7 @@ export default function MarketplacePageClient() {
       />
       <CardGrid
         photoCards={photoCards}
+        isLoading={isLoading}
         onCardClick={card => {
           if (isAuthenticated || userInfo) {
             router.push(`/market/${card.saleCardId}`);

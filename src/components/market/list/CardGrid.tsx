@@ -2,13 +2,22 @@ import Image from "next/image";
 import { MarketplacePhotoCardDto } from "@/types/photocard.types";
 import CardHeader from "@/components/common/card/CardHeader";
 import CardDetail from "@/components/common/card/CardDetail";
+import { CircularProgress } from "@/components/common/loading/CircularProgress";
 
 interface PhotoCardListProps {
   photoCards: MarketplacePhotoCardDto[];
   onCardClick: (card: MarketplacePhotoCardDto) => void;
+  isLoading: boolean;
 }
 
-export default function PhotoCardList({ photoCards, onCardClick }: PhotoCardListProps) {
+export default function PhotoCardList({
+  photoCards,
+  onCardClick,
+  isLoading = false,
+}: PhotoCardListProps) {
+  if (isLoading) {
+    return <CircularProgress />;
+  }
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3 gap-[5px] md:gap-[20px] lg:gap-[40px]">
       {photoCards.length === 0 ? (
