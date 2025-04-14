@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import ThinBtn from "@/components/common/button/ThinBtn";
-import Search from "@/components/common/input/Search";
+import SearchBar from "@/components/my-page/SearchBar";
 import Filter from "@/components/common/filter/Filter";
 import Order from "@/components/common/filter/Order";
 import { FILTER_CONFIG } from "@/components/common/filter/constants";
@@ -68,7 +68,7 @@ export default function MarketplaceHeader({
 
       <div className="flex flex-wrap md:flex-nowrap items-center justify-between mb-[20px] gap-[15px] md:gap-[30px] lg:gap-[60px]">
         <div className="w-full md:w-auto">
-          <Search onSearch={setSearchTerm} />
+          <SearchBar onSearch={setSearchTerm} />
         </div>
 
         <div className="w-full border-t border-gray-400 md:hidden" />
