@@ -48,14 +48,16 @@ export default function PhotoCardList({
                   <div className="absolute inset-0 bg-opacity-60 z-10"></div>
 
                   {/* SOLD_OUT 이미지 */}
-                  <div className="absolute inset-0 flex justify-center items-center">
-                    <Image
-                      src="/assets/icons/soldout.png"
-                      alt="판매 완료"
-                      width={200}
-                      height={200}
-                      className="object-contain"
-                    />
+                  <div className="absolute inset-0 flex justify-center items-center z-20">
+                    <div className="relative flex justify-center items-center w-[112px] h-[112px] md:w-[200px] md:h-[200px] lg:w-[230px] lg:h-[230px]">
+                      <Image
+                        src="/assets/icons/soldout.png"
+                        alt="판매 완료"
+                        width={200}
+                        height={200}
+                        className="object-contain w-"
+                      />
+                    </div>
                   </div>
                 </>
               )}
