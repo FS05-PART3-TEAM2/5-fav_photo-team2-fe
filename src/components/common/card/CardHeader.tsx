@@ -32,6 +32,7 @@ const formatGenreDisplay = (genre: Genre): string => {
 };
 
 const CardHeader = ({ ...props }: CardHeaderProps) => {
+  const points = props.points?.toLocaleString();
   const textStyle =
     props.cardType === "details"
       ? "card-header__details pb-[30px]"
@@ -47,7 +48,7 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
         ["items-end"]: props.points !== undefined,
       })}
     >
-      <div className="flex flex-col lg:flex-row lg:items-center gap-[5px] md:gap-[10px] lg:gap-4">
+      <div className="flex flex-col gap-[5px] md:gap-[10px]">
         <div className="flex items-center gap-[10px] lg:gap-4">
           <div className={`${gradeColor[props.grade]} inline-block leading-none`}>
             {formatGradeDisplay(props.grade)}
@@ -57,9 +58,8 @@ const CardHeader = ({ ...props }: CardHeaderProps) => {
         </div>
         {props.points && (
           <div className="flex items-center gap-[10px] lg:gap-4">
-            <div className={`${verticalLineStyle} hidden lg:block`}></div>
-            <div className="flex items-center gap-1 lg:gap-2">
-              <p className={`text-white`}>{props.points}P</p>
+            <div className="flex items-center gap-1">
+              <p className={`text-white`}>{points}P</p>
               <p>에 구매</p>
             </div>
           </div>
