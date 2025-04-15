@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useDropdownStore } from "@/store/useDropdownStore";
 import { FORM_CONFIG } from "./constants";
 import Image from "next/image";
 import Menu from "@/components/common/menu/Menu";
@@ -18,12 +18,17 @@ export default function Dropdown<T extends FieldValues>({ name, ...props }: Drop
     ...props,
   });
   const { label, placeholder, options } = FORM_CONFIG.Dropdown[name];
-  const [isOpen, setIsOpen] = useState(false);
+  const { openName, setOpenName } = useDropdownStore();
+  const isOpen = openName === name;
   const selectedValue = field.value ? options[field.value] : "";
+
+  const handleToggle = () => {
+    setOpenName(isOpen ? null : name); // 열려있으면 닫고, 닫혀있으면 열기
+  };
 
   const handleSelect = (option: string) => {
     field.onChange(option);
-    setIsOpen(false); // 메뉴 닫기
+    setOpenName(null); // 선택 시 메뉴 닫기
   };
 
   return (
@@ -32,7 +37,7 @@ export default function Dropdown<T extends FieldValues>({ name, ...props }: Drop
         {label}
       </label>
 
-      <div className="relative" onClick={() => setIsOpen(prev => !prev)}>
+      <div className="relative" onClick={handleToggle}>
         <input
           type="text"
           {...{ ...field, value: selectedValue }}

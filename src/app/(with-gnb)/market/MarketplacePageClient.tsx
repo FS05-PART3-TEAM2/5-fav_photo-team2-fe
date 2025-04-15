@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useMarketplacePhotoCards } from "@/hooks/market/list/useMarketplacePhotoCards";
 import useUserStore from "@/store/useUserStore";
 import { CommonModal } from "@/components/common/modal/CommonModal";
+import ScrollToTopButton from "@/components/market/list/ScrollToTopBtn";
 
 type FilterValue<T> = T | "default";
 
@@ -176,6 +177,7 @@ export default function MarketplacePageClient() {
           </ResponsiveForm>
         </>
       )}
+      <ScrollToTopButton />
     </>
   );
 }
