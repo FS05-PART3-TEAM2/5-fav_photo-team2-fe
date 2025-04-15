@@ -53,18 +53,20 @@ export default function CreatePhotoCardForm() {
 
   const onSubmit = async (data: CreatePhotoCardFormSchema) => {
     setIsPending(true);
+    const { name, grade, genre, stock, price, description, image } = data;
 
     // FormData 구성
     const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("grade", data.grade);
-    formData.append("genre", data.genre);
-    formData.append("stock", data.stock.toString());
-    formData.append("price", data.price);
-    formData.append("description", data.description);
-    if (data.image) {
-      formData.append("image", data.image); // File 객체 추가
+    formData.append("name", name);
+    formData.append("grade", grade);
+    formData.append("genre", genre);
+    formData.append("stock", stock.toString());
+    formData.append("price", price);
+    formData.append("description", description);
+    if (image) {
+      formData.append("image", image); // File 객체 추가
     }
+    const photoCardInfo = `[${grade} | ${name}]`;
 
     try {
       const response = await axiosClient.post(`/photocards`, formData, {
@@ -77,18 +79,10 @@ export default function CreatePhotoCardForm() {
       const { userPhotoCardId } = response.data;
       queryClient.invalidateQueries({ queryKey: photoCardKeys.all });
       queryClient.invalidateQueries({ queryKey: userKeys.all });
-      openSnackbar(
-        "SUCCESS",
-        `[${data.grade} | ${data.name}] 포토카드 생성에 성공했습니다.`,
-        "포토카드 생성"
-      );
+      openSnackbar("SUCCESS", `${photoCardInfo} 포토카드 생성에 성공했습니다.`, "포토카드 생성");
       router.push(`/my-photos/${userPhotoCardId}`);
     } catch (error) {
-      openSnackbar(
-        "ERROR",
-        `[${data.grade} | ${data.name}] 포토카드 생성에 실패했습니다.`,
-        "포토카드 생성"
-      );
+      openSnackbar("ERROR", `${photoCardInfo} 포토카드 생성에 실패했습니다.`, "포토카드 생성");
       throw error;
     } finally {
       setIsPending(false);
